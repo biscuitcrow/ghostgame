@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public float baseThrowForce = 10f;
     public float maxThrowForce = 500f;
     public float throwForceMult = 1f;
-    public bool isObjectPickedUp;
+    [SerializeField] private bool isObjectPickedUp;
     public bool isReadyToThrow;
     private Rigidbody rb;
 
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(transform.position, fwdDir, out hit, interactionDistance, 1 << raycastLayer))
         {
 
-            print("Something interactable in front of the player!");
+            //print("Something interactable in front of the player!");
             // 'Selects' the object hit by the raycast
             selectedInteractableObject = hit.collider.gameObject.transform;
             // Make sure the selected object exists in the scene before returning true 
@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
                 Outline outline = selectedInteractableObject.GetComponent<Outline>();
                 outline.enabled = false;
             }
-            print("Nothing interactable there.");
+            //print("Nothing interactable there.");
             return false;
         }
     }
@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
 
     void ToggleObject()
     {
-        currentInteractableObjectScript.isToggledOn = !currentInteractableObjectScript.isToggledOn;
+        currentInteractableObjectScript.ToggleObject();
     }
 
     // <---------------------------------- THROWING ABILITY ---------------------------------- > //
@@ -127,12 +127,13 @@ public class PlayerController : MonoBehaviour
     void PickUpObject()
     {
         rb = selectedInteractableObject.GetComponent<Rigidbody>();
+        
         //Pick up object by making it a child of the player's pickup point, checking that nothing has been picked up already
         if (pickupPoint.childCount < 1)
         {
             selectedInteractableObject.parent = pickupPoint.transform;
-            print("Object successfully picked up.");
             isObjectPickedUp = true;
+            //print("Object successfully picked up.");
 
             rb.useGravity = false;
             // Reset throw force;
@@ -151,7 +152,7 @@ public class PlayerController : MonoBehaviour
             if (throwForce < maxThrowForce)
             {
                 throwForce += throwForceMult * 100 * Time.deltaTime;
-                print("Charging up throw. Throw force: " + throwForce);
+                //print("Charging up throw. Throw force: " + throwForce);
             }
         }
 
@@ -162,9 +163,10 @@ public class PlayerController : MonoBehaviour
             selectedInteractableObject.parent = null;
             // Throw object with calculated force
             rb.AddForce(throwForce * gameObject.transform.forward);
-            //rb.AddForce(10000F * gameObject.transform.forward);
             // Reenable gravity
             rb.useGravity = true;
+            // When object is thrown/released by player, set the can scare flag to true (done in player script);
+            currentInteractableObjectScript.isCanScareNPC = true;
             isObjectPickedUp = false;
             //selectedInteractableObject = null;
             print("Object thrown.");
