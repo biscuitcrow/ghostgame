@@ -105,13 +105,18 @@ public class PlayerController : MonoBehaviour
     void InteractWithObject()
     {
         currentInteractableObjectScript = selectedInteractableObject.GetComponent<InteractableObject>();
-        if (currentInteractableObjectScript.objectType == InteractableObject.ObjectType.Throwable)
+
+        // Check that the object is not on cooldown before interacting
+        if (!currentInteractableObjectScript.isOnCooldown)
         {
-            PickUpObject();
-        }
-        if (currentInteractableObjectScript.objectType == InteractableObject.ObjectType.Togglable)
-        {
-            ToggleObject();
+            if (currentInteractableObjectScript.objectType == InteractableObject.ObjectType.Throwable)
+            {
+                PickUpObject();
+            }
+            if (currentInteractableObjectScript.objectType == InteractableObject.ObjectType.Togglable)
+            {
+                ToggleObject();
+            }
         }
     }
 

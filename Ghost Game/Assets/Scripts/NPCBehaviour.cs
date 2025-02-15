@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations;
 
 public class NPCBehaviour : MonoBehaviour
 {
@@ -12,7 +13,12 @@ public class NPCBehaviour : MonoBehaviour
     private float scareCooldown = 0.5f;
     private bool isScareCooldownRunning = false;
     public LayerMask groundLayerMask;
-    
+    [SerializeField] private FloatingFearMeter fearMeter;
+    [SerializeField] private GameObject fearMeterPrefab;
+
+    [Header("NPC Details")]
+    public float currentFear;
+    public float maxFear = 100f;
 
     [Header("Patrolling")]
     public Vector3 walkPoint;
@@ -29,12 +35,13 @@ public class NPCBehaviour : MonoBehaviour
 
     [Header("Make NPC Scared")]
     public bool isNPCScared; // Note: This bool flag is only used for object scares (raised in the object script) 
-    public Vector3 currentScarePosition; // Assign this using the interactable object script 
-
+    public Vector3 currentScarePosition; // Assign this using the interactable object script
+ 
     [Header("Is Ghost Currently Visible to NPC?")]
     // Determines if the NPC can currently see the ghost player
     public bool isGhostVisible;
 
+  
 
      
     void Start()
@@ -43,8 +50,31 @@ public class NPCBehaviour : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         isNPCScared = false;
 
+        // Reset the fear meter
+        currentFear = 0;
+
         //For testing, rmb to delete
         //isGhostVisible = true;
+
+        SetUpFearMeterUI();
+
+    }
+
+    void SetUpFearMeterUI()
+    {
+        GameObject fearMeterObj =  Instantiate(fearMeterPrefab);
+        fearMeter = fearMeterObj.GetComponentInChildren<FloatingFearMeter>();
+        PositionConstraint fearMeterPositionConstraint = fearMeterObj.GetComponent<PositionConstraint>();
+
+        // Create new source variable
+        ConstraintSource source = new ConstraintSource();
+        // Initializes the variable for x's transform
+        source.sourceTransform = gameObject.GetComponent<Transform>();
+        // Initializes the variable for x's weight just like the 
+        // Weight option in the position constraint component
+        source.weight = 1;
+        // Add the source to the position constraint
+        fearMeterPositionConstraint.AddSource(source);
     }
      
     void Update()
@@ -79,22 +109,19 @@ public class NPCBehaviour : MonoBehaviour
 
         // Starts a cool down so it doesn't instantly go back into patrol mode
         StartCoroutine("StartScareCooldown");
-        IncreaseFearMeter();
 
         isNPCScared = false; // Putting down this flag immediately ensures that MakeNPCScared() only gets called once per scare
         print("NPC is has been scared by object.");
         
     }
 
-    /*
-    void ResetScareCooldown()
+    public void IncreaseFearMeter(float increaseValue)
     {
-        isScareCooldownRunning = false;
-        StopCoroutine(StartScareCooldown()); //Resets the scare cooldown
-        isNPCScared = false;
+        currentFear += increaseValue; 
+        fearMeter.UpdateFearMeterUI(currentFear, maxFear);
+        print("Fear meter increased and updated. Increase value: " + increaseValue);
     }
-    */
-
+     
     IEnumerator StartScareCooldown()
     {
         isScareCooldownRunning = true;
@@ -102,11 +129,7 @@ public class NPCBehaviour : MonoBehaviour
         isNPCScared = false;
         isScareCooldownRunning = false;
     }
-
-    void IncreaseFearMeter()
-    {
-
-    }
+     
 
     void CheckIfGhostIsVisibleToNPC()
     {
