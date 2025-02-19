@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Interactable
+  - Destination Points
+  - NPC Starting Point
+  - Game Manager
+  - Level
   layers:
   - Default
   - TransparentFX

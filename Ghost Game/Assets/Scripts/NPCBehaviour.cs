@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations;
+using EditorAttributes;
 
 public class NPCBehaviour : MonoBehaviour
 {
     private Transform player;
     private NavMeshAgent agent;
+    [SerializeField]private GameObject fearMeterObj;
+    private Transform NPCStartingPoint;
+    [SerializeField] private bool isUsingFixedDestPoints = true;
     private float maxNavMeshDist = 2f; // Maximum value is twice the agent's height according to Unity's documentation
     private float minNPCToWalkPointDist = 1.5f; // Distance of NPC from walk point before it starts recalculating the walkpoint while on patrol
     private float scareCooldown = 0.5f;
@@ -20,13 +24,16 @@ public class NPCBehaviour : MonoBehaviour
     public float currentFear;
     public float maxFear = 100f;
 
+    [Header("Leaving House")]
+    public bool isNPCLeavingHouse;
+
     [Header("Patrolling")]
     public Vector3 walkPoint;
     private bool isWalkPointSet;
     public float walkPointRange;
     public float walkSpeed = 15f;
+    [SerializeField] private List<Transform> destinationPoints;
   
-
     [Header("Running")]
     public float runPointRange = 1.5f;
     public float runSpeed = 10f;
@@ -40,16 +47,15 @@ public class NPCBehaviour : MonoBehaviour
     [Header("Is Ghost Currently Visible to NPC?")]
     // Determines if the NPC can currently see the ghost player
     public bool isGhostVisible;
-
-  
-
      
     void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        NPCStartingPoint = GameObject.FindWithTag("NPC Starting Point").transform;
         isNPCScared = false;
-
+        isNPCLeavingHouse = false;
+        
         // Reset the fear meter
         currentFear = 0;
 
@@ -57,12 +63,21 @@ public class NPCBehaviour : MonoBehaviour
         //isGhostVisible = true;
 
         SetUpFearMeterUI();
+        SetUpDestinationPointsList();
+    }
 
+    void SetUpDestinationPointsList()
+    { 
+        Transform holder = GameObject.FindWithTag("Destination Points").transform;
+        for (int i = 0; i < holder.childCount; i++)
+        { 
+            destinationPoints.Add(holder.GetChild(i).transform);
+        }
     }
 
     void SetUpFearMeterUI()
     {
-        GameObject fearMeterObj =  Instantiate(fearMeterPrefab);
+        fearMeterObj =  Instantiate(fearMeterPrefab);
         fearMeter = fearMeterObj.GetComponentInChildren<FloatingFearMeter>();
         PositionConstraint fearMeterPositionConstraint = fearMeterObj.GetComponent<PositionConstraint>();
 
@@ -80,28 +95,41 @@ public class NPCBehaviour : MonoBehaviour
     void Update()
     {
         CheckIfGhostIsVisibleToNPC();
-
-       
-        // If the NPC has been scared, make them run away from the scare and increase their fear meter
-        if (isNPCScared)
+        
+        if (isNPCLeavingHouse)
         {
-            MakeNPCScared();
+            LeaveHouse();
+            float distanceToStartPoint = (transform.position - NPCStartingPoint.position).magnitude;
+            if (distanceToStartPoint <= 1f)
+            {
+                NPCLived();
+            }
         }
-        // If the NPC can see the ghost within their sight range, execute some kind of running behaviour
-        else if (isPlayerInSightRange && isGhostVisible)
+        else 
         {
-            
-            RunningAway(player.position);
-        }
-        // Otherwise, patrol randomly as per normal (as long as the scare cooldown is over)
-        else if (!isScareCooldownRunning)
-        {
-            agent.speed = walkSpeed;
-            Patrolling();
+            // If the NPC has been scared, make them run away from the scare and increase their fear meter
+            if (isNPCScared)
+            {
+                MakeNPCScared();
+            }
+            // If the NPC can see the ghost within their sight range, execute some kind of running behaviour
+            else if (isPlayerInSightRange && isGhostVisible)
+            {
+                RunningAway(player.position);
+            }
+            // Otherwise, patrol randomly as per normal (as long as the scare cooldown is over)
+            else if (!isScareCooldownRunning)
+            {
+                agent.speed = walkSpeed;
+                Patrolling();
+            }
         }
 
     }
 
+    // <---------------------------------- SCARE NPC ---------------------------------- > //
+
+    // This method is exclusively for the movement
     void MakeNPCScared()
     {
         // Run away from the position of the scare
@@ -120,9 +148,31 @@ public class NPCBehaviour : MonoBehaviour
         currentFear += increaseValue; 
         fearMeter.UpdateFearMeterUI(currentFear, maxFear);
         print("Fear meter increased and updated. Increase value: " + increaseValue);
+
+        if (currentFear >= maxFear)
+        {
+            NPCDied();
+        }
     }
-     
-    IEnumerator StartScareCooldown()
+
+    [Button("Kill NPC/NPC Died")]
+    private void NPCDied()
+    {
+        // Play NPC death animation and sounds
+        Destroy(fearMeterObj);
+        Destroy(this.gameObject); 
+        GameManager.Instance.NPCDied();
+    }
+
+    private void NPCLived()
+    {
+        // Play NPC lived animation and sounds
+        Destroy(fearMeterObj);
+        Destroy(this.gameObject);
+        GameManager.Instance.NPCLived();
+    }
+
+    private IEnumerator StartScareCooldown()
     {
         isScareCooldownRunning = true;
         yield return new WaitForSeconds (scareCooldown);
@@ -138,6 +188,9 @@ public class NPCBehaviour : MonoBehaviour
         float distanceFromPlayer = (transform.position - player.position).magnitude;
         isPlayerInSightRange = (distanceFromPlayer <= sightRange) ? true : false;
     }
+
+
+    // <---------------------------------- NPC MOVEMENT ---------------------------------- > //
 
     void Patrolling()
     {
@@ -160,20 +213,29 @@ public class NPCBehaviour : MonoBehaviour
 
     void SearchWalkPoint()
     {
-        // Calculate random walkpoint in range
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
+        if (isUsingFixedDestPoints)
+        {
+            // Randomly choosing out of an array of fixed destination points
+            if (destinationPoints.Count > 0)
+            {
+                int i = Random.Range(0, destinationPoints.Count);
+                walkPoint = destinationPoints[i].position;
+                //print("walkPoint set to: " + destinationPoints[i].name);
+            }
+        }
+        else
+        {
+            // Random Walkpoint Calculations
+            // Calculate random walkpoint in range
+            float randomZ = Random.Range(-walkPointRange, walkPointRange);
+            float randomX = Random.Range(-walkPointRange, walkPointRange);
 
         
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-       
-        // Check if generated walk point is actually near enough to the NavMesh, aka if it's actually walkable
-        if (NavMesh.SamplePosition(walkPoint, out NavMeshHit hit, maxNavMeshDist, NavMesh.AllAreas))
-        {
-            // Sets the walk point to the nearest point on the NavMesh;
-            walkPoint = hit.position;
-            isWalkPointSet = true;
+            walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
         }
+
+        VerifyWalkPointOnNavMesh(walkPoint, true);
+        
     }
 
     void RunningAway(Vector3 scarePosition)
@@ -183,17 +245,31 @@ public class NPCBehaviour : MonoBehaviour
         agent.speed = runSpeed;
 
         Vector3 dirAwayFromScare = (transform.position - scarePosition).normalized;
-        Vector3 pointAwayFromScare= transform.position + (dirAwayFromScare * runPointRange);
+        Vector3 pointAwayFromScare = transform.position + (dirAwayFromScare * runPointRange);
 
+        VerifyWalkPointOnNavMesh(pointAwayFromScare, false);
+
+        agent.SetDestination(walkPoint);
+    }
+
+    void LeaveHouse()
+    {
+        VerifyWalkPointOnNavMesh(walkPoint, false);
+        agent.SetDestination(NPCStartingPoint.position);
+    }
+
+    void VerifyWalkPointOnNavMesh(Vector3 pointToCheck, bool setWalkPointBool)
+    {
         // Check if generated walk point is actually near enough to the NavMesh, aka if it's actually walkable
-        if (NavMesh.SamplePosition(pointAwayFromScare, out NavMeshHit hit, maxNavMeshDist, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(pointToCheck, out NavMeshHit hit, maxNavMeshDist, NavMesh.AllAreas))
         {
             // Sets the walk point to the nearest point on the NavMesh;
             walkPoint = hit.position;
-            //isWalkPointSet = true;
+            if (setWalkPointBool)
+            {
+                isWalkPointSet = true;
+            }
         }
-
-        agent.SetDestination(walkPoint);
     }
 
     private void OnDrawGizmosSelected()

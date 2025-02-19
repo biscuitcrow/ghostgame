@@ -41,29 +41,32 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        PlayerMove();
-
-        // If I haven't picked up something, attempting interaction is allowed.
-        if (!isObjectPickedUp)
+        if (GameManager.Instance.isScareLevelRunning)
         {
-            // Constant raycasting
-            // If raycast finds an interactable object, highlight it, and E lets you interact with it 
-            if (RayCast())
+            PlayerMove();
+
+            // If I haven't picked up something, attempting interaction is allowed.
+            if (!isObjectPickedUp)
             {
-                // Highlight interactable object
-                Outline outline = selectedInteractableObject.GetComponent<Outline>();
-                outline.enabled = true;
-
-                if (Input.GetKeyDown(KeyCode.E))
+                // Constant raycasting
+                // If raycast finds an interactable object, highlight it, and E lets you interact with it 
+                if (RayCast())
                 {
-                    InteractWithObject();
-                }
-            }
+                    // Highlight interactable object
+                    Outline outline = selectedInteractableObject.GetComponent<Outline>();
+                    outline.enabled = true;
 
-        }
-        else // If an object has been picked up, throw object
-        {
-            ThrowObject();
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        InteractWithObject();
+                    }
+                }
+
+            }
+            else // If an object has been picked up, throw object
+            {
+                ThrowObject();
+            }
         }
 
     }
@@ -164,8 +167,8 @@ public class PlayerController : MonoBehaviour
         // When E is released, hurl/throw object
         if (Input.GetKeyUp(KeyCode.E))
         {
-            // Unparent throwable object from pickup point
-            selectedInteractableObject.parent = null;
+            // Unparent throwable object from pickup point and parent it back to the level
+            selectedInteractableObject.parent = GameObject.FindWithTag("Level").transform;
             // Throw object with calculated force
             rb.AddForce(throwForce * gameObject.transform.forward);
             // Reenable gravity
