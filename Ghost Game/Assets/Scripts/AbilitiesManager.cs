@@ -32,31 +32,37 @@ public class AbilitiesManager : MonoBehaviour
     #region // <------- VARIABLE DEFINITIONS -------> //
 
     public bool isVisibilityAbilityUnlocked;
-    public bool isRerollUsed;
+    private bool isRerollUsed;
 
     public float movementSpeed
     {
         get { return abilityValues["movementSpeed"]; }
+        set { }
     }
     public float throwForceMult
     {
         get { return abilityValues["throwForceMult"]; }
+        set { }
     }
     public float maxWeightThrowable
     {
         get { return abilityValues["maxWeightThrowable"]; }
+        set { }
     }
     public float ghostVisibilityScareMult
     {
         get { return abilityValues["ghostVisibilityScareMult"]; }
+        set { }
     }
     public float bonusFearIncrease
     {
         get { return abilityValues["bonusFearIncrease"]; }
+        set { }
     }
     public float phobiaMult
     {
-        get { return abilityValues["phobiaMult"]; } 
+        get { return abilityValues["phobiaMult"]; }
+        set { }
     }
 
     [SerializeField] private GameObject rerollButton;
@@ -75,8 +81,12 @@ public class AbilitiesManager : MonoBehaviour
         ChooseRandomUpgradesForShop();
     }
 
-    private void ResetAbilities()
+    public void ResetAbilities()
     {
+        abilityValues.Clear();
+
+        isVisibilityAbilityUnlocked = false;
+
         // Movement
         EditAbilityDictionary("movementSpeed", 10f);
 

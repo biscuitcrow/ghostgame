@@ -17,7 +17,7 @@ public class InteractableObject : MonoBehaviour
     public float objectWeight = 0;
     public ObjectType objectType;
     public Outline outline;
-    private float scareRadius = 5f;
+    private float scareRadius = 5f; // If the item is bigger it might be better to have a larger radius
     public float baseFearIncrease = 10f;
     private float finalFearIncrease; 
 

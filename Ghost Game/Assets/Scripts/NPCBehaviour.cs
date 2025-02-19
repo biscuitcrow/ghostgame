@@ -22,7 +22,7 @@ public class NPCBehaviour : MonoBehaviour
 
     [Header("NPC Details")]
     public float currentFear;
-    public float maxFear = 100f;
+    public float maxFear;
 
     [Header("Leaving House")]
     public bool isNPCLeavingHouse;

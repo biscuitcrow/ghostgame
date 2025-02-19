@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera shopCamera;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI phobiaText;
+    [SerializeField] private TextMeshProUGUI levelNumberText;
     [SerializeField] private GameObject shopUIPanel;
     [SerializeField] private GameObject mainUIPanel;
     [SerializeField] private GameObject killedNPCUIPopup;
@@ -50,6 +51,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float maxLevelTime = 10f;
     private float levelTime;
     public bool isPlayerControlsEnabled;
+    private float startingNPCMaxFear = 100f;
+    private float currentNPCMaxFear;
 
     #endregion
 
@@ -78,7 +81,9 @@ public class GameManager : MonoBehaviour
         levelCount = 0;
         maxPeopleAllowedToLive = 3;
         isScareLevelRunning = false;
+        currentNPCMaxFear = startingNPCMaxFear;
 
+        AbilitiesManager.Instance.ResetAbilities();
     }
 
     private void RemoveAllNPCs()
@@ -99,7 +104,7 @@ public class GameManager : MonoBehaviour
         ToggleShop(false);
 
         levelCount++;
-        print("levelCount= " + levelCount);
+        levelNumberText.text = "Level: " + levelCount.ToString();
 
         ResetLevel();
         SpawnNPC();
@@ -123,6 +128,7 @@ public class GameManager : MonoBehaviour
         GameObject randomNPC = npcPrefabsList[Random.Range(0, npcPrefabsList.Count)];
         GameObject spawnedNPC = Instantiate(randomNPC, NPCStartingPoint.position, Quaternion.identity);
         npcScript = spawnedNPC.GetComponent<NPCBehaviour>();
+        npcScript.maxFear = currentNPCMaxFear;
 
         FindandDisplayNPCPhobias(spawnedNPC);
     }
@@ -241,6 +247,7 @@ public class GameManager : MonoBehaviour
         
     }
 
+    [Button("Next Level")]
     public void ContinueToNextLevel()
     {
         StartLevel();
