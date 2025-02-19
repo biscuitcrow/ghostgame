@@ -12,15 +12,13 @@ public class InteractableObject : MonoBehaviour
         Throwable, Togglable
     }
 
-
     [Header("Object Details")]
     public string objectName;
-    public float objectWeight;
+    public float objectWeight = 0;
     public ObjectType objectType;
     public Outline outline;
     private float scareRadius = 5f;
     public float baseFearIncrease = 10f;
-    private float phobiaMult = 2f;
     private float finalFearIncrease; 
 
     [Header("Toggalable Details")]
@@ -30,11 +28,13 @@ public class InteractableObject : MonoBehaviour
 
     private Tags tagList;
     public bool isOnCooldown;
+    private AbilitiesManager abilitiesManager;
 
     
 
     private void Start()
     {
+        abilitiesManager = AbilitiesManager.Instance;
         tagList = gameObject.GetComponent<Tags>();
 
         outline = gameObject.AddComponent<Outline>();
@@ -82,11 +82,11 @@ public class InteractableObject : MonoBehaviour
         if (isPhobia)
         {
             // Activate the phobia multiplier
-            finalFearIncrease = baseFearIncrease * phobiaMult;
+            finalFearIncrease = baseFearIncrease * abilitiesManager.phobiaMult;
         }
         else
         {
-            finalFearIncrease = baseFearIncrease;
+            finalFearIncrease = baseFearIncrease + abilitiesManager.bonusFearIncrease;
         }
     }
 

@@ -45,9 +45,9 @@ public class GameManager : MonoBehaviour
     private int deathScore;
     private int livedScore;
     private int levelCount;
-    private int maxPeopleAllowedToLive;
+    [SerializeField] private int maxPeopleAllowedToLive = 3;
     public bool isScareLevelRunning;
-    [SerializeField] private float maxLevelTime;
+    [SerializeField] private float maxLevelTime = 10f;
     private float levelTime;
     public bool isPlayerControlsEnabled;
 
@@ -77,7 +77,6 @@ public class GameManager : MonoBehaviour
         livedScore = 0;
         levelCount = 0;
         maxPeopleAllowedToLive = 3;
-        maxLevelTime = 10f;
         isScareLevelRunning = false;
 
     }
@@ -88,6 +87,7 @@ public class GameManager : MonoBehaviour
         NPCBehaviour[] NPCs = GameObject.FindObjectsByType<NPCBehaviour>(FindObjectsSortMode.None);
         foreach (NPCBehaviour npc in NPCs)
         {
+            Destroy(npc.fearMeterObj);
             Destroy(npc.gameObject);
         }
     }
@@ -95,6 +95,7 @@ public class GameManager : MonoBehaviour
     private void StartLevel()
     {
         RemoveAllNPCs();
+        AbilitiesManager.Instance.ResetShop();
         ToggleShop(false);
 
         levelCount++;
@@ -220,6 +221,7 @@ public class GameManager : MonoBehaviour
         // Adds a delay so that any animations and stuff can play before the shop comes out
         yield return new WaitForSeconds(1f);
         ToggleShop(true);
+
     }
 
     private void ToggleShop(bool displayShop)
@@ -258,7 +260,7 @@ public class GameManager : MonoBehaviour
 
     private void GameLost()
     {
-        print ("You lost the full game. Too many people lived. Please restart.");
+        print ("You lost the full game. Too many people lived. Max people allowed to live: " + maxPeopleAllowedToLive);
     }
 
 

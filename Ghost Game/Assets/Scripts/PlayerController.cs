@@ -7,22 +7,23 @@ public class PlayerController : MonoBehaviour
     [Header("Player Movement")]
     CharacterController characterController;
     public Transform pickupPoint;
-    private float movementSpeed = 10f;
+    //private float movementSpeed = 10f;
     private float jumpHeight = 1f;
     private float gravityValue = 9.81f;
-    public float playerWeightLimit = 1f;
+    //private float playerWeightLimit = 1f;
     public float interactionDistance = 1.2f;
 
     [Header("Throwing Ability")]
     private float throwForce;
-    public float baseThrowForce = 10f;
-    public float maxThrowForce = 500f;
-    public float throwForceMult = 1f;
+    private float baseThrowForce = 10f;
+    private float maxThrowForce = 500f;
+    //private float throwForceMult = 1f;
     [SerializeField] private bool isObjectPickedUp;
     public bool isReadyToThrow;
     private Rigidbody rb;
 
 
+    private AbilitiesManager abilitiesManager;
     private float verticalVelocity;
     private float groundedTimer;
 
@@ -36,6 +37,8 @@ public class PlayerController : MonoBehaviour
         characterController = gameObject.GetComponent<CharacterController>();
         isObjectPickedUp = false;
         isReadyToThrow = false;
+
+        abilitiesManager = AbilitiesManager.Instance;
     }
 
 
@@ -54,8 +57,11 @@ public class PlayerController : MonoBehaviour
                 {
                     // Highlight interactable object
                     Outline outline = selectedInteractableObject.GetComponent<Outline>();
-                    outline.enabled = true;
-
+                    if (outline != null)
+                    {
+                        outline.enabled = true;
+                    }
+                        
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         InteractWithObject();
@@ -114,7 +120,14 @@ public class PlayerController : MonoBehaviour
         {
             if (currentInteractableObjectScript.objectType == InteractableObject.ObjectType.Throwable)
             {
-                PickUpObject();
+                if (abilitiesManager.maxWeightThrowable >= currentInteractableObjectScript.objectWeight)
+                {
+                    PickUpObject();
+                }
+                else
+                {
+                    print("Object is too heavy for your current abilities to throw.");
+                }
             }
             if (currentInteractableObjectScript.objectType == InteractableObject.ObjectType.Togglable)
             {
@@ -159,7 +172,7 @@ public class PlayerController : MonoBehaviour
             // Generate/calculate throw force
             if (throwForce < maxThrowForce)
             {
-                throwForce += throwForceMult * 100 * Time.deltaTime;
+                throwForce += abilitiesManager.throwForceMult * 100 * Time.deltaTime;
                 //print("Charging up throw. Throw force: " + throwForce);
             }
         }
@@ -209,7 +222,7 @@ public class PlayerController : MonoBehaviour
 
         // Gather lateral movement input
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        move *= movementSpeed;
+        move *= abilitiesManager.movementSpeed;
 
         // Aligns the player character to the appropriate direction if minimum speed is met
         if (move.magnitude > 0.05f)

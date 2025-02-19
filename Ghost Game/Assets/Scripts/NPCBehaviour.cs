@@ -9,7 +9,7 @@ public class NPCBehaviour : MonoBehaviour
 {
     private Transform player;
     private NavMeshAgent agent;
-    [SerializeField]private GameObject fearMeterObj;
+    public GameObject fearMeterObj;
     private Transform NPCStartingPoint;
     [SerializeField] private bool isUsingFixedDestPoints = true;
     private float maxNavMeshDist = 2f; // Maximum value is twice the agent's height according to Unity's documentation
@@ -110,7 +110,7 @@ public class NPCBehaviour : MonoBehaviour
             // If the NPC has been scared, make them run away from the scare and increase their fear meter
             if (isNPCScared)
             {
-                MakeNPCScared();
+                MakeNPCScared(currentScarePosition);
             }
             // If the NPC can see the ghost within their sight range, execute some kind of running behaviour
             else if (isPlayerInSightRange && isGhostVisible)
@@ -130,10 +130,10 @@ public class NPCBehaviour : MonoBehaviour
     // <---------------------------------- SCARE NPC ---------------------------------- > //
 
     // This method is exclusively for the movement
-    void MakeNPCScared()
+    void MakeNPCScared(Vector3 scarePosition)
     {
         // Run away from the position of the scare
-        RunningAway(currentScarePosition);
+        RunningAway(scarePosition);
 
         // Starts a cool down so it doesn't instantly go back into patrol mode
         StartCoroutine("StartScareCooldown");
