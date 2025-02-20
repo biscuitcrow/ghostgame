@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    #region <------- VARIABLE DEFINITIONS -------> //
+
     [Header("Player Movement")]
     CharacterController characterController;
     public Transform pickupPoint;
-    //private float movementSpeed = 10f;
     private float jumpHeight = 1f;
     private float gravityValue = 9.81f;
-    //private float playerWeightLimit = 1f;
     public float interactionDistance = 1.2f;
 
     [Header("Throwing Ability")]
     private float throwForce;
     private float baseThrowForce = 10f;
     private float maxThrowForce = 500f;
-    //private float throwForceMult = 1f;
     [SerializeField] private bool isObjectPickedUp;
     public bool isReadyToThrow;
     private Rigidbody rb;
 
+    [Header("Scare Visibiity Ability")]
+    public bool isGhostVisible;
+    public bool isHauntAbilityOnCooldown;
+    public GameObject placeholderCube;
 
     private AbilitiesManager abilitiesManager;
     private float verticalVelocity;
@@ -29,18 +32,33 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Transform selectedInteractableObject;
     private InteractableObject currentInteractableObjectScript;
+    private LayerMask NPCLayer;
 
     private int raycastLayer = 3;
+
+    #endregion
 
     void Start()
     {
         characterController = gameObject.GetComponent<CharacterController>();
-        isObjectPickedUp = false;
-        isReadyToThrow = false;
-
+        NPCLayer = LayerMask.GetMask("NPC");
         abilitiesManager = AbilitiesManager.Instance;
+
+        ResetPlayer();
     }
 
+    public void ResetPlayer()
+    {
+        if (isObjectPickedUp && selectedInteractableObject != null)
+        {
+            Destroy(selectedInteractableObject.gameObject);
+        }
+        isObjectPickedUp = false;
+        isReadyToThrow = false;
+        isGhostVisible = false;
+        isHauntAbilityOnCooldown = false;
+        placeholderCube.SetActive(true);
+    }
 
     void Update()
     {
@@ -51,9 +69,20 @@ public class PlayerController : MonoBehaviour
             // If I haven't picked up something, attempting interaction is allowed.
             if (!isObjectPickedUp)
             {
-                // Constant raycasting
+                // Constant raycasting (casts two rays one at eye level and one slightly below if nothing is found)
+                Vector3 fwdDir = transform.TransformDirection(Vector3.forward);
+                Vector3 inclinedDir = new Vector3(fwdDir.x, -1, fwdDir.z);
                 // If raycast finds an interactable object, highlight it, and E lets you interact with it 
-                if (RayCast())
+                if (RayCast(fwdDir))
+                {
+                    SuccessfulRaycast();
+                }
+                else if (RayCast(inclinedDir))
+                {
+                    SuccessfulRaycast();
+                }
+
+                void SuccessfulRaycast()
                 {
                     // Highlight interactable object
                     Outline outline = selectedInteractableObject.GetComponent<Outline>();
@@ -61,7 +90,7 @@ public class PlayerController : MonoBehaviour
                     {
                         outline.enabled = true;
                     }
-                        
+
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         InteractWithObject();
@@ -73,17 +102,26 @@ public class PlayerController : MonoBehaviour
             {
                 ThrowObject();
             }
+
+            if (abilitiesManager.isVisibilityAbilityUnlocked)
+            {
+                if (Input.GetKeyDown(KeyCode.R) && !isHauntAbilityOnCooldown)
+                {
+                    StartCoroutine("BecomeVisibleToNPCs");
+                }
+            }
         }
 
     }
 
-    bool RayCast()
+ 
+
+    bool RayCast(Vector3 dir)
     {
-        Vector3 fwdDir = transform.TransformDirection(Vector3.forward);
-        Debug.DrawRay(transform.position, fwdDir.normalized * interactionDistance, Color.green, 3f);
+        Debug.DrawRay(transform.position, dir.normalized * interactionDistance, Color.green, 3f);
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, fwdDir, out hit, interactionDistance, 1 << raycastLayer))
+        if (Physics.Raycast(transform.position, dir, out hit, interactionDistance, 1 << raycastLayer))
         {
 
             //print("Something interactable in front of the player!");
@@ -135,6 +173,21 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    // <---------------------------------- SCARE VISIBILITY ABILITY ---------------------------------- > //
+
+    IEnumerator BecomeVisibleToNPCs()
+    {
+        isGhostVisible = true;
+        placeholderCube.SetActive(false);
+        isHauntAbilityOnCooldown = true;
+        yield return new WaitForSeconds(abilitiesManager.ghostScareVisibilityDuration);
+        isGhostVisible = false;
+        yield return new WaitForSeconds(abilitiesManager.ghostScareCooldown);
+        isHauntAbilityOnCooldown = false;
+        placeholderCube.SetActive(true);
+    }
+
 
     // <---------------------------------- TOGGLE ABILITY ---------------------------------- > //
 
@@ -219,6 +272,7 @@ public class PlayerController : MonoBehaviour
         }
         // Apply gravity always, to let us track down ramps properly
         verticalVelocity -= gravityValue * Time.deltaTime;
+       
 
         // Gather lateral movement input
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));

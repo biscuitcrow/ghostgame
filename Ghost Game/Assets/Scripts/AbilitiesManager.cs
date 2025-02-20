@@ -49,11 +49,38 @@ public class AbilitiesManager : MonoBehaviour
         get { return abilityValues["maxWeightThrowable"]; }
         set { }
     }
+
+    public float ghostVisibilityScareValue
+    {
+        get { return abilityValues["ghostVisibilityScareValue"]; }
+        set { }
+    }
+
     public float ghostVisibilityScareMult
     {
         get { return abilityValues["ghostVisibilityScareMult"]; }
         set { }
     }
+
+    public float ghostScareVisibilityRadius
+    {
+        get { return abilityValues["ghostScareVisibilityRadius"]; }
+        set { }
+    }
+
+    public float ghostScareVisibilityDuration
+    {
+        get { return abilityValues["ghostScareVisibilityDuration"]; }
+        set { }
+    }
+
+    public float ghostScareCooldown
+    {
+        get { return abilityValues["ghostScareCooldown"]; }
+        set { }
+    }
+
+
     public float bonusFearIncrease
     {
         get { return abilityValues["bonusFearIncrease"]; }
@@ -85,7 +112,7 @@ public class AbilitiesManager : MonoBehaviour
     {
         abilityValues.Clear();
 
-        isVisibilityAbilityUnlocked = false;
+        
 
         // Movement
         EditAbilityDictionary("movementSpeed", 10f);
@@ -95,8 +122,13 @@ public class AbilitiesManager : MonoBehaviour
         EditAbilityDictionary("maxWeightThrowable", 1f);
 
         // Ghost Visibility Scare Ability
-        isVisibilityAbilityUnlocked = false;
+        //Remember to set this to false afterwards after testing
+        isVisibilityAbilityUnlocked = true;
+        EditAbilityDictionary("ghostVisibilityScareValue", 20f);
         EditAbilityDictionary("ghostVisibilityScareMult", 2f);
+        EditAbilityDictionary("ghostScareVisibilityRadius", 2f);
+        EditAbilityDictionary("ghostScareVisibilityDuration", 0.5f);
+        EditAbilityDictionary("ghostScareCooldown", 5f);
 
         // All Interactables
         EditAbilityDictionary("bonusFearIncrease", 10f);

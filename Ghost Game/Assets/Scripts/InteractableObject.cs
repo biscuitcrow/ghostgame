@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
 {
+    #region // <------- VARIABLE DEFINITIONS -------> //
+
     private LayerMask NPCLayer;
     public bool isCanScareNPC;
 
@@ -17,7 +19,7 @@ public class InteractableObject : MonoBehaviour
     public float objectWeight = 0;
     public ObjectType objectType;
     public Outline outline;
-    private float scareRadius = 5f; // If the item is bigger it might be better to have a larger radius
+    [SerializeField] float scareRadius = 5f; // If the item is bigger it might be better to have a larger radius
     public float baseFearIncrease = 10f;
     private float finalFearIncrease; 
 
@@ -30,7 +32,7 @@ public class InteractableObject : MonoBehaviour
     public bool isOnCooldown;
     private AbilitiesManager abilitiesManager;
 
-    
+    #endregion
 
     private void Start()
     {

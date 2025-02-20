@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 
     #region // <------- VARIABLE DEFINITIONS -------> //
 
+    private PlayerController playerController;
     private Transform NPCStartingPoint;
     private NPCBehaviour npcScript;
     [SerializeField] private GameObject level;
@@ -40,6 +41,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI phobiaText;
     [SerializeField] private TextMeshProUGUI levelNumberText;
+    [SerializeField] private TextMeshProUGUI NPCsKilledNumberText;
+    [SerializeField] private TextMeshProUGUI NPCsLivedNumberText;
     [SerializeField] private GameObject shopUIPanel;
     [SerializeField] private GameObject mainUIPanel;
     [SerializeField] private GameObject killedNPCUIPopup;
@@ -51,13 +54,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float maxLevelTime = 10f;
     private float levelTime;
     public bool isPlayerControlsEnabled;
-    private float startingNPCMaxFear = 100f;
+    private float startingNPCMaxFear = 90f;
     private float currentNPCMaxFear;
+    private float fearIncreasePerLevel = 10f;
 
     #endregion
 
     void Start()
     {
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         NPCStartingPoint = GameObject.FindWithTag("NPC Starting Point").transform;
         ResetGame();
     }
@@ -104,7 +109,11 @@ public class GameManager : MonoBehaviour
         ToggleShop(false);
 
         levelCount++;
+        currentNPCMaxFear += fearIncreasePerLevel;
         levelNumberText.text = "Level: " + levelCount.ToString();
+        NPCsKilledNumberText.text = "Killed: " + deathScore.ToString();
+        NPCsLivedNumberText.text = "Escaped: " + livedScore.ToString();
+
 
         ResetLevel();
         SpawnNPC();
@@ -118,8 +127,9 @@ public class GameManager : MonoBehaviour
         if (GameObject.FindWithTag("Level") != null)
         {
             Destroy(GameObject.FindWithTag("Level"));
-        }
+        } 
         Instantiate(level);
+        playerController.ResetPlayer();
     }
 
     [Button("Spawn NPC")]
@@ -129,6 +139,7 @@ public class GameManager : MonoBehaviour
         GameObject spawnedNPC = Instantiate(randomNPC, NPCStartingPoint.position, Quaternion.identity);
         npcScript = spawnedNPC.GetComponent<NPCBehaviour>();
         npcScript.maxFear = currentNPCMaxFear;
+        print("npcScript.maxFear = " + npcScript.maxFear);
 
         FindandDisplayNPCPhobias(spawnedNPC);
     }

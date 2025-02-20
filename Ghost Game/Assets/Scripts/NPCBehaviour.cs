@@ -7,6 +7,7 @@ using EditorAttributes;
 
 public class NPCBehaviour : MonoBehaviour
 {
+    #region // <------- VARIABLE DEFINITIONS -------> //
     private Transform player;
     private NavMeshAgent agent;
     public GameObject fearMeterObj;
@@ -16,6 +17,7 @@ public class NPCBehaviour : MonoBehaviour
     private float minNPCToWalkPointDist = 1.5f; // Distance of NPC from walk point before it starts recalculating the walkpoint while on patrol
     private float scareCooldown = 0.5f;
     private bool isScareCooldownRunning = false;
+    private bool isHauntedCooldownRunning = false;
     public LayerMask groundLayerMask;
     [SerializeField] private FloatingFearMeter fearMeter;
     [SerializeField] private GameObject fearMeterPrefab;
@@ -43,11 +45,9 @@ public class NPCBehaviour : MonoBehaviour
     [Header("Make NPC Scared")]
     public bool isNPCScared; // Note: This bool flag is only used for object scares (raised in the object script) 
     public Vector3 currentScarePosition; // Assign this using the interactable object script
- 
-    [Header("Is Ghost Currently Visible to NPC?")]
-    // Determines if the NPC can currently see the ghost player
-    public bool isGhostVisible;
-     
+
+    #endregion
+
     void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
@@ -58,9 +58,6 @@ public class NPCBehaviour : MonoBehaviour
         
         // Reset the fear meter
         currentFear = 0;
-
-        //For testing, rmb to delete
-        //isGhostVisible = true;
 
         SetUpFearMeterUI();
         SetUpDestinationPointsList();
@@ -95,7 +92,18 @@ public class NPCBehaviour : MonoBehaviour
     void Update()
     {
         CheckIfGhostIsVisibleToNPC();
-        
+
+        // This is decoupled so you can scare NPC even when it is leaving the house, it just won't run away from ghost
+        if (isPlayerInSightRange && player.GetComponent<PlayerController>().isGhostVisible)
+        {
+            if (!isHauntedCooldownRunning)
+            {
+                IncreaseFearMeter(AbilitiesManager.Instance.ghostVisibilityScareValue);
+                StartCoroutine("HauntedCooldown");
+            }
+        }
+
+        // Movement of NPC
         if (isNPCLeavingHouse)
         {
             LeaveHouse();
@@ -104,16 +112,18 @@ public class NPCBehaviour : MonoBehaviour
             {
                 NPCLived();
             }
-        }
+
+        } 
         else 
         {
-            // If the NPC has been scared, make them run away from the scare and increase their fear meter
+            // If the NPC has been scared, make them run away from the scare 
             if (isNPCScared)
             {
                 MakeNPCScared(currentScarePosition);
             }
             // If the NPC can see the ghost within their sight range, execute some kind of running behaviour
-            else if (isPlayerInSightRange && isGhostVisible)
+            // Fear meter is increased in the player controller script
+            else if (isPlayerInSightRange && player.GetComponent<PlayerController>().isGhostVisible) 
             {
                 RunningAway(player.position);
             }
@@ -126,6 +136,7 @@ public class NPCBehaviour : MonoBehaviour
         }
 
     }
+
 
     // <---------------------------------- SCARE NPC ---------------------------------- > //
 
@@ -179,7 +190,15 @@ public class NPCBehaviour : MonoBehaviour
         isNPCScared = false;
         isScareCooldownRunning = false;
     }
-     
+
+
+    private IEnumerator HauntedCooldown()
+    {
+        isHauntedCooldownRunning = true;
+        yield return new WaitForSeconds(0.6f);
+        isHauntedCooldownRunning = false;
+    }
+
 
     void CheckIfGhostIsVisibleToNPC()
     {
