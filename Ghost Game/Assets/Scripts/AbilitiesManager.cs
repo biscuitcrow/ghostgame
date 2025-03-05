@@ -208,7 +208,12 @@ public class AbilitiesManager : MonoBehaviour
         }
     }
 
-
+    public string DebuffRandomAbility()
+    {
+        AbilityUpgrade randomUpgrade = availableShopUpgrades[Random.Range(0, availableShopUpgrades.Count)];
+        randomUpgrade.ExecuteAbilityDowngrade();
+        return randomUpgrade.Name;
+    }
 
     // When the shop opens
     // Add all the possibly unlockable ability upgrades to the shop pool

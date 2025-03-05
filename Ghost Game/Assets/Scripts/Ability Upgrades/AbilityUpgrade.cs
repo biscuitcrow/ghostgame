@@ -20,4 +20,9 @@ public class AbilityUpgrade : ScriptableObject
     {
         AbilitiesManager.Instance.ChangeAbilityByValue(Name, valueIncrease);
     }
+
+    public void ExecuteAbilityDowngrade()
+    {
+        AbilitiesManager.Instance.ChangeAbilityByValue(Name, -valueIncrease);
+    }
 }

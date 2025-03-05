@@ -25,6 +25,7 @@ public class NPCBehaviour : MonoBehaviour
     [Header("NPC Details")]
     public float currentFear;
     public float maxFear;
+    public bool isExorcist;
 
     [Header("Leaving House")]
     public bool isNPCLeavingHouse;
@@ -39,12 +40,19 @@ public class NPCBehaviour : MonoBehaviour
     [Header("Running")]
     public float runPointRange = 1.5f;
     public float runSpeed = 10f;
-    public float sightRange = 3f;
-    private bool isPlayerInSightRange;
+
+    [Header("Normal Sight Range")]
+    public float normalSightRange = 3f;
+    private bool isGhostInSightRange;
 
     [Header("Make NPC Scared")]
     public bool isNPCScared; // Note: This bool flag is only used for object scares (raised in the object script) 
     public Vector3 currentScarePosition; // Assign this using the interactable object script
+
+    [Header("Exorcist Specific Stats")]
+    public float exorcistSightRange = 5f;
+    public float exorcistRunSpeed = 8f;
+    public float vigilanceCooldown = 1f; // Time taken for the exorcist to not see the ghost before the exorcist stops chasing
 
     #endregion
 
@@ -88,53 +96,106 @@ public class NPCBehaviour : MonoBehaviour
         // Add the source to the position constraint
         fearMeterPositionConstraint.AddSource(source);
     }
-     
+
+    void CheckIfPullGhost()
+    {
+        // Manipulating the attraction power
+        if (isGhostInSightRange)
+            PullGhost();
+        else
+        {
+            player.gameObject.GetComponent<PlayerController>().NPCforceVector = Vector3.zero;
+        }
+    }
+
+    void PullGhost()
+    {
+        Vector3 forceDir = transform.position - player.position;
+        player.gameObject.GetComponent<PlayerController>().NPCforceVector = forceDir * Time.deltaTime * 0.5f;
+    }
+
     void Update()
     {
-        CheckIfGhostIsVisibleToNPC();
-
-        // This is decoupled so you can scare NPC even when it is leaving the house, it just won't run away from ghost
-        if (isPlayerInSightRange && player.GetComponent<PlayerController>().isGhostVisible)
+        // Exorcist NPC behaviour
+        if (isExorcist) 
         {
-            if (!isHauntedCooldownRunning)
+            
+            CheckIfGhostIsInNPCSight(exorcistSightRange);
+            CheckIfPullGhost();
+            
+            if (isNPCLeavingHouse)
             {
-                IncreaseFearMeter(AbilitiesManager.Instance.ghostVisibilityScareValue);
-                StartCoroutine("HauntedCooldown");
-            }
-        }
+                LeaveHouse();
+                float distanceToStartPoint = (transform.position - NPCStartingPoint.position).magnitude;
+                if (distanceToStartPoint <= 1f)
+                {
+                    NPCLived();
+                }
 
-        // Movement of NPC
-        if (isNPCLeavingHouse)
-        {
-            LeaveHouse();
-            float distanceToStartPoint = (transform.position - NPCStartingPoint.position).magnitude;
-            if (distanceToStartPoint <= 1f)
-            {
-                NPCLived();
             }
-
-        } 
-        else 
-        {
-            // If the NPC has been scared, make them run away from the scare 
-            if (isNPCScared)
+            else if (isGhostInSightRange && CheckIfGhostIsInNPCSightAngle())
             {
-                MakeNPCScared(currentScarePosition);
+                // Start chasing down the ghost
+                agent.speed = exorcistRunSpeed; // Made it slow, it's really hard if it's run speed
+                agent.SetDestination(player.position);
             }
-            // If the NPC can see the ghost within their sight range, execute some kind of running behaviour
-            // Fear meter is increased in the player controller script
-            else if (isPlayerInSightRange && player.GetComponent<PlayerController>().isGhostVisible) 
-            {
-                RunningAway(player.position);
-            }
-            // Otherwise, patrol randomly as per normal (as long as the scare cooldown is over)
-            else if (!isScareCooldownRunning)
+            else
             {
                 agent.speed = walkSpeed;
                 Patrolling();
             }
         }
 
+        #region Normal NPC behaviour
+        // Normal NPC behaviour
+        else
+        {
+            CheckIfGhostIsInNPCSight(normalSightRange);
+
+            // Movement of NPC
+            if (isNPCLeavingHouse)
+            {
+                LeaveHouse();
+                float distanceToStartPoint = (transform.position - NPCStartingPoint.position).magnitude;
+                if (distanceToStartPoint <= 1f)
+                {
+                    NPCLived();
+                }
+
+            }
+            else
+            {
+                // If the NPC has been scared, make them run away from the scare 
+                if (isNPCScared)
+                {
+                    MakeNPCScared(currentScarePosition);
+                }
+                // If the NPC can see the ghost within their sight range, execute some kind of running behaviour
+                // Fear meter is increased in the player controller script
+                else if (isGhostInSightRange && player.GetComponent<PlayerController>().isGhostVisible)
+                {
+                    RunningAway(player.position);
+                }
+                // Otherwise, patrol randomly as per normal (as long as the scare cooldown is over)
+                else if (!isScareCooldownRunning)
+                {
+                    agent.speed = walkSpeed;
+                    Patrolling();
+                }
+            }
+        }
+        #endregion
+
+        // This is decoupled so you can scare NPC even when it is leaving the house, it just won't run away from ghost
+        if (isGhostInSightRange && player.GetComponent<PlayerController>().isGhostVisible)
+        {
+            if (!isHauntedCooldownRunning)
+            {
+                // Scares the NPC when ghost becomes visible
+                IncreaseFearMeter(AbilitiesManager.Instance.ghostVisibilityScareValue);
+                StartCoroutine("HauntedCooldown");
+            }
+        }
     }
 
 
@@ -200,14 +261,33 @@ public class NPCBehaviour : MonoBehaviour
     }
 
 
-    void CheckIfGhostIsVisibleToNPC()
+    void CheckIfGhostIsInNPCSight(float NPCsightRange)
     {
         // Checks if ghost player is in sight range
         // Rn is checking using pure position calculations, eventually can use line of sight calculations to see if the ghost is being blocked by objects
-        float distanceFromPlayer = (transform.position - player.position).magnitude;
-        isPlayerInSightRange = (distanceFromPlayer <= sightRange) ? true : false;
+        float distanceFromGhost = (transform.position - player.position).magnitude;
+        isGhostInSightRange = (distanceFromGhost <= NPCsightRange) ? true : false;
     }
 
+    bool CheckIfGhostIsInNPCSightAngle()
+    {
+        float sightAngle = Mathf.Deg2Rad * 90;
+        Vector3 sightVector = transform.forward;
+        Vector3 dirVector = (player.position - transform.position).normalized;
+        float angle = Mathf.Acos(Vector3.Dot(sightVector, dirVector));
+        
+        Debug.DrawRay(transform.position, sightVector * exorcistSightRange, Color.green, 0.05f);
+        Debug.DrawRay(transform.position, dirVector * exorcistSightRange, Color.green, 0.05f);
+
+        if (Mathf.Abs(angle) < sightAngle && angle > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     // <---------------------------------- NPC MOVEMENT ---------------------------------- > //
 
@@ -291,11 +371,26 @@ public class NPCBehaviour : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        print("Collided with smth.");
+        if (isExorcist && other.gameObject.tag == "Player")
+        {
+            GameManager.Instance.ExorcistKilledGhost();
+            print("Exorcist has killed the player");
+        }
+    }
+
+
+
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, sightRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, normalSightRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(walkPoint, 2f);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, exorcistSightRange);
     }
 }

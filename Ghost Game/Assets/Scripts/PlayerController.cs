@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private float jumpHeight = 1f;
     private float gravityValue = 9.81f;
     public float interactionDistance = 1.2f;
+    public Vector3 NPCforceVector;
 
     [Header("Throwing Ability")]
     private float throwForce;
@@ -308,6 +309,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMove()
     {
+        /*
         bool groundedPlayer = characterController.isGrounded;
         if (groundedPlayer)
         {
@@ -325,33 +327,12 @@ public class PlayerController : MonoBehaviour
             // hit ground
             verticalVelocity = 0f;
         }
+        */
+
         // Apply gravity always, to let us track down ramps properly
         verticalVelocity -= gravityValue * Time.deltaTime;
 
-
-        // Skews input to match isometric view
-        Vector3 move;
-   
-        if (isInputSkewed)
-        {
-            var matrix = Matrix4x4.Rotate(Quaternion.Euler(0, -45, 0));
-            var skewedInput = matrix.MultiplyPoint3x4(input);
-            move = skewedInput;
-        }
-        else
-        {
-             move = input;
-        }
-        
-
-        move *= abilitiesManager.movementSpeed;
-
-        // Aligns the player character to the appropriate direction if minimum speed is met
-        if (move.magnitude > 0.05f)
-        {
-            gameObject.transform.forward = move;
-        }
-
+        /*
         // Allow jump as long as the player is on the ground
         if (Input.GetButtonDown("Jump"))
         {
@@ -365,12 +346,36 @@ public class PlayerController : MonoBehaviour
                 verticalVelocity += Mathf.Sqrt(jumpHeight * 2 * gravityValue);
             }
         }
+        */
 
-        move.y = verticalVelocity;
-        characterController.Move(move * Time.deltaTime);
+        Vector3 moveVector;
+
+        // Skews input to match isometric view
+        if (isInputSkewed)
+        {
+            var matrix = Matrix4x4.Rotate(Quaternion.Euler(0, -45, 0));
+            var skewedInput = matrix.MultiplyPoint3x4(input);
+            moveVector = skewedInput;
+        }
+        else
+        {
+            moveVector = input; //uses input as the movement vector
+        }
+        // we want to add a vector after looking at the keyboard input
+
+
+        moveVector *= abilitiesManager.movementSpeed;
+
+        // Aligns the player character to the appropriate direction if minimum speed is met
+        if (moveVector.magnitude > 0.05f)
+        {
+            gameObject.transform.forward = moveVector;
+        }
+
+        moveVector.y = verticalVelocity;
+
+        Vector3 finalMoveVector = moveVector * Time.deltaTime + NPCforceVector;
+        characterController.Move(finalMoveVector);
     }
-
-
-
 
 }

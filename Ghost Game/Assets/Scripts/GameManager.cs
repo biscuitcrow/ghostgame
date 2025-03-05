@@ -4,6 +4,7 @@ using UnityEngine;
 using EditorAttributes;
 using TMPro;
 using Cinemachine;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
     private NPCBehaviour npcScript;
     [SerializeField] private GameObject level;
     [SerializeField] private List<GameObject> npcPrefabsList;
+    [SerializeField] private GameObject exorcistNPC;
     [SerializeField] private CinemachineVirtualCamera shopCamera;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private Transform clockHandPivot;
@@ -46,10 +48,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI NPCsLivedNumberText;
     [SerializeField] private GameObject shopUIPanel;
     [SerializeField] private GameObject mainUIPanel;
+    [SerializeField] private GameObject gameOverUIPanel;
+    [SerializeField] private TextMeshProUGUI gameOverText;
+    [SerializeField] private GameObject notificationUIPopup;
+    [SerializeField] private TextMeshProUGUI notificationText;
     [SerializeField] private GameObject killedNPCUIPopup;
     private int deathScore;
     private int livedScore;
     private int levelCount;
+    public bool isItemShop;
     [SerializeField] private int maxPeopleAllowedToLive = 3;
     public bool isScareLevelRunning;
     [SerializeField] private float maxLevelTime = 10f;
@@ -58,6 +65,10 @@ public class GameManager : MonoBehaviour
     private float startingNPCMaxFear = 90f;
     private float currentNPCMaxFear;
     private float fearIncreasePerLevel = 20f;
+
+    [Header("Exorcist")]
+    private int exorcistLevelInterval = 5;
+    [SerializeField] private bool isExorcistLevel = false;
 
     #endregion
 
@@ -74,8 +85,9 @@ public class GameManager : MonoBehaviour
     }
 
     [Button("Reset Game")]
-    private void ResetGame()
+    public void ResetGame()
     {
+        gameOverUIPanel.SetActive(false);
         ResetValues();
         StartLevel();
     }
@@ -110,6 +122,9 @@ public class GameManager : MonoBehaviour
         ToggleShop(false);
 
         levelCount++;
+
+        isExorcistLevel = (levelCount % exorcistLevelInterval == 0)? true: false;
+        isItemShop = false;
         currentNPCMaxFear += fearIncreasePerLevel;
         levelNumberText.text = "Level: " + levelCount.ToString();
         NPCsKilledNumberText.text = "Killed: " + deathScore.ToString();
@@ -137,7 +152,9 @@ public class GameManager : MonoBehaviour
     private void SpawnNPC()
     {
         GameObject randomNPC = npcPrefabsList[Random.Range(0, npcPrefabsList.Count)];
-        GameObject spawnedNPC = Instantiate(randomNPC, NPCStartingPoint.position, Quaternion.identity);
+        //Spawns the exorcist NPC instead if its the boss level
+        GameObject npcToSpawn = isExorcistLevel? exorcistNPC : randomNPC;
+        GameObject spawnedNPC = Instantiate(npcToSpawn, NPCStartingPoint.position, Quaternion.identity);
         npcScript = spawnedNPC.GetComponent<NPCBehaviour>();
         npcScript.maxFear = currentNPCMaxFear;
         print("npcScript.maxFear = " + npcScript.maxFear);
@@ -210,17 +227,60 @@ public class GameManager : MonoBehaviour
 
     public void NPCDied()
     {
-        deathScore++;
-        killedNPCUIPopup.SetActive(true);
-        print("The NPC died!");
-        LevelOver();
+       if (isScareLevelRunning)
+       {
+            if (isExorcistLevel)
+            {
+                // Change shop to cool hat shop as a reward for killing the exorcist [WIP]
+                isItemShop = true;
+            }
+            deathScore++;
+            killedNPCUIPopup.SetActive(true);
+            StartCoroutine("DisplayNotification", "The potential buyer has died of fright! Seems like you'll be holding on to the house a little longer.");
+            LevelOver();
+        }
     }
 
     public void NPCLived()
     {
-        livedScore++;
-        print("The NPC lived! The NPC has exited the house successfully unscared.");
-        LevelOver();
+        if (isScareLevelRunning)
+        {
+            if (isExorcistLevel)
+            {
+                // Random permanent debuff to stats, no life penalty
+                string abilityname = AbilitiesManager.Instance.DebuffRandomAbility(); 
+                StartCoroutine("DisplayNotification", $"The exorcist survived and managed to reduce your {abilityname} ability.");
+            }
+            else
+            {
+                livedScore++;
+                StartCoroutine("DisplayNotification", "The potential buyer lived! The client has exited the house unscared.");
+            }
+            LevelOver();
+        }
+    }
+
+    IEnumerator DisplayNotification(string message)
+    {
+        notificationText.text = message;
+        notificationUIPopup.SetActive(true);
+        yield return new WaitForSeconds(0.8f);
+        notificationUIPopup.SetActive(false);
+
+        /*
+        Sequence mySequence = DOTween.Sequence();
+
+        mySequence.Append(notificationUIPopup.DOAnchorPosY(105, 0.2f));
+        mySequence.AppendInterval(1f);
+        mySequence.Append(notificationUIPopup.DOAnchorPosY(-110, 0.2f));
+        mySequence.Play();
+        */
+
+        //help i can't get this tween to work [wip]
+        //notificationUIPopup.DOAnchorPosY(105, 0.2f);
+        yield return new WaitForSeconds(1f);
+        //notificationUIPopup.DOAnchorPosY(-110, 0.2f);
+
     }
 
     private void LevelOver()
@@ -242,24 +302,16 @@ public class GameManager : MonoBehaviour
         // Adds a delay so that any animations and stuff can play before the shop comes out
         yield return new WaitForSeconds(1f);
         ToggleShop(true);
-
     }
 
     private void ToggleShop(bool displayShop)
     {
         shopUIPanel.SetActive(displayShop);
         mainUIPanel.SetActive(!displayShop);
+
         killedNPCUIPopup.SetActive(false);
 
-        if (displayShop)
-        {
-            shopCamera.Priority = 20;
-        }
-        else
-        {
-            shopCamera.Priority = 0;
-        }
-        
+        shopCamera.Priority = (displayShop) ? 20 : 0;
     }
 
     [Button("Next Level")]
@@ -270,19 +322,35 @@ public class GameManager : MonoBehaviour
 
     private bool CheckIfGameLost()
     {
-        if (livedScore >= maxPeopleAllowedToLive)
+        return (livedScore >= maxPeopleAllowedToLive)? true: false;
+    }
+
+
+    public void ExorcistKilledGhost()
+    {
+        isScareLevelRunning = false;
+        isExorcistLevel = true;
+        StartCoroutine("StartGameLostProcedure");
+    }
+
+    IEnumerator StartGameLostProcedure()
+    {
+        // Adds a delay so that any animations and stuff can play before the end screen comes out
+        yield return new WaitForSeconds(1f);
+        GameLost();
+    }
+
+    public void GameLost()
+    {
+        if (isExorcistLevel)
         {
-            return true;
+            gameOverText.text = "You were killed by the exorcist. Stay clear of them next time!";
         }
         else
         {
-            return false;
+            gameOverText.text = "You lost the game. Too many people lived. Max people allowed to live: " + maxPeopleAllowedToLive;
         }
-    }
-
-    private void GameLost()
-    {
-        print ("You lost the full game. Too many people lived. Max people allowed to live: " + maxPeopleAllowedToLive);
+        gameOverUIPanel.SetActive(true);
     }
 
 
