@@ -34,7 +34,7 @@ public class NPCBehaviour : MonoBehaviour
     private bool isWalkPointSet;
     public float walkPointRange;
     public float walkSpeed = 15f;
-    [SerializeField] private List<Transform> destinationPoints;
+    [SerializeField] private List<Transform> destinationPoints; // Is set in the script on start
   
     [Header("Running")]
     public float runPointRange = 1.5f;

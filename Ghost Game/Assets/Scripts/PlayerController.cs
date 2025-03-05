@@ -81,18 +81,45 @@ public class PlayerController : MonoBehaviour
             {
                 // Constant raycasting (casts two rays one at eye level and one slightly below if nothing is found)
                 Vector3 fwdDir = transform.TransformDirection(Vector3.forward);
-                
+                Vector3 inclinedDir = new Vector3(fwdDir.x, -1, fwdDir.z);
+
+
                 float xOffset = Mathf.Sin(Mathf.Deg2Rad * rayAngleOffset);
                 float zOffset = Mathf.Cos(Mathf.Deg2Rad * rayAngleOffset);
-                Vector3 fwdDirL = transform.TransformDirection(new Vector3(- xOffset, 0, zOffset));
-                Vector3 fwdDirR = transform.TransformDirection(new Vector3(xOffset, 0, zOffset));
-                Vector3[] fwdRaysDir = { fwdDir, fwdDirL, fwdDirR};
+                Vector3 fwdDirL = transform.TransformDirection(new Vector3(- xOffset, -1, zOffset));
+                Vector3 fwdDirR = transform.TransformDirection(new Vector3(xOffset, -1, zOffset));
+                Vector3[] fwdRaysDir = {inclinedDir, fwdDirL, fwdDirR};
 
-                foreach (Vector3 ray in fwdRaysDir)
+                closestDistance = 10000f;
+
+                bool RaycastingArray()
                 {
-                    RayCast(ray);
+                    bool isObjDetected = false;
+                    foreach (Vector3 ray in fwdRaysDir)
+                    {
+                        if (RayCast(ray))
+                        {
+                            isObjDetected = true;
+                        }
+                    }
+                    return isObjDetected;
                 }
 
+                if (RaycastingArray())
+                {
+                    SuccessfulRaycast();
+                    void SuccessfulRaycast()
+                    {
+                        // Highlight interactable object
+                        selectedInteractableObject.GetComponent<InteractableObject>().ToggleOutline(true);
+
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            InteractWithObject();
+                        }
+                    }
+                }
+               
                 /*
                 Vector3 inclinedDir = new Vector3(fwdDir.x, -1, fwdDir.z);
                 // If raycast finds an interactable object, highlight it, and E lets you interact with it 
@@ -124,16 +151,14 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    Transform RayCast(Vector3 dir)
+    bool RayCast(Vector3 dir)
     {
         Debug.DrawRay(transform.position, dir.normalized * interactionDistance, Color.green, 0.1f);
 
         // If an object has been hit
         RaycastHit hit;
         if (Physics.Raycast(transform.position, dir, out hit, interactionDistance, 1 << raycastLayer))
-        {
-            // 'Selects' the object hit by the raycast
-            
+        { 
             // Make sure the selected object exists in the scene before returning true 
             if (hit.collider != null)
             {
@@ -142,34 +167,20 @@ public class PlayerController : MonoBehaviour
                 if (hit.distance < closestDistance)
                 {
                     selectedInteractableObject = hit.collider.gameObject.transform;
-                    
-                    SuccessfulRaycast();
-                    void SuccessfulRaycast()
-                    {
-                        // Highlight interactable object
-                        Outliner outline = selectedInteractableObject.GetComponent<Outliner>();
-                        if (outline != null)
-                        {
-                            outline.enabled = true;
-                        }
-
-                        if (Input.GetKeyDown(KeyCode.E))
-                        {
-                            InteractWithObject();
-                        }
-                    }
+                    print("current selectedInteractableObj: " + selectedInteractableObject.name);
+                  
                     return selectedInteractableObject;
                 }
                 // Otherwise, do nothing
                 else
                 {
-                    return null;
+                    return false;
                 }
                 
             }
             else
             {
-                return null;
+                return false;
             }
         }
 
@@ -179,10 +190,9 @@ public class PlayerController : MonoBehaviour
             // Disable highlighted outline on object
             if (selectedInteractableObject != null)
             {
-                Outliner outline = selectedInteractableObject.GetComponent<Outliner>();
-                outline.enabled = false;
+                selectedInteractableObject.GetComponent<InteractableObject>().ToggleOutline(false);
             }
-            return null;
+            return false;
         }
     }
 

@@ -40,8 +40,8 @@ public class InteractableObject : MonoBehaviour
         tagList = gameObject.GetComponent<Tags>();
 
         outline = gameObject.AddComponent<Outliner>();
-        outline.enabled = false;
         outline.OutlineColor = Color.green;
+        outline.enabled = false;
 
         isCanScareNPC = false;
         isOnCooldown = false; 
@@ -89,6 +89,14 @@ public class InteractableObject : MonoBehaviour
         else
         {
             finalFearIncrease = baseFearIncrease + abilitiesManager.bonusFearIncrease;
+        }
+    }
+
+    public void ToggleOutline(bool isOutlineOn)
+    {
+        if (outline != null)
+        {
+            outline.enabled = isOutlineOn;
         }
     }
 
