@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
@@ -33,8 +34,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform selectedInteractableObject;
     private InteractableObject currentInteractableObjectScript;
     private LayerMask NPCLayer;
+    private Vector3 input;
+    public bool isInputSkewed;
 
+
+    [Header("Raycasting Settings")]
     private int raycastLayer = 3;
+    float rayAngleOffset = 30;
+    float closestDistance = 10000; 
 
     #endregion
 
@@ -60,8 +67,11 @@ public class PlayerController : MonoBehaviour
         placeholderCube.SetActive(true);
     }
 
+
     void Update()
     {
+        GatherMovementInput();
+
         if (GameManager.Instance.isScareLevelRunning)
         {
             PlayerMove();
@@ -71,6 +81,19 @@ public class PlayerController : MonoBehaviour
             {
                 // Constant raycasting (casts two rays one at eye level and one slightly below if nothing is found)
                 Vector3 fwdDir = transform.TransformDirection(Vector3.forward);
+                
+                float xOffset = Mathf.Sin(Mathf.Deg2Rad * rayAngleOffset);
+                float zOffset = Mathf.Cos(Mathf.Deg2Rad * rayAngleOffset);
+                Vector3 fwdDirL = transform.TransformDirection(new Vector3(- xOffset, 0, zOffset));
+                Vector3 fwdDirR = transform.TransformDirection(new Vector3(xOffset, 0, zOffset));
+                Vector3[] fwdRaysDir = { fwdDir, fwdDirL, fwdDirR};
+
+                foreach (Vector3 ray in fwdRaysDir)
+                {
+                    RayCast(ray);
+                }
+
+                /*
                 Vector3 inclinedDir = new Vector3(fwdDir.x, -1, fwdDir.z);
                 // If raycast finds an interactable object, highlight it, and E lets you interact with it 
                 if (RayCast(fwdDir))
@@ -81,21 +104,7 @@ public class PlayerController : MonoBehaviour
                 {
                     SuccessfulRaycast();
                 }
-
-                void SuccessfulRaycast()
-                {
-                    // Highlight interactable object
-                    Outline outline = selectedInteractableObject.GetComponent<Outline>();
-                    if (outline != null)
-                    {
-                        outline.enabled = true;
-                    }
-
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        InteractWithObject();
-                    }
-                }
+                */
 
             }
             else // If an object has been picked up, throw object
@@ -114,38 +123,66 @@ public class PlayerController : MonoBehaviour
 
     }
 
- 
 
-    bool RayCast(Vector3 dir)
+    Transform RayCast(Vector3 dir)
     {
-        Debug.DrawRay(transform.position, dir.normalized * interactionDistance, Color.green, 3f);
+        Debug.DrawRay(transform.position, dir.normalized * interactionDistance, Color.green, 0.1f);
 
+        // If an object has been hit
         RaycastHit hit;
         if (Physics.Raycast(transform.position, dir, out hit, interactionDistance, 1 << raycastLayer))
         {
-
-            //print("Something interactable in front of the player!");
             // 'Selects' the object hit by the raycast
-            selectedInteractableObject = hit.collider.gameObject.transform;
+            
             // Make sure the selected object exists in the scene before returning true 
             if (hit.collider != null)
-                return true;
+            {
+                // If this hit distance smaller than the current smallest distance,
+                // Set the hitobj as the selected obj and override the smallest distance
+                if (hit.distance < closestDistance)
+                {
+                    selectedInteractableObject = hit.collider.gameObject.transform;
+                    
+                    SuccessfulRaycast();
+                    void SuccessfulRaycast()
+                    {
+                        // Highlight interactable object
+                        Outliner outline = selectedInteractableObject.GetComponent<Outliner>();
+                        if (outline != null)
+                        {
+                            outline.enabled = true;
+                        }
+
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            InteractWithObject();
+                        }
+                    }
+                    return selectedInteractableObject;
+                }
+                // Otherwise, do nothing
+                else
+                {
+                    return null;
+                }
+                
+            }
             else
             {
-                return false;
+                return null;
             }
         }
 
+        // If no object was hit in the raycast
         else
         {
             // Disable highlighted outline on object
             if (selectedInteractableObject != null)
             {
-                Outline outline = selectedInteractableObject.GetComponent<Outline>();
+                Outliner outline = selectedInteractableObject.GetComponent<Outliner>();
                 outline.enabled = false;
             }
-            //print("Nothing interactable there.");
-            return false;
+            return null;
         }
     }
 
@@ -212,6 +249,9 @@ public class PlayerController : MonoBehaviour
             rb.useGravity = false;
             // Reset throw force;
             throwForce = baseThrowForce;
+
+            //Slowly move object to pickup point
+            selectedInteractableObject.GetComponent<Rigidbody>().DOMove(pickupPoint.transform.position, 0.5f);
         }
     }
     void ThrowObject()
@@ -247,9 +287,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
+
 
     // <---------------------------------- PLAYER MOVEMENT ---------------------------------- > //
+    void GatherMovementInput()
+    {
+        // Gather lateral movement input
+        input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+    }
 
     void PlayerMove()
     {
@@ -272,10 +317,23 @@ public class PlayerController : MonoBehaviour
         }
         // Apply gravity always, to let us track down ramps properly
         verticalVelocity -= gravityValue * Time.deltaTime;
-       
 
-        // Gather lateral movement input
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+
+        // Skews input to match isometric view
+        Vector3 move;
+   
+        if (isInputSkewed)
+        {
+            var matrix = Matrix4x4.Rotate(Quaternion.Euler(0, -45, 0));
+            var skewedInput = matrix.MultiplyPoint3x4(input);
+            move = skewedInput;
+        }
+        else
+        {
+             move = input;
+        }
+        
+
         move *= abilitiesManager.movementSpeed;
 
         // Aligns the player character to the appropriate direction if minimum speed is met

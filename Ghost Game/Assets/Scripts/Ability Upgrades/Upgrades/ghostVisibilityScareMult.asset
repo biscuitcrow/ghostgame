@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cfa6dfabe577417c95ccb15f33c091f, type: 3}
   m_Name: ghostVisibilityScareMult
   m_EditorClassIdentifier: 
-  displayName: Ghost Visibility Scare
-  description: 'Increases fear multiplier from becoming visible '
-  shopSprite: {fileID: 0}
+  displayName: Haunted Mind
+  description: 'Increases fear multiplier from haunting '
+  shopSprite: {fileID: -1301140272, guid: 0212daf2b3227415e90a066906137f3a, type: 3}
   isAvailableInShop: 1
   valueIncrease: 0.1

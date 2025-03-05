@@ -111,11 +111,10 @@ public class AbilitiesManager : MonoBehaviour
     public void ResetAbilities()
     {
         abilityValues.Clear();
-
         
 
         // Movement
-        EditAbilityDictionary("movementSpeed", 10f);
+        EditAbilityDictionary("movementSpeed", 7f);
 
         // Throwables
         EditAbilityDictionary("throwForceMult", 10f);
@@ -125,9 +124,9 @@ public class AbilitiesManager : MonoBehaviour
         //Remember to set this to false afterwards after testing
         isVisibilityAbilityUnlocked = true;
         EditAbilityDictionary("ghostVisibilityScareValue", 20f);
-        EditAbilityDictionary("ghostVisibilityScareMult", 2f);
-        EditAbilityDictionary("ghostScareVisibilityRadius", 2f);
-        EditAbilityDictionary("ghostScareVisibilityDuration", 0.5f);
+        EditAbilityDictionary("ghostVisibilityScareMult", 2f); // Might not use as an upgrade
+        EditAbilityDictionary("ghostScareVisibilityRadius", 2f); 
+        EditAbilityDictionary("ghostScareVisibilityDuration", 0.5f); // Might not use as an upgrade
         EditAbilityDictionary("ghostScareCooldown", 5f);
 
         // All Interactables

@@ -12,11 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cfa6dfabe577417c95ccb15f33c091f, type: 3}
   m_Name: ghostScareVisibilityRadius
   m_EditorClassIdentifier: 
-  displayName: Visibility Radius
-  description: 'Increases the visibility radius of your haunt ability
-
-
-'
-  shopSprite: {fileID: 0}
+  displayName: Haunted Space
+  description: Increases the area of effect of your haunt ability
+  shopSprite: {fileID: 1988811543, guid: 0212daf2b3227415e90a066906137f3a, type: 3}
   isAvailableInShop: 0
   valueIncrease: 1

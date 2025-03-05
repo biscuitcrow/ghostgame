@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: movementSpeed
   m_EditorClassIdentifier: 
   displayName: Speedster
-  description: Increase movement speed
-  shopSprite: {fileID: 0}
+  description: Increases movement speed
+  shopSprite: {fileID: -1164465688, guid: 0212daf2b3227415e90a066906137f3a, type: 3}
   isAvailableInShop: 1
-  valueIncrease: 5
+  valueIncrease: 0.5

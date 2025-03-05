@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> npcPrefabsList;
     [SerializeField] private CinemachineVirtualCamera shopCamera;
     [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private Transform clockHandPivot;
     [SerializeField] private TextMeshProUGUI phobiaText;
     [SerializeField] private TextMeshProUGUI levelNumberText;
     [SerializeField] private TextMeshProUGUI NPCsKilledNumberText;
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
     public bool isPlayerControlsEnabled;
     private float startingNPCMaxFear = 90f;
     private float currentNPCMaxFear;
-    private float fearIncreasePerLevel = 10f;
+    private float fearIncreasePerLevel = 20f;
 
     #endregion
 
@@ -185,6 +186,9 @@ public class GameManager : MonoBehaviour
 
             // Set the text string
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            float timefraction = levelTime / maxLevelTime;
+            clockHandPivot.eulerAngles = new Vector3(0, 0, (timefraction * 360));
+
         }
         else 
         {

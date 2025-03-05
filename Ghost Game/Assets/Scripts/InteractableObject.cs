@@ -18,7 +18,7 @@ public class InteractableObject : MonoBehaviour
     public string objectName;
     public float objectWeight = 0;
     public ObjectType objectType;
-    public Outline outline;
+    public Outliner outline;
     [SerializeField] float scareRadius = 5f; // If the item is bigger it might be better to have a larger radius
     public float baseFearIncrease = 10f;
     private float finalFearIncrease; 
@@ -39,7 +39,7 @@ public class InteractableObject : MonoBehaviour
         abilitiesManager = AbilitiesManager.Instance;
         tagList = gameObject.GetComponent<Tags>();
 
-        outline = gameObject.AddComponent<Outline>();
+        outline = gameObject.AddComponent<Outliner>();
         outline.enabled = false;
         outline.OutlineColor = Color.green;
 
