@@ -5,6 +5,7 @@ using EditorAttributes;
 using TMPro;
 using Cinemachine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject level;
     [SerializeField] private List<GameObject> npcPrefabsList;
     [SerializeField] private GameObject exorcistNPC;
+    [SerializeField] private Transform mainCamera;
     [SerializeField] private CinemachineVirtualCamera shopCamera;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private Transform clockHandPivot;
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject notificationUIPopup;
     [SerializeField] private TextMeshProUGUI notificationText;
     [SerializeField] private GameObject killedNPCUIPopup;
+    [SerializeField] private Transform livedGroupObj;
     private int deathScore;
     private int livedScore;
     private int levelCount;
@@ -67,7 +70,7 @@ public class GameManager : MonoBehaviour
     private float fearIncreasePerLevel = 20f;
 
     [Header("Exorcist")]
-    private int exorcistLevelInterval = 5;
+    [SerializeField] private int exorcistLevelInterval = 5;
     [SerializeField] private bool isExorcistLevel = false;
 
     #endregion
@@ -233,6 +236,7 @@ public class GameManager : MonoBehaviour
             {
                 // Change shop to cool hat shop as a reward for killing the exorcist [WIP]
                 isItemShop = true;
+                StartCoroutine("DisplayNotification", $"You've scared the exorcist to the point of death. A formidable feat indeed!");
             }
             deathScore++;
             killedNPCUIPopup.SetActive(true);
@@ -254,6 +258,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 livedScore++;
+                livedGroupObj.GetChild(livedScore - 1).GetComponent<Image>().DOFade(0.2f, 0.5f);
                 StartCoroutine("DisplayNotification", "The potential buyer lived! The client has exited the house unscared.");
             }
             LevelOver();
@@ -264,7 +269,7 @@ public class GameManager : MonoBehaviour
     {
         notificationText.text = message;
         notificationUIPopup.SetActive(true);
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(2f);
         notificationUIPopup.SetActive(false);
 
         /*
@@ -281,6 +286,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         //notificationUIPopup.DOAnchorPosY(-110, 0.2f);
 
+    }
+
+    public void CameraShake()
+    {
+        mainCamera.DOShakeRotation(0.3f, 0.6f);
     }
 
     private void LevelOver()
@@ -300,7 +310,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StartLevelOverProcedure()
     {
         // Adds a delay so that any animations and stuff can play before the shop comes out
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         ToggleShop(true);
     }
 

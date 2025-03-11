@@ -51,7 +51,8 @@ public class NPCBehaviour : MonoBehaviour
 
     [Header("Exorcist Specific Stats")]
     public float exorcistSightRange = 5f;
-    public float exorcistRunSpeed = 8f;
+    private float exorcistRunSpeed = 7f;
+    private float NPCsightAngle = 90;
     public float vigilanceCooldown = 1f; // Time taken for the exorcist to not see the ghost before the exorcist stops chasing
 
     #endregion
@@ -271,7 +272,7 @@ public class NPCBehaviour : MonoBehaviour
 
     bool CheckIfGhostIsInNPCSightAngle()
     {
-        float sightAngle = Mathf.Deg2Rad * 90;
+        float sightAngle = Mathf.Deg2Rad * NPCsightAngle;
         Vector3 sightVector = transform.forward;
         Vector3 dirVector = (player.position - transform.position).normalized;
         float angle = Mathf.Acos(Vector3.Dot(sightVector, dirVector));

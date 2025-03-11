@@ -127,6 +127,10 @@ public class InteractableObject : MonoBehaviour
         // If this object's can scare NPC flag is still up (set in PlayerController script), so each thrown object can only scare once when landing
         if (isCanScareNPC)
         {
+            //Camera shake
+            GameManager.Instance.CameraShake();
+             
+
             // Get the first contact point of the collision
             Vector3 contactPoint = other.GetContact(0).point;
 

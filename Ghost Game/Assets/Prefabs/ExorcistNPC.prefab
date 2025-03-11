@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 514791391584887915, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f003779a2df824b4eac13e7c06f837f0, type: 2}
     - target: {fileID: 1885782150325359535, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -56,6 +60,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2138565315871138905, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2425236829975082395, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: isExorcist
       value: 1
@@ -67,6 +75,10 @@ PrefabInstance:
     - target: {fileID: 2849165230459135406, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: _tags.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5976124916181104028, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
