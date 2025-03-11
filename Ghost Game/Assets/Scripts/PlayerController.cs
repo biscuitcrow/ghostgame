@@ -66,6 +66,8 @@ public class PlayerController : MonoBehaviour
         isGhostVisible = false;
         isHauntAbilityOnCooldown = false;
         placeholderCube.SetActive(true);
+        NPCforceVector = Vector3.zero;
+
     }
 
 
