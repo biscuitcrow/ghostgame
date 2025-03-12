@@ -16,6 +16,6 @@ MonoBehaviour:
   description: 'Decrease cooldown of haunt ability by 0.2
 
 '
-  shopSprite: {fileID: -1619147269, guid: 0212daf2b3227415e90a066906137f3a, type: 3}
+  shopSprite: {fileID: -6917589, guid: fec97c8333c194ca2958845cff2601cd, type: 3}
   isAvailableInShop: 0
   valueIncrease: -0.2

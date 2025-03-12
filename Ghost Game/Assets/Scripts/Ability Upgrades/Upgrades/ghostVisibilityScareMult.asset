@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Haunted Mind
   description: 'Increases fear multiplier from haunting '
-  shopSprite: {fileID: -1301140272, guid: 0212daf2b3227415e90a066906137f3a, type: 3}
+  shopSprite: {fileID: 2081501307, guid: fec97c8333c194ca2958845cff2601cd, type: 3}
   isAvailableInShop: 1
   valueIncrease: 0.1

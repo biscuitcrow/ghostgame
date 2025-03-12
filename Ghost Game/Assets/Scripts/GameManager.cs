@@ -42,18 +42,29 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform mainCamera;
     [SerializeField] private CinemachineVirtualCamera shopCamera;
 
+    
     private int deathScore;
     private int livedScore;
     private int levelCount;
+    public int objectsThrownScore;
     public bool isItemShop;
     [SerializeField] private int maxPeopleAllowedToLive = 3;
     public bool isScareLevelRunning;
     [SerializeField] private float maxLevelTime = 10f;
     private float levelTime;
-    public bool isPlayerControlsEnabled;
     private float startingNPCMaxFear = 90f;
     private float currentNPCMaxFear;
     private float fearIncreasePerLevel = 20f;
+
+    [Header("Tutorial Settings")]
+    public bool isTutorialCompleted;
+    public bool isToggleTutorialCompleted;
+    private bool isPremiseTutorialCompleted;
+    public bool isThrowTutorialCompleted;
+    private bool isFirstThrowNotifOut;
+    private bool isSecondThrowNotifOut;
+    public bool isTutorialRunning;
+    private Coroutine storedTutorialCoroutine;
 
     [Header("Exorcist")]
     [SerializeField] private int exorcistLevelInterval = 5;
@@ -65,16 +76,137 @@ public class GameManager : MonoBehaviour
     {
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         NPCStartingPoint = GameObject.FindWithTag("NPC Starting Point").transform;
+        //ResetGame();
+        StartTutorial();
+    }
+
+    #region // <------- TUTORIAL METHODS -------> //
+    void StartTutorial()
+    {
+        print("tutorial started");
+        // This UI toggling order of the shop and main matters
+        ToggleShop(false);
+        UIManager.Instance.ToggleMainGameplayUI(false);
+        UIManager.Instance.ToggleSkipTutorialButton(true);
+
+        ResetValues();
+        playerController.ResetPlayer();
+        
+        isTutorialCompleted = false;
+        isToggleTutorialCompleted = false;
+        isPremiseTutorialCompleted = false;
+        isThrowTutorialCompleted = false;
+        isFirstThrowNotifOut = false;
+        isSecondThrowNotifOut = false;
+        isTutorialRunning = true;
+        isScareLevelRunning = false;
+        storedTutorialCoroutine = null;
+        StartTeachMovement();
+    }
+
+    public void SkipTutorial()
+    {
+        isTutorialCompleted = true;
+        isTutorialRunning = false;
+        if (storedTutorialCoroutine != null)
+        {
+            StopCoroutine(storedTutorialCoroutine);
+        }
+        UIManager.Instance.DisplayTutorialNotification(false, "");
+        UIManager.Instance.ToggleHouseAdvertisementPanel(false);
+        UIManager.Instance.ToggleSkipTutorialButton(false);
         ResetGame();
     }
 
+    void StartTeachMovement()
+    {
+        // Teach the player the premise that you control a ghost with movement keyboard input in a haunted house
+        UIManager.Instance.DisplayTutorialNotification(true, "Wakey wakey! Time to turn on the TV and check the morning news. [Use arrow keys to move and E to toggle objects.]");
+    }
+
+    public void StartTeachPremise()
+    {
+        isPremiseTutorialCompleted = false;
+        UIManager.Instance.DisplayTutorialNotification(false, "");
+
+        // Disable player controls
+        playerController.isPlayerMovementEnabled = false;
+
+        // Pop up of the house advertisement
+        UIManager.Instance.ToggleHouseAdvertisementPanel(true);
+    }
+
+    public void StartTeachThrow()
+    {
+        isThrowTutorialCompleted = false;
+        // Reenable player controls
+        playerController.isPlayerMovementEnabled = true;
+
+        // Teach the player how to throw items
+        UIManager.Instance.DisplayTutorialNotification(true, "Throw a tantrum. [Hold and release E to throw objects]");
+    }
+
+    public IEnumerator PrepareToFinishTutorial()
+    {
+            yield return new WaitForSeconds(3f);
+            UIManager.Instance.DisplayTutorialNotification(true, "AHEM. OKAY I'M NORMAL NOW.");
+            yield return new WaitForSeconds(2f);
+            UIManager.Instance.DisplayTutorialNotification(true, "I hear people coming. Quick, I have to SCARE them before they leave! Keep up my haunted house reputation - MAKE MY HOUSE UNSELLABLE!");
+            yield return new WaitForSeconds(3f);
+            UIManager.Instance.ToggleMainGameplayUI(true);
+            yield return new WaitForSeconds(1.5f);
+            UIManager.Instance.DisplayTutorialNotification(false, "");
+            isTutorialCompleted = true;
+            isTutorialRunning = false;
+            ResetGame();
+            yield break;
+    }
+
+    #endregion
+
+
     private void Update()
     {
-        LevelTimer(); 
+        LevelTimer();
+
+        #region // <<--------- TUTORIAL STUFF --------- >>
+        // Premise tutorial
+        if (isTutorialRunning)
+        {
+            if (!isPremiseTutorialCompleted && isToggleTutorialCompleted)
+            {
+                if (Input.GetKeyDown(playerController.interactionKeyCode))
+                {
+                    // Dismiss house advertisement and progress to next stage of tutorial
+                    UIManager.Instance.ToggleHouseAdvertisementPanel(false);
+                    isPremiseTutorialCompleted = true;
+                    StartTeachThrow();
+                }
+            }
+
+            // Throw tutorial
+            if (!isThrowTutorialCompleted)
+            {
+                if (!isFirstThrowNotifOut && objectsThrownScore == 1)
+                {
+                    UIManager.Instance.DisplayTutorialNotification(true, "I'LL SHOW THEM! I'LL SHOW THEM WHAT IT'S LIKE TO MESS WITH THE WRONG GHOST!");
+                    isFirstThrowNotifOut = true;
+                }
+                else if (!isSecondThrowNotifOut && objectsThrownScore == 2)
+                {
+                    UIManager.Instance.DisplayTutorialNotification(true, "THEY WILL RUE THE DAY THEY CROSSED ME! MWAHAHAHA!");
+                    isSecondThrowNotifOut = true;
+                    isThrowTutorialCompleted = true;
+                    storedTutorialCoroutine = StartCoroutine("PrepareToFinishTutorial");
+                }
+            }
+        }
+        // <<---------------------------------- >>
+        #endregion  
     }
 
     [Button("Reset Game")]
-    public void ResetGame()
+    public void ResetGame() // Doesn't reset any tutorial values
     {
         UIManager.Instance.ToggleGameOverUIPanel(false);
         ResetValues();
@@ -87,6 +219,7 @@ public class GameManager : MonoBehaviour
         deathScore = 0;
         livedScore = 0;
         levelCount = 0;
+        objectsThrownScore = 0;
         maxPeopleAllowedToLive = 3;
         isScareLevelRunning = false;
         currentNPCMaxFear = startingNPCMaxFear;
@@ -209,11 +342,16 @@ public class GameManager : MonoBehaviour
             {
                 // Change shop to cool hat shop as a reward for killing the exorcist [WIP]
                 isItemShop = true;
-                UIManager.Instance.DisplayNotification($"You've scared the exorcist to the point of death. A formidable feat indeed!");
+                UIManager.Instance.DisplayNotification("Don't mean to toot my own horn, but I've scared even the formidable exorcist to the point of death!");
+                //Proof of my dedication to the art of spooking!
+            }
+            else
+            {
+                UIManager.Instance.DisplayNotification("HEHEHE! The potential buyer has died of fright! Cowards, all of them! Seems like I'll be holding on to the house a little longer.");
             }
             deathScore++;
             UIManager.Instance.DisplayNPCKilledPopUp();
-            UIManager.Instance.DisplayNotification("The potential buyer has died of fright! Seems like you'll be holding on to the house a little longer.");
+            UIManager.Instance.DisplayObituaryUIPopUp();
             LevelOver();
         }
     }
@@ -226,13 +364,13 @@ public class GameManager : MonoBehaviour
             {
                 // Random permanent debuff to stats, no life penalty
                 string abilityname = AbilitiesManager.Instance.DebuffRandomAbility();
-                UIManager.Instance.DisplayNotification($"The exorcist survived and managed to reduce your {abilityname} ability.");
+                UIManager.Instance.DisplayNotification($"BALLS! The exorcist survived and reduced my {abilityname} ability!");
             }
             else
             {
                 livedScore++;
                 UIManager.Instance.UpdateNPCEscapedIndicator(livedScore);
-                UIManager.Instance.DisplayNotification("The potential buyer lived! The client has exited the house unscared.");
+                UIManager.Instance.DisplayNotification("Oh, snap... the potential buyer lived and left the house unscared. They're going to spread the word to their friends... MY HOUSE!!!");
             }
             LevelOver();
         }
@@ -260,7 +398,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StartLevelOverProcedure()
     {
         // Adds a delay so that any animations and stuff can play before the shop comes out
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         ToggleShop(true);
     }
 
@@ -298,18 +436,16 @@ public class GameManager : MonoBehaviour
 
     public void GameLost()
     {
-        string text;
         if (isExorcistLevel)
         {
-            text = "You were killed by the exorcist. Stay clear of them next time!";
+            UIManager.Instance.UpdateGameOverText("You were destroyed by the exorcist. Stay clear of them next time!");
         }
         else
         {
-            text = "You lost the game. Too many people lived. Max people allowed to live: " + maxPeopleAllowedToLive.ToString();
+            UIManager.Instance.UpdateGameOverText("You lost the game. Too many people lived. Max people allowed to live: " + maxPeopleAllowedToLive.ToString());
         }
-
+        
         UIManager.Instance.ToggleGameOverUIPanel(true);
-        UIManager.Instance.UpdateGameOverText(text);
     }
 
 

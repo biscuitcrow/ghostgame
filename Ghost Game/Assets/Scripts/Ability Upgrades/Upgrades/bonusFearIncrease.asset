@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Spooky Time
   description: Increases fear by 5 for all scares
-  shopSprite: {fileID: 1157729387, guid: 0212daf2b3227415e90a066906137f3a, type: 3}
+  shopSprite: {fileID: -722367645, guid: fec97c8333c194ca2958845cff2601cd, type: 3}
   isAvailableInShop: 1
   valueIncrease: 5

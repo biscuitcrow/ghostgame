@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Haunted Space
   description: Increases the area of effect of your haunt ability
-  shopSprite: {fileID: 1988811543, guid: 0212daf2b3227415e90a066906137f3a, type: 3}
+  shopSprite: {fileID: -1474937692, guid: fec97c8333c194ca2958845cff2601cd, type: 3}
   isAvailableInShop: 0
   valueIncrease: 1

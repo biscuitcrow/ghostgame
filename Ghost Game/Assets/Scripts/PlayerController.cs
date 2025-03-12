@@ -7,6 +7,12 @@ public class PlayerController : MonoBehaviour
 {
     #region <------- VARIABLE DEFINITIONS -------> //
 
+    [Header("Player Keyboard Controls")]
+    public KeyCode interactionKeyCode = KeyCode.E;
+    public KeyCode hauntKeyCode = KeyCode.R;
+    public bool isPlayerMovementEnabled;
+
+
     [Header("Player Movement")]
     CharacterController characterController;
     public Transform pickupPoint;
@@ -67,6 +73,7 @@ public class PlayerController : MonoBehaviour
         isHauntAbilityOnCooldown = false;
         placeholderCube.SetActive(true);
         NPCforceVector = Vector3.zero;
+        isPlayerMovementEnabled = true;
 
     }
 
@@ -74,10 +81,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         GatherMovementInput();
-
-        if (GameManager.Instance.isScareLevelRunning)
+        
+        if (GameManager.Instance.isScareLevelRunning || GameManager.Instance.isTutorialRunning)
         {
-            PlayerMove();
+            if (isPlayerMovementEnabled)
+            {
+                PlayerMove();
+            }
 
             // If I haven't picked up something, attempting interaction is allowed.
             if (!isObjectPickedUp)
@@ -110,13 +120,38 @@ public class PlayerController : MonoBehaviour
 
                 if (RaycastingArray())
                 {
-                    SuccessfulRaycast();
+
+                    // <<--------- TUTORIAL STUFF --------- >>
+                    // If the toggling tutorial has not been completed
+                    if (GameManager.Instance.isTutorialRunning && !GameManager.Instance.isToggleTutorialCompleted)
+                    {
+                        // Only allow interaction with the television
+                        if (selectedInteractableObject.name == "Television")
+                        {
+                            SuccessfulRaycast();
+                            // Completed toggling tutorial, starting to teach premise
+                            if (Input.GetKeyDown(interactionKeyCode))
+                            {
+                                GameManager.Instance.isToggleTutorialCompleted = true;
+                                GameManager.Instance.StartTeachPremise();
+
+                            }
+                        }
+                    }
+                    // <<---------------------------------- >>
+
+                    else
+                    {
+                        // Allow interaction with all objects
+                        SuccessfulRaycast();
+                    }
+                    
                     void SuccessfulRaycast()
                     {
                         // Highlight interactable object
                         selectedInteractableObject.GetComponent<InteractableObject>().ToggleOutline(true);
 
-                        if (Input.GetKeyDown(KeyCode.E))
+                        if (Input.GetKeyDown(interactionKeyCode))
                         {
                             InteractWithObject();
                         }
@@ -144,7 +179,7 @@ public class PlayerController : MonoBehaviour
 
             if (abilitiesManager.isVisibilityAbilityUnlocked)
             {
-                if (Input.GetKeyDown(KeyCode.R) && !isHauntAbilityOnCooldown)
+                if (Input.GetKeyDown(hauntKeyCode) && !isHauntAbilityOnCooldown)
                 {
                     StartCoroutine("BecomeVisibleToNPCs");
                 }
@@ -296,6 +331,7 @@ public class PlayerController : MonoBehaviour
             currentInteractableObjectScript.isCanScareNPC = true;
             isObjectPickedUp = false;
             //selectedInteractableObject = null;
+            GameManager.Instance.objectsThrownScore++;
             print("Object thrown.");
         }
     }
@@ -303,7 +339,7 @@ public class PlayerController : MonoBehaviour
 
 
     // <---------------------------------- PLAYER MOVEMENT ---------------------------------- > //
-    void GatherMovementInput()
+    public void GatherMovementInput()
     {
         // Gather lateral movement input
         input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));

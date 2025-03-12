@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Strength Training
   description: Increase throwing strength
-  shopSprite: {fileID: -519355621, guid: 0212daf2b3227415e90a066906137f3a, type: 3}
+  shopSprite: {fileID: -271550376, guid: fec97c8333c194ca2958845cff2601cd, type: 3}
   isAvailableInShop: 1
   valueIncrease: 10

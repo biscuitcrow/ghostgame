@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class FloatingFearMeter : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class FloatingFearMeter : MonoBehaviour
 
     public void UpdateFearMeterUI(float currentValue, float maxValue)
     {
-        fearMeter.value = currentValue / maxValue;
+        DOTween.To(() => fearMeter.value, x => fearMeter.value = x, currentValue / maxValue, 0.1f);
     }
 
 }

@@ -42,16 +42,47 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelNumberText;
     [SerializeField] private TextMeshProUGUI NPCsKilledNumberText;
     [SerializeField] private TextMeshProUGUI NPCsLivedNumberText;
+
+
+
+    [SerializeField] private GameObject skipTutorialButton;
     [SerializeField] private GameObject shopUIPanel;
     [SerializeField] private GameObject mainUIPanel;
+    [SerializeField] private GameObject houseAdvertisementPanel;
     [SerializeField] private GameObject gameOverUIPanel;
     [SerializeField] private TextMeshProUGUI gameOverText;
     [SerializeField] private GameObject notificationUIPopup;
     [SerializeField] private TextMeshProUGUI notificationText;
+    [SerializeField] private GameObject obituaryUIPopup;
     [SerializeField] private GameObject killedNPCUIPopup;
     [SerializeField] private Transform livedGroupObj;
 
+    [Header ("Notifications UI Settings")]
+    [SerializeField] private Ease inEase;
+    [SerializeField] private Ease outEase;
+
     #endregion
+
+    private void Start()
+    {
+
+        
+    }
+
+    public void ToggleSkipTutorialButton(bool isActive)
+    {
+        skipTutorialButton.SetActive(isActive);
+    }
+
+    public void ToggleHouseAdvertisementPanel(bool isActive)
+    {
+        houseAdvertisementPanel.SetActive(isActive);
+    }
+
+    public void ToggleMainGameplayUI(bool isActive)
+    {
+        mainUIPanel.SetActive(isActive);
+    }
 
     public void ToggleGameOverUIPanel(bool isActive)
     {
@@ -60,13 +91,13 @@ public class UIManager : MonoBehaviour
 
     public void UpdateGameOverText(string text)
     {
-
+        gameOverText.text = text;
     }
 
     public void ToggleShop(bool displayShop)
     {
         shopUIPanel.SetActive(displayShop);
-        mainUIPanel.SetActive(!displayShop);
+        ToggleMainGameplayUI(!displayShop);
     }
 
     public void UpdateGameStats(int levelCount, int deathScore, int livedScore)
@@ -105,29 +136,62 @@ public class UIManager : MonoBehaviour
         StartCoroutine("DisplayNotificationRoutine", message);
     }
 
+    
+    public void DisplayTutorialNotification(bool isActive, string message)
+    {
+        notificationText.text = message;
+
+        if (isActive)
+        {
+            notificationUIPopup.SetActive(true);
+
+            // Animate notification
+            notificationUIPopup.GetComponent<CanvasGroup>().alpha = 0f;
+            notificationUIPopup.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            notificationUIPopup.GetComponent<CanvasGroup>().DOFade(1f, 0.2f);
+            notificationUIPopup.transform.DOScale(Vector3.one, 0.2f).SetEase(inEase);
+        }
+        else
+        {
+            notificationUIPopup.GetComponent<CanvasGroup>().DOFade(0f, 0.2f);
+            notificationUIPopup.transform.DOScale(new Vector3(0.1f, 0.1f, 0.1f), 0.2f).SetEase(outEase);
+        }
+
+    }
+    
+
     public IEnumerator DisplayNotificationRoutine(string message)
     {
         notificationText.text = message;
         notificationUIPopup.SetActive(true);
+
+        // Animate notification
+        notificationUIPopup.GetComponent<CanvasGroup>().alpha = 0f;
+        notificationUIPopup.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        notificationUIPopup.GetComponent<CanvasGroup>().DOFade(1f, 0.2f);
+        notificationUIPopup.transform.DOScale(Vector3.one, 0.2f).SetEase(inEase);
+
         yield return new WaitForSeconds(2f);
+
+        notificationUIPopup.GetComponent<CanvasGroup>().DOFade(0f, 0.2f);
+        notificationUIPopup.transform.DOScale(new Vector3(0.1f, 0.1f, 0.1f), 0.2f).SetEase(outEase);
+        yield return new WaitForSeconds(0.2f);
         notificationUIPopup.SetActive(false);
-
-        /*
-        Sequence mySequence = DOTween.Sequence();
-
-        mySequence.Append(notificationUIPopup.DOAnchorPosY(105, 0.2f));
-        mySequence.AppendInterval(1f);
-        mySequence.Append(notificationUIPopup.DOAnchorPosY(-110, 0.2f));
-        mySequence.Play();
-        */
-
-        //help i can't get this tween to work [wip]
-        //notificationUIPopup.DOAnchorPosY(105, 0.2f);
-        yield return new WaitForSeconds(1f);
-        //notificationUIPopup.DOAnchorPosY(-110, 0.2f);
-
     }
 
+    public void DisplayObituaryUIPopUp()
+    {
+        DisplayObituaryUIPopUpRoutine();
+    }
+
+
+    public IEnumerator DisplayObituaryUIPopUpRoutine()
+    {
+        obituaryUIPopup.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        obituaryUIPopup.SetActive(false);
+
+    }
 
     public void DisplayNPCKilledPopUp()
     {
