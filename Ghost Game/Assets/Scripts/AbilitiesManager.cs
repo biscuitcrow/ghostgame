@@ -212,7 +212,7 @@ public class AbilitiesManager : MonoBehaviour
     {
         AbilityUpgrade randomUpgrade = availableShopUpgrades[Random.Range(0, availableShopUpgrades.Count)];
         randomUpgrade.ExecuteAbilityDowngrade();
-        return randomUpgrade.Name;
+        return randomUpgrade.displayName;
     }
 
     // When the shop opens

@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
     [Header("Scare Visibiity Ability")]
     public bool isGhostVisible;
     public bool isHauntAbilityOnCooldown;
-    public GameObject placeholderCube;
 
     private AbilitiesManager abilitiesManager;
     private float verticalVelocity;
@@ -71,9 +70,10 @@ public class PlayerController : MonoBehaviour
         isReadyToThrow = false;
         isGhostVisible = false;
         isHauntAbilityOnCooldown = false;
-        placeholderCube.SetActive(true);
+        UIManager.Instance.UpdateHauntAbilityIndicator(1);
         NPCforceVector = Vector3.zero;
         isPlayerMovementEnabled = true;
+        //player.transform.position = GameManager.Instance.playerStartPosition.position;
 
     }
 
@@ -99,8 +99,8 @@ public class PlayerController : MonoBehaviour
 
                 float xOffset = Mathf.Sin(Mathf.Deg2Rad * rayAngleOffset);
                 float zOffset = Mathf.Cos(Mathf.Deg2Rad * rayAngleOffset);
-                Vector3 fwdDirL = transform.TransformDirection(new Vector3(- xOffset, -1, zOffset));
-                Vector3 fwdDirR = transform.TransformDirection(new Vector3(xOffset, -1, zOffset));
+                Vector3 fwdDirL = transform.TransformDirection(new Vector3(- xOffset, -0.3f, zOffset));
+                Vector3 fwdDirR = transform.TransformDirection(new Vector3(xOffset, -0.3f, zOffset));
                 Vector3[] fwdRaysDir = {inclinedDir, fwdDirL, fwdDirR};
 
                 closestDistance = 10000f;
@@ -259,19 +259,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // <---------------------------------- SCARE VISIBILITY ABILITY ---------------------------------- > //
+    // <-------------------------- HAUNT/SCARE VISIBILITY ABILITY -------------------------- > //
 
     IEnumerator BecomeVisibleToNPCs()
     {
+        UIManager.Instance.UpdateHauntAbilityIndicator(0);
         isGhostVisible = true;
-        placeholderCube.SetActive(false);
         isHauntAbilityOnCooldown = true;
         yield return new WaitForSeconds(abilitiesManager.ghostScareVisibilityDuration);
         isGhostVisible = false;
+        UIManager.Instance.TweenHauntAbilityIndicator(1, abilitiesManager.ghostScareCooldown);
         yield return new WaitForSeconds(abilitiesManager.ghostScareCooldown);
+        UIManager.Instance.UpdateHauntAbilityIndicator(1);
         isHauntAbilityOnCooldown = false;
-        placeholderCube.SetActive(true);
     }
+
 
 
     // <---------------------------------- TOGGLE ABILITY ---------------------------------- > //

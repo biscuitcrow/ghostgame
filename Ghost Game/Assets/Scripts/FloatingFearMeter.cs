@@ -7,6 +7,7 @@ using DG.Tweening;
 public class FloatingFearMeter : MonoBehaviour
 {
     private Slider fearMeter;
+    private float pulseScale = 0.005f;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class FloatingFearMeter : MonoBehaviour
 
     public void UpdateFearMeterUI(float currentValue, float maxValue)
     {
+        UIManager.Instance.ScalePulseUIGameObject(gameObject, pulseScale, 0.2f);
         DOTween.To(() => fearMeter.value, x => fearMeter.value = x, currentValue / maxValue, 0.1f);
     }
 

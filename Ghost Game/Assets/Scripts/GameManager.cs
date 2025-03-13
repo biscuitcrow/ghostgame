@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     #region // <------- VARIABLE DEFINITIONS -------> //
 
     private PlayerController playerController;
+    public Transform playerStartPosition;
     private Transform NPCStartingPoint;
     private NPCBehaviour npcScript;
     [SerializeField] private GameObject level;
@@ -152,7 +153,7 @@ public class GameManager : MonoBehaviour
             UIManager.Instance.DisplayTutorialNotification(true, "AHEM. OKAY I'M NORMAL NOW.");
             yield return new WaitForSeconds(2f);
             UIManager.Instance.DisplayTutorialNotification(true, "I hear people coming. Quick, I have to SCARE them before they leave! Keep up my haunted house reputation - MAKE MY HOUSE UNSELLABLE!");
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(3.5f);
             UIManager.Instance.ToggleMainGameplayUI(true);
             yield return new WaitForSeconds(1.5f);
             UIManager.Instance.DisplayTutorialNotification(false, "");
@@ -210,8 +211,8 @@ public class GameManager : MonoBehaviour
     {
         UIManager.Instance.ToggleGameOverUIPanel(false);
         ResetValues();
-        playerController.ResetPlayer();
         StartLevel();
+        playerController.ResetPlayer();
     }
 
     private void ResetValues()
@@ -404,6 +405,7 @@ public class GameManager : MonoBehaviour
 
     private void ToggleShop(bool displayShop)
     {
+        UIManager.Instance.ToggleHauntAbilityIndicator(!displayShop);
         UIManager.Instance.ToggleShop(displayShop);
         shopCamera.Priority = (displayShop) ? 20 : 0;
     }

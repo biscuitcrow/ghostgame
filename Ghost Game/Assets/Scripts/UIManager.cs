@@ -34,8 +34,8 @@ public class UIManager : MonoBehaviour
 
     #region // <------- VARIABLE DEFINITIONS -------> //
 
-    [Header("UI Elements")]
-    [SerializeField] private RadialProgress radialProgress;
+    [Header("HUD UI Elements")]
+    [SerializeField] private FillProgress clockFillProgress;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private Transform clockHandPivot;
     [SerializeField] private TextMeshProUGUI phobiaText;
@@ -44,29 +44,78 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI NPCsLivedNumberText;
 
 
+    [Header("Player UI Elements")]
+    [SerializeField] private GameObject hauntAbilityIndicator;
+    [SerializeField] private FillProgress hauntAbilityFillProgress;
 
+
+    [Header("General UI Elements")]
     [SerializeField] private GameObject skipTutorialButton;
     [SerializeField] private GameObject shopUIPanel;
     [SerializeField] private GameObject mainUIPanel;
     [SerializeField] private GameObject houseAdvertisementPanel;
     [SerializeField] private GameObject gameOverUIPanel;
     [SerializeField] private TextMeshProUGUI gameOverText;
-    [SerializeField] private GameObject notificationUIPopup;
-    [SerializeField] private TextMeshProUGUI notificationText;
     [SerializeField] private GameObject obituaryUIPopup;
     [SerializeField] private GameObject killedNPCUIPopup;
     [SerializeField] private Transform livedGroupObj;
 
-    [Header ("Notifications UI Settings")]
+    [Header("Notifications UI Settings")]
     [SerializeField] private Ease inEase;
     [SerializeField] private Ease outEase;
+    [SerializeField] private GameObject notificationUIPopup;
+    [SerializeField] private TextMeshProUGUI notificationText;
+
+    [Header("Pulse UI Settings")]
+    [SerializeField] private Ease pulseEase;
+
 
     #endregion
 
-    private void Start()
+    // <---------------------------------- GENERAL TWEENING METHODS ---------------------------------- > //
+    private void ScaleandFadeUIGameObject(bool isActive, GameObject gameObj, float duration)
     {
+        if (isActive)
+        {
+            gameObj.SetActive(true);
 
-        
+            // Animate UI gameobject
+            gameObj.GetComponent<CanvasGroup>().alpha = 0f;
+            gameObj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            gameObj.GetComponent<CanvasGroup>().DOFade(1f, duration);
+            gameObj.transform.DOScale(Vector3.one, 0.2f).SetEase(inEase);
+        }
+        else
+        {
+            gameObj.GetComponent<CanvasGroup>().DOFade(0f, duration);
+            gameObj.transform.DOScale(new Vector3(0.1f, 0.1f, 0.1f), duration).SetEase(outEase);
+        }
+    }
+
+    public void ScalePulseUIGameObject(GameObject gameObj, float scale, float duration)
+    {
+        // Animate UI gameobject
+        //gameObj.transform.localScale = new Vector3(1, 1, 1);
+        gameObj.transform.DOPunchScale(new Vector3(scale, scale, scale), duration).SetEase(pulseEase);
+    }
+
+    // <---------------------------------------------------------------------------------------------- > //
+
+
+
+    public void ToggleHauntAbilityIndicator(bool isActive)
+    {
+        ScaleandFadeUIGameObject(isActive, hauntAbilityIndicator, 0.2f);
+    }
+
+    public void UpdateHauntAbilityIndicator(float fraction)
+    {
+        hauntAbilityFillProgress.UpdateFillProgress(fraction);
+    }
+
+    public void TweenHauntAbilityIndicator(float end, float duration)
+    {
+        hauntAbilityFillProgress.TweenFillProgress(end, duration);
     }
 
     public void ToggleSkipTutorialButton(bool isActive)
@@ -125,8 +174,8 @@ public class UIManager : MonoBehaviour
         // Set the text string
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-        // Updates clock images
-        radialProgress.UpdateRadialProgress(1 - timeFraction);
+        // Updates clock images to radial fill
+        clockFillProgress.UpdateFillProgress(1 - timeFraction);
         clockHandPivot.eulerAngles = new Vector3(0, 0, (timeFraction * 360));
     }
 
@@ -141,22 +190,7 @@ public class UIManager : MonoBehaviour
     {
         notificationText.text = message;
 
-        if (isActive)
-        {
-            notificationUIPopup.SetActive(true);
-
-            // Animate notification
-            notificationUIPopup.GetComponent<CanvasGroup>().alpha = 0f;
-            notificationUIPopup.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            notificationUIPopup.GetComponent<CanvasGroup>().DOFade(1f, 0.2f);
-            notificationUIPopup.transform.DOScale(Vector3.one, 0.2f).SetEase(inEase);
-        }
-        else
-        {
-            notificationUIPopup.GetComponent<CanvasGroup>().DOFade(0f, 0.2f);
-            notificationUIPopup.transform.DOScale(new Vector3(0.1f, 0.1f, 0.1f), 0.2f).SetEase(outEase);
-        }
-
+        ScaleandFadeUIGameObject(isActive, notificationUIPopup, 0.2f);
     }
     
 
