@@ -8,6 +8,8 @@ public class FloatingFearMeter : MonoBehaviour
 {
     private Slider fearMeter;
     private float pulseScale = 0.005f;
+    public Image progressImage;
+    public Gradient colorGradient;
 
     private void Start()
     {
@@ -16,6 +18,11 @@ public class FloatingFearMeter : MonoBehaviour
         // Reset fear meter
         fearMeter.value = 0;
         
+    }
+
+    private void Update()
+    {
+        progressImage.color = colorGradient.Evaluate(fearMeter.value);
     }
 
     public void UpdateFearMeterUI(float currentValue, float maxValue)

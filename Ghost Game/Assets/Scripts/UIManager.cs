@@ -73,22 +73,36 @@ public class UIManager : MonoBehaviour
     #endregion
 
     // <---------------------------------- GENERAL TWEENING METHODS ---------------------------------- > //
-    private void ScaleandFadeUIGameObject(bool isActive, GameObject gameObj, float duration)
+    private void ScaleandFadeUIGameObject(bool isActive, bool isScale, bool isFade, GameObject gameObj, float duration)
     {
         if (isActive)
         {
             gameObj.SetActive(true);
 
             // Animate UI gameobject
-            gameObj.GetComponent<CanvasGroup>().alpha = 0f;
-            gameObj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            gameObj.GetComponent<CanvasGroup>().DOFade(1f, duration);
-            gameObj.transform.DOScale(Vector3.one, 0.2f).SetEase(inEase);
+            if (isScale) // Scaling is not compatible with TMP_Writer
+            {
+                gameObj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                gameObj.transform.DOScale(Vector3.one, 0.2f).SetEase(inEase);
+            }
+            if (isFade)
+            {
+                gameObj.GetComponent<CanvasGroup>().alpha = 0f;
+                gameObj.GetComponent<CanvasGroup>().DOFade(1f, duration);
+            }
         }
         else
         {
-            gameObj.GetComponent<CanvasGroup>().DOFade(0f, duration);
-            gameObj.transform.DOScale(new Vector3(0.1f, 0.1f, 0.1f), duration).SetEase(outEase);
+            if (isScale)
+            {
+                gameObj.transform.DOScale(new Vector3(0.1f, 0.1f, 0.1f), duration).SetEase(outEase);
+            }
+
+            if (isFade)
+            {
+                gameObj.GetComponent<CanvasGroup>().DOFade(0f, duration);
+            }
+            
         }
     }
 
@@ -105,7 +119,7 @@ public class UIManager : MonoBehaviour
 
     public void ToggleHauntAbilityIndicator(bool isActive)
     {
-        ScaleandFadeUIGameObject(isActive, hauntAbilityIndicator, 0.2f);
+        ScaleandFadeUIGameObject(isActive, true, true, hauntAbilityIndicator, 0.2f);
     }
 
     public void UpdateHauntAbilityIndicator(float fraction)
@@ -190,7 +204,8 @@ public class UIManager : MonoBehaviour
     {
         notificationText.text = message;
 
-        ScaleandFadeUIGameObject(isActive, notificationUIPopup, 0.2f);
+        // Scale is not compatible with TMP_writer, choose 1
+        ScaleandFadeUIGameObject(isActive, false, true, notificationUIPopup, 0.3f);
     }
     
 

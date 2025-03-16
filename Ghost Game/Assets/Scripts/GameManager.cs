@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
     void StartTeachMovement()
     {
         // Teach the player the premise that you control a ghost with movement keyboard input in a haunted house
-        UIManager.Instance.DisplayTutorialNotification(true, "Wakey wakey! Time to turn on the TV and check the morning news. [Use arrow keys to move and E to toggle objects.]");
+        UIManager.Instance.DisplayTutorialNotification(true, DialogueManager.Instance.startTeachMovementText);
     }
 
     public void StartTeachPremise()
@@ -144,15 +144,15 @@ public class GameManager : MonoBehaviour
         playerController.isPlayerMovementEnabled = true;
 
         // Teach the player how to throw items
-        UIManager.Instance.DisplayTutorialNotification(true, "Throw a tantrum. [Hold and release E to throw objects]");
+        UIManager.Instance.DisplayTutorialNotification(true, DialogueManager.Instance.startTeachThrowText);
     }
 
     public IEnumerator PrepareToFinishTutorial()
     {
             yield return new WaitForSeconds(3f);
-            UIManager.Instance.DisplayTutorialNotification(true, "AHEM. OKAY I'M NORMAL NOW.");
+            UIManager.Instance.DisplayTutorialNotification(true, DialogueManager.Instance.prepToFinishTutOne);
             yield return new WaitForSeconds(2f);
-            UIManager.Instance.DisplayTutorialNotification(true, "I hear people coming. Quick, I have to SCARE them before they leave! Keep up my haunted house reputation - MAKE MY HOUSE UNSELLABLE!");
+            UIManager.Instance.DisplayTutorialNotification(true, DialogueManager.Instance.prepToFinishTutTwo);
             yield return new WaitForSeconds(3.5f);
             UIManager.Instance.ToggleMainGameplayUI(true);
             yield return new WaitForSeconds(1.5f);
@@ -190,12 +190,12 @@ public class GameManager : MonoBehaviour
             {
                 if (!isFirstThrowNotifOut && objectsThrownScore == 1)
                 {
-                    UIManager.Instance.DisplayTutorialNotification(true, "I'LL SHOW THEM! I'LL SHOW THEM WHAT IT'S LIKE TO MESS WITH THE WRONG GHOST!");
+                    UIManager.Instance.DisplayTutorialNotification(true, DialogueManager.Instance.throwTextOne);
                     isFirstThrowNotifOut = true;
                 }
                 else if (!isSecondThrowNotifOut && objectsThrownScore == 2)
                 {
-                    UIManager.Instance.DisplayTutorialNotification(true, "THEY WILL RUE THE DAY THEY CROSSED ME! MWAHAHAHA!");
+                    UIManager.Instance.DisplayTutorialNotification(true, DialogueManager.Instance.throwTextTwo);
                     isSecondThrowNotifOut = true;
                     isThrowTutorialCompleted = true;
                     storedTutorialCoroutine = StartCoroutine("PrepareToFinishTutorial");
