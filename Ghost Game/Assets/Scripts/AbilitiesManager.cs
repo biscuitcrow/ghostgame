@@ -92,8 +92,13 @@ public class AbilitiesManager : MonoBehaviour
         set { }
     }
 
+    [Header("Buttons")]
     [SerializeField] private GameObject rerollButton;
     [SerializeField] private List<Button> shopButtons = new List<Button>();
+
+
+    [Header("Ability Upgrades")]
+    [SerializeField] private AbilityUpgrade phobiaSleuth;
     [SerializeField] private List<AbilityUpgrade> allPossibleShopUpgrades = new List<AbilityUpgrade>();
     [SerializeField] private List<AbilityUpgrade> availableShopUpgrades = new List<AbilityUpgrade>();
     [SerializeField] private List<AbilityUpgrade> availableSkillUpgrades = new List<AbilityUpgrade>();
@@ -167,6 +172,15 @@ public class AbilitiesManager : MonoBehaviour
         remainingAvailableShopUpgrades.Clear();
         remainingAvailableShopUpgrades.AddRange(availableShopUpgrades);
 
+        // Remove Phobia Sleuth as an option in the random choosing if the upcoming NPC has already been Phobia Sleuthed 
+        if (GameManager.Instance.currentlyChosenNPC.GetComponent<NPCBehaviour>().isPhobiaRevealed)
+        {
+            if (remainingAvailableShopUpgrades.Contains(phobiaSleuth))
+            {
+                remainingAvailableShopUpgrades.Remove(phobiaSleuth);
+            }
+        }
+
 
         for (int i = 0; i < shopButtons.Count; i++)
         {
@@ -228,7 +242,6 @@ public class AbilitiesManager : MonoBehaviour
         return randomUpgrade.displayName;
     }
 
-    
     public void ActivatePhobiaSleuth()
     {
         // Change the phobia status to revealed on the relevant NPC

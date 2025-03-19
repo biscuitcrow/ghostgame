@@ -252,7 +252,6 @@ public class GameManager : MonoBehaviour
     private void StartLevel()
     {
         RemoveAllNPCs();
-        AbilitiesManager.Instance.ResetShop();
         ToggleShop(false);
 
         levelCount++;
@@ -425,8 +424,9 @@ public class GameManager : MonoBehaviour
         // Adds a delay so that any animations and stuff can play before the shop comes out
         yield return new WaitForSeconds(5f);
 
-        // Choose the next NPC here so that the shop can display it
+        // Choose the next NPC here so that the shop can display it, very important that it is chosen first before the shop is toggled
         ChooseUpcomingNPC();
+        AbilitiesManager.Instance.ResetShop();
         ToggleShop(true);
     }
 
