@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: bonusFearIncrease
   m_EditorClassIdentifier: 
   displayName: Spooky Time
-  description: Increases fear by 5 for all scares
+  description: Increases fear by 5 for all furniture scares
   shopSprite: {fileID: -722367645, guid: fec97c8333c194ca2958845cff2601cd, type: 3}
   isAvailableInShop: 1
+  isSkillUpgrade: 1
+  isNPCPhobiaReveal: 0
   valueIncrease: 5

@@ -1,0 +1,611 @@
+fileFormatVersion: 2
+guid: 6df13146b37db428aafe744591a1fc84
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_0
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 2752
+        width: 3248
+        height: 521
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fc1cb9894d554bc294d75e3f4c718b9
+      internalID: 897116107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_1
+      rect:
+        serializedVersion: 2
+        x: 3392
+        y: 2013
+        width: 1006
+        height: 1240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d36269a5076464c2f8149551e3e1cb9c
+      internalID: -1744377300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_2
+      rect:
+        serializedVersion: 2
+        x: 4585
+        y: 2628
+        width: 481
+        height: 527
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34c5698cf28a841f58ca036ad749848f
+      internalID: 1645921588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_3
+      rect:
+        serializedVersion: 2
+        x: 5120
+        y: 2628
+        width: 481
+        height: 527
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba4c4c6459c4d49f9b91c070140ef3dd
+      internalID: -44167538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_4
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 2522
+        width: 636
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96d5fd88344344d258f9ba4d2e0f0219
+      internalID: 503373117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_5
+      rect:
+        serializedVersion: 2
+        x: 885
+        y: 2378
+        width: 250
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a365ea3a3a0c64461a71296c991f03a2
+      internalID: -2015329899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_6
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 2519
+        width: 477
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79a53c7f5cb6f430a87654f18f25f338
+      internalID: 2115822100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_7
+      rect:
+        serializedVersion: 2
+        x: 1771
+        y: 2510
+        width: 147
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8a8a142173e1495e9e6d919a324a629
+      internalID: -1476392670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_8
+      rect:
+        serializedVersion: 2
+        x: 1961
+        y: 2510
+        width: 150
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f1ac1f4e1fc140169ed0bd1e75d1e58
+      internalID: -1328677420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_9
+      rect:
+        serializedVersion: 2
+        x: 2237
+        y: 2453
+        width: 190
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc67ee9062a9c413889c6a0bca1dbe3a
+      internalID: -1342281451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_10
+      rect:
+        serializedVersion: 2
+        x: 4585
+        y: 2050
+        width: 481
+        height: 524
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c482805d400a484da32b602c9ac9a73
+      internalID: 1196065024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_11
+      rect:
+        serializedVersion: 2
+        x: 5120
+        y: 2050
+        width: 481
+        height: 524
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2e59b384894d4e8fa8302ff48d1439e
+      internalID: -1482345527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_12
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 2309
+        width: 636
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf0231f02d71941ada3a7b5aefbe4fb8
+      internalID: 1290871338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_13
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 2312
+        width: 477
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43c00a90662c3428cbe64a2ac47d211d
+      internalID: 898190690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_14
+      rect:
+        serializedVersion: 2
+        x: 1771
+        y: 2316
+        width: 147
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f378b2facda5d452bb18067660c41f66
+      internalID: -1285830978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_15
+      rect:
+        serializedVersion: 2
+        x: 1961
+        y: 2316
+        width: 150
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9946f6165b32446fa9f319baa71d555f
+      internalID: 2113582552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_16
+      rect:
+        serializedVersion: 2
+        x: 2237
+        y: 2200
+        width: 190
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf30ebd4ce2604d9493fd897f39871b7
+      internalID: -910499173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_17
+      rect:
+        serializedVersion: 2
+        x: 2453
+        y: 2249
+        width: 164
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b97311b8e81444f4a9d030aa132f2e8
+      internalID: -374726308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_18
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 2122
+        width: 555
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d02e668d533647c5a5ef334463d4113
+      internalID: -91328240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_19
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 2131
+        width: 397
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6974c21b309cf46e8b389d47a8819e2f
+      internalID: -886083129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_20
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 203
+        width: 2814
+        height: 1824
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3427567c9c80841d497f6de43203c77a
+      internalID: 1889958905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ghost TV_Orbituary_Notif_UI_21
+      rect:
+        serializedVersion: 2
+        x: 3359
+        y: 258
+        width: 1232
+        height: 863
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab94fd0509d7049ad850435b2eea2ca9
+      internalID: -100816663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Ghost TV_Orbituary_Notif_UI_0: 897116107
+      Ghost TV_Orbituary_Notif_UI_1: -1744377300
+      Ghost TV_Orbituary_Notif_UI_10: 1196065024
+      Ghost TV_Orbituary_Notif_UI_11: -1482345527
+      Ghost TV_Orbituary_Notif_UI_12: 1290871338
+      Ghost TV_Orbituary_Notif_UI_13: 898190690
+      Ghost TV_Orbituary_Notif_UI_14: -1285830978
+      Ghost TV_Orbituary_Notif_UI_15: 2113582552
+      Ghost TV_Orbituary_Notif_UI_16: -910499173
+      Ghost TV_Orbituary_Notif_UI_17: -374726308
+      Ghost TV_Orbituary_Notif_UI_18: -91328240
+      Ghost TV_Orbituary_Notif_UI_19: -886083129
+      Ghost TV_Orbituary_Notif_UI_2: 1645921588
+      Ghost TV_Orbituary_Notif_UI_20: 1889958905
+      Ghost TV_Orbituary_Notif_UI_21: -100816663
+      Ghost TV_Orbituary_Notif_UI_3: -44167538
+      Ghost TV_Orbituary_Notif_UI_4: 503373117
+      Ghost TV_Orbituary_Notif_UI_5: -2015329899
+      Ghost TV_Orbituary_Notif_UI_6: 2115822100
+      Ghost TV_Orbituary_Notif_UI_7: -1476392670
+      Ghost TV_Orbituary_Notif_UI_8: -1328677420
+      Ghost TV_Orbituary_Notif_UI_9: -1342281451
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

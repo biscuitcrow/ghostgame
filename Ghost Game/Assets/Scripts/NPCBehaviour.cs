@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations;
 using EditorAttributes;
+using UnityEngine.UI;
 
 public class NPCBehaviour : MonoBehaviour
 {
     #region // <------- VARIABLE DEFINITIONS -------> //
     private Transform player;
     private NavMeshAgent agent;
-    public GameObject fearMeterObj;
     private Transform NPCStartingPoint;
     [SerializeField] private bool isUsingFixedDestPoints = true;
     private float maxNavMeshDist = 2f; // Maximum value is twice the agent's height according to Unity's documentation
@@ -19,13 +19,22 @@ public class NPCBehaviour : MonoBehaviour
     private bool isScareCooldownRunning = false;
     private bool isHauntedCooldownRunning = false;
     public LayerMask groundLayerMask;
+
+    [Header("Fear Meter")]
+    public GameObject fearMeterObj;
     [SerializeField] private FloatingFearMeter fearMeter;
     [SerializeField] private GameObject fearMeterPrefab;
+    private Image scaredIcon;
 
     [Header("NPC Details")]
+    public string NPCName;
     public float currentFear;
     public float maxFear;
     public bool isExorcist;
+    public Sprite profileSprite;
+
+    [Header("NPC Phobia")]
+    public bool isPhobiaRevealed = false;
 
     [Header("Leaving House")]
     public bool isNPCLeavingHouse;
@@ -64,7 +73,7 @@ public class NPCBehaviour : MonoBehaviour
         NPCStartingPoint = GameObject.FindWithTag("NPC Starting Point").transform;
         isNPCScared = false;
         isNPCLeavingHouse = false;
-        
+
         // Reset the fear meter
         currentFear = 0;
 
@@ -85,6 +94,7 @@ public class NPCBehaviour : MonoBehaviour
     {
         fearMeterObj =  Instantiate(fearMeterPrefab);
         fearMeter = fearMeterObj.GetComponentInChildren<FloatingFearMeter>();
+        scaredIcon = fearMeterObj.transform.Find("Scared Icon").GetComponent<Image>();
         PositionConstraint fearMeterPositionConstraint = fearMeterObj.GetComponent<PositionConstraint>();
 
         // Create new source variable
@@ -187,8 +197,10 @@ public class NPCBehaviour : MonoBehaviour
         }
         #endregion
 
-        // This is decoupled so you can scare NPC even when it is leaving the house, it just won't run away from ghost
-        if (isGhostInSightRange && player.GetComponent<PlayerController>().isGhostVisible)
+        // This is decoupled from movement code so you can scare NPC even when it is leaving the house, it just won't run away from ghost
+        // Uses the scare range of the ghost's haunt ability
+        if ((CheckNPCDistanceFromGhost() < AbilitiesManager.Instance.ghostScareVisibilityRadius)
+            && player.GetComponent<PlayerController>().isGhostVisible)
         {
             if (!isHauntedCooldownRunning)
             {
@@ -218,6 +230,9 @@ public class NPCBehaviour : MonoBehaviour
 
     public void IncreaseFearMeter(float increaseValue)
     {
+        // Displays scared icon
+        StartCoroutine("DisplayScaredIcon");
+
         currentFear += increaseValue; 
         fearMeter.UpdateFearMeterUI(currentFear, maxFear);
         print("Fear meter increased and updated. Increase value: " + increaseValue);
@@ -229,7 +244,7 @@ public class NPCBehaviour : MonoBehaviour
     }
 
     [Button("Kill NPC/NPC Died")]
-    private void NPCDied()
+    public void NPCDied()
     {
         // Play NPC death animation and sounds
         Destroy(fearMeterObj);
@@ -237,7 +252,8 @@ public class NPCBehaviour : MonoBehaviour
         GameManager.Instance.NPCDied();
     }
 
-    private void NPCLived()
+    [Button("NPC Lived")]
+    public void NPCLived()
     {
         // Play NPC lived animation and sounds
         Destroy(fearMeterObj);
@@ -253,6 +269,16 @@ public class NPCBehaviour : MonoBehaviour
         isScareCooldownRunning = false;
     }
 
+    private IEnumerator DisplayScaredIcon()
+    {
+        scaredIcon.gameObject.SetActive(true);
+        UIManager.Instance.FadeUIGameObject(scaredIcon.gameObject, 0, 1, 0.05f);
+        UIManager.Instance.ScalePulseUIGameObject(scaredIcon.gameObject, 0.005f, 0.1f);
+        yield return new WaitForSeconds(0.5f);
+        UIManager.Instance.FadeUIGameObject(scaredIcon.gameObject, 1, 0, 0.05f);
+        UIManager.Instance.ScalePulseUIGameObject(scaredIcon.gameObject, 0.005f, 0.1f);
+        scaredIcon.gameObject.SetActive(false);
+    }
 
     private IEnumerator HauntedCooldown()
     {
@@ -266,8 +292,13 @@ public class NPCBehaviour : MonoBehaviour
     {
         // Checks if ghost player is in sight range
         // Rn is checking using pure position calculations, eventually can use line of sight calculations to see if the ghost is being blocked by objects
+        isGhostInSightRange = (CheckNPCDistanceFromGhost() <= NPCsightRange) ? true : false;
+    }
+
+    private float CheckNPCDistanceFromGhost()
+    {
         float distanceFromGhost = (transform.position - player.position).magnitude;
-        isGhostInSightRange = (distanceFromGhost <= NPCsightRange) ? true : false;
+        return distanceFromGhost;
     }
 
     bool CheckIfGhostIsInNPCSightAngle()

@@ -33,5 +33,6 @@ public class DialogueManager : MonoBehaviour
     [TextArea(5, 10)] public string throwTextTwo;
     [TextArea(5, 10)] public string prepToFinishTutOne;
     [TextArea(5, 10)] public string prepToFinishTutTwo;
+    [TextArea(5, 10)] public string NPCLivedText;
 
 }

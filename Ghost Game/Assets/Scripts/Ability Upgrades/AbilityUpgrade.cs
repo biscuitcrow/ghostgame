@@ -14,15 +14,27 @@ public class AbilityUpgrade : ScriptableObject
     public Sprite shopSprite;
 
     public bool isAvailableInShop;
+    public bool isSkillUpgrade;
+    public bool isNPCPhobiaReveal;
     public float valueIncrease;
 
     public void ExecuteAbilityUpgrade()
     {
-        AbilitiesManager.Instance.ChangeAbilityByValue(Name, valueIncrease);
+        if (isSkillUpgrade)
+        {
+            AbilitiesManager.Instance.ChangeAbilityByValue(Name, valueIncrease);
+        }
+        else if (isNPCPhobiaReveal)
+        {
+            AbilitiesManager.Instance.ActivatePhobiaSleuth();
+        }
     }
 
-    public void ExecuteAbilityDowngrade()
+    public void ExecuteSkillDowngrade()
     {
-        AbilitiesManager.Instance.ChangeAbilityByValue(Name, -valueIncrease);
+        if (isSkillUpgrade)
+        {
+            AbilitiesManager.Instance.ChangeAbilityByValue(Name, -valueIncrease);
+        }
     }
 }

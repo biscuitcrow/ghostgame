@@ -96,6 +96,7 @@ public class AbilitiesManager : MonoBehaviour
     [SerializeField] private List<Button> shopButtons = new List<Button>();
     [SerializeField] private List<AbilityUpgrade> allPossibleShopUpgrades = new List<AbilityUpgrade>();
     [SerializeField] private List<AbilityUpgrade> availableShopUpgrades = new List<AbilityUpgrade>();
+    [SerializeField] private List<AbilityUpgrade> availableSkillUpgrades = new List<AbilityUpgrade>();
     [SerializeField] private List<AbilityUpgrade> remainingAvailableShopUpgrades = new List<AbilityUpgrade>();
 
     private Dictionary<string, float> abilityValues = new Dictionary<string, float>();
@@ -104,6 +105,14 @@ public class AbilitiesManager : MonoBehaviour
 
     private void Start()
     {
+        foreach (AbilityUpgrade upgrade in availableShopUpgrades)
+        {
+            if (upgrade.isSkillUpgrade)
+            {
+                availableSkillUpgrades.Add(upgrade);
+            }
+        }
+
         ResetAbilities();
         ChooseRandomUpgradesForShop();
     }
@@ -124,9 +133,9 @@ public class AbilitiesManager : MonoBehaviour
         //Remember to set this to false afterwards after testing
         isVisibilityAbilityUnlocked = true;
         EditAbilityDictionary("ghostVisibilityScareValue", 20f);
-        EditAbilityDictionary("ghostVisibilityScareMult", 2f); // Might not use as an upgrade
-        EditAbilityDictionary("ghostScareVisibilityRadius", 2f); 
-        EditAbilityDictionary("ghostScareVisibilityDuration", 0.5f); // Might not use as an upgrade
+        EditAbilityDictionary("ghostVisibilityScareMult", 2f); // Currently not using as an upgrade - 19 Mar 2025
+        EditAbilityDictionary("ghostScareVisibilityRadius", 5f); 
+        EditAbilityDictionary("ghostScareVisibilityDuration", 0.5f); // Currently not using as an upgrade (but it is being referenced)- 19 Mar 2025
         EditAbilityDictionary("ghostScareCooldown", 5f);
 
         // All Interactables
@@ -184,8 +193,12 @@ public class AbilitiesManager : MonoBehaviour
     {
         upgrade.ExecuteAbilityUpgrade();
         print("Shop upgrade chosen: " + upgrade.displayName);
-        GameManager.Instance.ContinueToNextLevel();
 
+        if (upgrade.isSkillUpgrade)
+        {
+            // Only continue the next level if the upgrade chosen was a skill upgrade (and not a special upgrade like Phobia Sleuth)
+            GameManager.Instance.ContinueToNextLevel();
+        }
     }
 
     private void EditAbilityDictionary(string key, float value)
@@ -210,9 +223,18 @@ public class AbilitiesManager : MonoBehaviour
 
     public string DebuffRandomAbility()
     {
-        AbilityUpgrade randomUpgrade = availableShopUpgrades[Random.Range(0, availableShopUpgrades.Count)];
-        randomUpgrade.ExecuteAbilityDowngrade();
+        AbilityUpgrade randomUpgrade = availableSkillUpgrades[Random.Range(0, availableSkillUpgrades.Count)];
+        randomUpgrade.ExecuteSkillDowngrade();
         return randomUpgrade.displayName;
+    }
+
+    
+    public void ActivatePhobiaSleuth()
+    {
+        // Change the phobia status to revealed on the relevant NPC
+        GameManager.Instance.currentlyChosenNPC.GetComponent<NPCBehaviour>().isPhobiaRevealed = true;
+        // Display ID card screen
+        UIManager.Instance.ToggleShopClientFilePanel(true);
     }
 
     // When the shop opens

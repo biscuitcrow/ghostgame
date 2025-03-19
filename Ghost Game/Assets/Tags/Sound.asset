@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ab9c7f22bc94e92b57ed221fcca677, type: 3}
   m_Name: Sound
   m_EditorClassIdentifier: 
+  phobiaIcon: {fileID: -1285830978, guid: 6df13146b37db428aafe744591a1fc84, type: 3}

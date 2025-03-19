@@ -51,14 +51,37 @@ public class UIManager : MonoBehaviour
 
     [Header("General UI Elements")]
     [SerializeField] private GameObject skipTutorialButton;
-    [SerializeField] private GameObject shopUIPanel;
     [SerializeField] private GameObject mainUIPanel;
+    [SerializeField] private GameObject clockUI;
     [SerializeField] private GameObject houseAdvertisementPanel;
     [SerializeField] private GameObject gameOverUIPanel;
     [SerializeField] private TextMeshProUGUI gameOverText;
     [SerializeField] private GameObject obituaryUIPopup;
     [SerializeField] private GameObject killedNPCUIPopup;
     [SerializeField] private Transform livedGroupObj;
+
+    [Header("Obituary UI Elements")]
+    public float obituraryDelay = 3f;
+    [SerializeField] private Image obituaryNPCProfile;
+
+    [Header("Shop UI Elements")]
+    [SerializeField] private GameObject shopUIPanel;
+    [SerializeField] private GameObject shopButtonsUIPanel;
+    [SerializeField] private GameObject shopNextClientUIPanel;
+    [SerializeField] private Image shopUpcomingNPCProfile;
+    [SerializeField] private Image shopUpcomingNPCPhobia;
+    [SerializeField] private Tag unknownPhobiaTag;
+
+
+
+    [Header("NPC Phobia ID Card Elements")]
+    [SerializeField] private GameObject shopClientFilePanel;
+    [SerializeField] private GameObject shopClientFileProfileCardPanel;
+    [SerializeField] private TextMeshProUGUI shopClientFileNPCName;
+    [SerializeField] private Image shopClientFileNPCProfile;
+    [SerializeField] private Image shopClientFilePhobiaIcon;
+    [SerializeField] private Button shopClientFileContinueButton;
+
 
     [Header("Notifications UI Settings")]
     [SerializeField] private Ease inEase;
@@ -73,7 +96,7 @@ public class UIManager : MonoBehaviour
     #endregion
 
     // <---------------------------------- GENERAL TWEENING METHODS ---------------------------------- > //
-    private void ScaleandFadeUIGameObject(bool isActive, bool isScale, bool isFade, GameObject gameObj, float duration)
+    public void ScaleandFadeUIGameObject(bool isActive, bool isScale, bool isFade, float endScale, GameObject gameObj, float duration)
     {
         if (isActive)
         {
@@ -83,7 +106,7 @@ public class UIManager : MonoBehaviour
             if (isScale) // Scaling is not compatible with TMP_Writer
             {
                 gameObj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-                gameObj.transform.DOScale(Vector3.one, 0.2f).SetEase(inEase);
+                gameObj.transform.DOScale(new Vector3(endScale, endScale, endScale), 0.2f).SetEase(inEase);
             }
             if (isFade)
             {
@@ -106,22 +129,40 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ScalePulseUIGameObject(GameObject gameObj, float scale, float duration)
+    public void ScalePulseUIGameObject(GameObject gameObj, float scalePulse = 0.005f, float duration = 0.2f)
     {
         // Animate UI gameobject
-        //gameObj.transform.localScale = new Vector3(1, 1, 1);
-        gameObj.transform.DOPunchScale(new Vector3(scale, scale, scale), duration).SetEase(pulseEase);
+        gameObj.transform.DOPunchScale(new Vector3(scalePulse, scalePulse, scalePulse), duration).SetEase(pulseEase);
+    }
+
+    public void FadeUIGameObject(GameObject gameObj, float startAlpha = 0f, float endAlpha = 1f, float duration = 0.2f)
+    {
+        CanvasGroup canvasGroup = gameObj.GetComponent<CanvasGroup>();
+        if (canvasGroup != null)
+        {
+            gameObj.GetComponent<CanvasGroup>().alpha = startAlpha;
+            gameObj.GetComponent<CanvasGroup>().DOFade(endAlpha, duration);
+        }
+    }
+
+    public void TranslateUIGameObject(GameObject gameObj, Vector2 startPos, Vector2 endPos, float duration, Ease ease = Ease.InCubic)
+    {
+        RectTransform rectTransform = gameObj.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = startPos;
+        DOTween.To(() => rectTransform.anchoredPosition, x => rectTransform.anchoredPosition = x, endPos, duration).SetEase(ease);
     }
 
     // <---------------------------------------------------------------------------------------------- > //
 
 
+    // <---------------------------------- HAUNT ABILITY INDICATOR ---------------------------------- > //
 
     public void ToggleHauntAbilityIndicator(bool isActive)
     {
-        ScaleandFadeUIGameObject(isActive, true, true, hauntAbilityIndicator, 0.2f);
+        ScaleandFadeUIGameObject(isActive, true, true, 1f, hauntAbilityIndicator, 0.2f);
     }
 
+    // An instant update to the fill value
     public void UpdateHauntAbilityIndicator(float fraction)
     {
         hauntAbilityFillProgress.UpdateFillProgress(fraction);
@@ -131,6 +172,21 @@ public class UIManager : MonoBehaviour
     {
         hauntAbilityFillProgress.TweenFillProgress(end, duration);
     }
+
+    public void UseHauntAbilityIndicator()
+    {
+        print("haunt ability used");
+        ScalePulseUIGameObject(hauntAbilityIndicator.transform.Find("Panel").gameObject, 0.4f, 0.15f);
+    }
+
+    public void ShakeHauntAbilityIndicator()
+    {
+        print("shaken not stirred.");
+        hauntAbilityIndicator.transform.Find("Panel").DOShakePosition(0.1f, 0.1f);
+    }
+
+    // <---------------------------------------------------------------------------------------------- > //
+
 
     public void ToggleSkipTutorialButton(bool isActive)
     {
@@ -145,6 +201,12 @@ public class UIManager : MonoBehaviour
     public void ToggleMainGameplayUI(bool isActive)
     {
         mainUIPanel.SetActive(isActive);
+
+        // Drops the clock UI in nicely (for juice)
+        if (isActive)
+        {
+            TranslateUIGameObject(clockUI, new Vector2(164.17f, 200f), new Vector2(164.17f, -155.6f), 0.5f, Ease.OutBounce);
+        }
     }
 
     public void ToggleGameOverUIPanel(bool isActive)
@@ -159,15 +221,58 @@ public class UIManager : MonoBehaviour
 
     public void ToggleShop(bool displayShop)
     {
+        UpdateUpcomingNPCInShop();
         shopUIPanel.SetActive(displayShop);
+        if (displayShop)
+        {
+            ToggleShopClientFilePanel(false);
+            TranslateUIGameObject(shopButtonsUIPanel, new Vector2(0, 800), new Vector2(0, 0), 0.5f, Ease.OutBounce);
+        }
+        
         ToggleMainGameplayUI(!displayShop);
+    }
+
+    public void ToggleShopClientFilePanel(bool displayFile)
+    {
+        shopClientFilePanel.SetActive(displayFile);
+        if (displayFile)
+        {
+            UpdateUpcomingNPCInShop();
+            //Bounces the ID card in from the top
+            TranslateUIGameObject(shopClientFileProfileCardPanel, new Vector2(0, 850), new Vector2(0, 0), 0.5f, Ease.OutBounce);
+        }
+    }
+
+    private void UpdateUpcomingNPCInShop()
+    {
+        // Update to show the correct NPC information in the profile card and in the shop
+        NPCBehaviour currentNPCScript = GameManager.Instance.currentlyChosenNPC.GetComponent<NPCBehaviour>();
+        Tags currentNPCTags = GameManager.Instance.currentlyChosenNPC.GetComponent<Tags>();
+
+        shopUpcomingNPCProfile.sprite = currentNPCScript.profileSprite;
+        shopClientFileNPCProfile.sprite = currentNPCScript.profileSprite;
+        shopClientFileNPCName.text = currentNPCScript.NPCName;
+
+        if (currentNPCScript.isPhobiaRevealed)
+        {
+            // Currently only displays the first phobia in the tags list
+
+            shopUpcomingNPCPhobia.sprite = currentNPCTags.allTags[0].phobiaIcon;
+            shopClientFilePhobiaIcon.sprite = currentNPCTags.allTags[0].phobiaIcon;
+        }
+        else
+        {
+            // Set them to unknown phobia
+            shopUpcomingNPCPhobia.sprite = unknownPhobiaTag.phobiaIcon;
+            shopClientFilePhobiaIcon.sprite = unknownPhobiaTag.phobiaIcon;
+        }
     }
 
     public void UpdateGameStats(int levelCount, int deathScore, int livedScore)
     {
-        levelNumberText.text = "Level: " + levelCount.ToString();
-        NPCsKilledNumberText.text = "Killed: " + deathScore.ToString();
-        NPCsLivedNumberText.text = "Escaped: " + livedScore.ToString();
+        levelNumberText.text = "DAY " + levelCount.ToString();
+        NPCsKilledNumberText.text = "DEATHS: " + deathScore.ToString();
+        NPCsLivedNumberText.text = "ESCAPED: " + livedScore.ToString();
     }
 
     public void UpdatePhobiaText(string text)
@@ -194,9 +299,9 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void DisplayNotification(string message)
+    public void DisplayNotification(string message, float delay = 2f)
     {
-        StartCoroutine("DisplayNotificationRoutine", message);
+        StartCoroutine(DisplayNotificationRoutine(message, delay));
     }
 
     
@@ -205,41 +310,44 @@ public class UIManager : MonoBehaviour
         notificationText.text = message;
 
         // Scale is not compatible with TMP_writer, choose 1
-        ScaleandFadeUIGameObject(isActive, false, true, notificationUIPopup, 0.3f);
+        ScaleandFadeUIGameObject(isActive, false, true, 1f, notificationUIPopup, 0.3f);
     }
     
 
-    public IEnumerator DisplayNotificationRoutine(string message)
+    public IEnumerator DisplayNotificationRoutine(string message, float delay)
     {
         notificationText.text = message;
         notificationUIPopup.SetActive(true);
 
         // Animate notification
         notificationUIPopup.GetComponent<CanvasGroup>().alpha = 0f;
-        notificationUIPopup.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        //notificationUIPopup.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         notificationUIPopup.GetComponent<CanvasGroup>().DOFade(1f, 0.2f);
-        notificationUIPopup.transform.DOScale(Vector3.one, 0.2f).SetEase(inEase);
+        //notificationUIPopup.transform.DOScale(Vector3.one, 0.2f).SetEase(inEase);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(delay);
 
         notificationUIPopup.GetComponent<CanvasGroup>().DOFade(0f, 0.2f);
-        notificationUIPopup.transform.DOScale(new Vector3(0.1f, 0.1f, 0.1f), 0.2f).SetEase(outEase);
+        //notificationUIPopup.transform.DOScale(new Vector3(0.1f, 0.1f, 0.1f), 0.2f).SetEase(outEase);
         yield return new WaitForSeconds(0.2f);
         notificationUIPopup.SetActive(false);
     }
 
     public void DisplayObituaryUIPopUp()
     {
-        DisplayObituaryUIPopUpRoutine();
+        StartCoroutine("DisplayObituaryUIPopUpRoutine");
     }
 
 
     public IEnumerator DisplayObituaryUIPopUpRoutine()
     {
+        obituaryNPCProfile.sprite = GameManager.Instance.currentlyChosenNPC.GetComponent<NPCBehaviour>().profileSprite;
         obituaryUIPopup.SetActive(true);
-        yield return new WaitForSeconds(1.5f);
+        TranslateUIGameObject(obituaryUIPopup, new Vector2(0, -100), new Vector2(0, 540), 0.3f, Ease.InOutBack);
+        yield return new WaitForSeconds(obituraryDelay);
+        TranslateUIGameObject(obituaryUIPopup, new Vector2(0, 540), new Vector2(0, -100), 0.3f, Ease.InOutBack);
+        yield return new WaitForSeconds(0.3f);
         obituaryUIPopup.SetActive(false);
-
     }
 
     public void DisplayNPCKilledPopUp()
@@ -250,13 +358,17 @@ public class UIManager : MonoBehaviour
     public IEnumerator DisplayNPCKilledPopUpRoutine()
     {
         killedNPCUIPopup.SetActive(true);
+        Vector2 originalPos = killedNPCUIPopup.GetComponent<RectTransform>().anchoredPosition;
+        TranslateUIGameObject(killedNPCUIPopup, new Vector2(-157.6f, -210f), new Vector2(-157.6f, 90f), 0.3f, Ease.OutBounce);
         yield return new WaitForSeconds(1.5f);
+        TranslateUIGameObject(killedNPCUIPopup, new Vector2(-157.6f, 90f), new Vector2(-157.6f, -210f), 0.3f, Ease.InOutBack);
+        yield return new WaitForSeconds(0.5f);
         killedNPCUIPopup.SetActive(false);
-
     }
 
     public void UpdateNPCEscapedIndicator(int livedScore)
     {
+        ScalePulseUIGameObject(livedGroupObj.GetChild(livedScore - 1).gameObject, 0.5f);
         livedGroupObj.GetChild(livedScore - 1).GetComponent<Image>().DOFade(0.2f, 0.5f);
     }
 }

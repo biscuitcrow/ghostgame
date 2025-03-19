@@ -179,9 +179,18 @@ public class PlayerController : MonoBehaviour
 
             if (abilitiesManager.isVisibilityAbilityUnlocked)
             {
-                if (Input.GetKeyDown(hauntKeyCode) && !isHauntAbilityOnCooldown)
+                if (Input.GetKeyDown(hauntKeyCode))
                 {
-                    StartCoroutine("BecomeVisibleToNPCs");
+                    if (!isHauntAbilityOnCooldown)
+                    {
+                        UIManager.Instance.UseHauntAbilityIndicator();
+                        StartCoroutine("BecomeVisibleToNPCs");
+                    }
+                    else
+                    {
+                        UIManager.Instance.ShakeHauntAbilityIndicator();
+                    }
+                    
                 }
             }
         }

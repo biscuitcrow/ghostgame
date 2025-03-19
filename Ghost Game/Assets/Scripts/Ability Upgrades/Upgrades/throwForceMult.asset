@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: throwForceMult
   m_EditorClassIdentifier: 
   displayName: Strength Training
-  description: Increase throwing strength
+  description: Increases throwing strength
   shopSprite: {fileID: -271550376, guid: fec97c8333c194ca2958845cff2601cd, type: 3}
   isAvailableInShop: 1
+  isSkillUpgrade: 1
+  isNPCPhobiaReveal: 0
   valueIncrease: 10

@@ -16,4 +16,6 @@ MonoBehaviour:
   description: Allows you to throw heavier objects (increases weight limit)
   shopSprite: {fileID: 1500367786, guid: fec97c8333c194ca2958845cff2601cd, type: 3}
   isAvailableInShop: 1
+  isSkillUpgrade: 1
+  isNPCPhobiaReveal: 0
   valueIncrease: 1

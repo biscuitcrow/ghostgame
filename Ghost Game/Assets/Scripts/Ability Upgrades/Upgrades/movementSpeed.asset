@@ -16,4 +16,6 @@ MonoBehaviour:
   description: Increases movement speed
   shopSprite: {fileID: 341368037, guid: fec97c8333c194ca2958845cff2601cd, type: 3}
   isAvailableInShop: 1
+  isSkillUpgrade: 1
+  isNPCPhobiaReveal: 0
   valueIncrease: 0.5

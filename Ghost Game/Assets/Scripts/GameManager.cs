@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     public Transform playerStartPosition;
     private Transform NPCStartingPoint;
     private NPCBehaviour npcScript;
+    public GameObject currentlyChosenNPC;
     [SerializeField] private GameObject level;
     [SerializeField] private List<GameObject> npcPrefabsList;
     [SerializeField] private GameObject exorcistNPC;
@@ -109,6 +110,13 @@ public class GameManager : MonoBehaviour
     {
         isTutorialCompleted = true;
         isTutorialRunning = false;
+        isToggleTutorialCompleted = true;
+        isPremiseTutorialCompleted = true;
+        isThrowTutorialCompleted = true;
+        isFirstThrowNotifOut = true;
+        isSecondThrowNotifOut = true;
+        isScareLevelRunning = true;
+
         if (storedTutorialCoroutine != null)
         {
             StopCoroutine(storedTutorialCoroutine);
@@ -159,6 +167,7 @@ public class GameManager : MonoBehaviour
             UIManager.Instance.DisplayTutorialNotification(false, "");
             isTutorialCompleted = true;
             isTutorialRunning = false;
+            UIManager.Instance.ToggleSkipTutorialButton(false);
             ResetGame();
             yield break;
     }
@@ -211,6 +220,7 @@ public class GameManager : MonoBehaviour
     {
         UIManager.Instance.ToggleGameOverUIPanel(false);
         ResetValues();
+        ChooseUpcomingNPC();
         StartLevel();
         playerController.ResetPlayer();
     }
@@ -267,14 +277,26 @@ public class GameManager : MonoBehaviour
         } 
         Instantiate(level);
         playerController.ResetPlayer();
+
+    }
+
+    private void ChooseUpcomingNPC()
+    {
+        GameObject randomNPC = npcPrefabsList[Random.Range(0, npcPrefabsList.Count)];
+        //Chooses the exorcist NPC instead if its the boss level upcoming
+        currentlyChosenNPC = CheckIfUpcomingLevelIsExorcistLevel() ? exorcistNPC : randomNPC;
+    }
+
+    private bool CheckIfUpcomingLevelIsExorcistLevel()
+    {
+        bool result = ((levelCount + 1) % exorcistLevelInterval == 0);
+        return result;
     }
 
     [Button("Spawn NPC")]
     private void SpawnNPC()
     {
-        GameObject randomNPC = npcPrefabsList[Random.Range(0, npcPrefabsList.Count)];
-        //Spawns the exorcist NPC instead if its the boss level
-        GameObject npcToSpawn = isExorcistLevel? exorcistNPC : randomNPC;
+        GameObject npcToSpawn = currentlyChosenNPC;
         GameObject spawnedNPC = Instantiate(npcToSpawn, NPCStartingPoint.position, Quaternion.identity);
         npcScript = spawnedNPC.GetComponent<NPCBehaviour>();
         npcScript.maxFear = currentNPCMaxFear;
@@ -335,6 +357,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [Button("NPC Died")]
     public void NPCDied()
     {
        if (isScareLevelRunning)
@@ -343,20 +366,21 @@ public class GameManager : MonoBehaviour
             {
                 // Change shop to cool hat shop as a reward for killing the exorcist [WIP]
                 isItemShop = true;
-                UIManager.Instance.DisplayNotification("Don't mean to toot my own horn, but I've scared even the formidable exorcist to the point of death!");
+                UIManager.Instance.DisplayNotification("Don't mean to toot my own horn, but I've scared even the formidable exorcist to the point of death!", UIManager.Instance.obituraryDelay);
                 //Proof of my dedication to the art of spooking!
             }
             else
             {
-                UIManager.Instance.DisplayNotification("HEHEHE! The potential buyer has died of fright! Cowards, all of them! Seems like I'll be holding on to the house a little longer.");
+                UIManager.Instance.DisplayNotification("HEHEHE! The potential buyer has died of fright! Cowards, all of them! Seems like I'll be holding on to the house a little longer.", UIManager.Instance.obituraryDelay);
             }
             deathScore++;
-            UIManager.Instance.DisplayNPCKilledPopUp();
             UIManager.Instance.DisplayObituaryUIPopUp();
+            UIManager.Instance.DisplayNPCKilledPopUp();
             LevelOver();
         }
     }
 
+    [Button("NPC Lived")]
     public void NPCLived()
     {
         if (isScareLevelRunning)
@@ -365,14 +389,14 @@ public class GameManager : MonoBehaviour
             {
                 // Random permanent debuff to stats, no life penalty
                 string abilityname = AbilitiesManager.Instance.DebuffRandomAbility();
-                UIManager.Instance.DisplayNotification($"BALLS! The exorcist survived and reduced my {abilityname} ability!");
+                UIManager.Instance.DisplayNotification($"<+shake>BALLS!</+shake> The exorcist survived and reduced my {abilityname} ability!");
             }
             else
             {
                 livedScore++;
                 UIManager.Instance.UpdateNPCEscapedIndicator(livedScore);
-                UIManager.Instance.DisplayNotification("Oh, snap... the potential buyer lived and left the house unscared. They're going to spread the word to their friends... MY HOUSE!!!");
-            }
+                UIManager.Instance.DisplayNotification(DialogueManager.Instance.NPCLivedText);
+            } 
             LevelOver();
         }
     }
@@ -399,7 +423,10 @@ public class GameManager : MonoBehaviour
     IEnumerator StartLevelOverProcedure()
     {
         // Adds a delay so that any animations and stuff can play before the shop comes out
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
+
+        // Choose the next NPC here so that the shop can display it
+        ChooseUpcomingNPC();
         ToggleShop(true);
     }
 

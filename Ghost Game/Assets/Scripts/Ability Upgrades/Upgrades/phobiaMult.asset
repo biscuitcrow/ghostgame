@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: phobiaMult
   m_EditorClassIdentifier: 
   displayName: Fear Factor
-  description: 'Increases the phobia multiplier by x0.1
+  description: 'Increases the phobia multiplier by x0.3
 
 '
   shopSprite: {fileID: 899973847, guid: fec97c8333c194ca2958845cff2601cd, type: 3}
   isAvailableInShop: 1
-  valueIncrease: 0.1
+  isSkillUpgrade: 1
+  isNPCPhobiaReveal: 0
+  valueIncrease: 0.3

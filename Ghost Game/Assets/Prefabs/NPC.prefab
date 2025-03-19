@@ -148,16 +148,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1977b45af90b4b7db837e2cf7b7e037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fearMeterObj: {fileID: 0}
   isUsingFixedDestPoints: 1
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  fearMeterObj: {fileID: 0}
   fearMeter: {fileID: 0}
   fearMeterPrefab: {fileID: 2435041551019562823, guid: 7b93f350ad6bc4da0baabe6202a06c58, type: 3}
+  NPCName: Default
   currentFear: 0
   maxFear: 100
   isExorcist: 0
+  profileSprite: {fileID: 1196065024, guid: 6df13146b37db428aafe744591a1fc84, type: 3}
+  isPhobiaRevealed: 0
   isNPCLeavingHouse: 0
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
@@ -169,7 +172,6 @@ MonoBehaviour:
   isNPCScared: 0
   currentScarePosition: {x: 0, y: 0, z: 0}
   exorcistSightRange: 5
-  exorcistRunSpeed: 8
   vigilanceCooldown: 1
 --- !u!114 &2849165230459135406
 MonoBehaviour:
@@ -184,8 +186,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tags:
-  - {fileID: 11400000, guid: 213ea8593afae4681bf4ec9c7d64f731, type: 2}
   - {fileID: 11400000, guid: 03cf26452a4f748d88295cdca769efeb, type: 2}
+  - {fileID: 11400000, guid: 213ea8593afae4681bf4ec9c7d64f731, type: 2}
 --- !u!54 &3691191742167541347
 Rigidbody:
   m_ObjectHideFlags: 0

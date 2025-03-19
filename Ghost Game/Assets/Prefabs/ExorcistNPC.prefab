@@ -65,17 +65,29 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2425236829975082395, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
+      propertyPath: NPCName
+      value: Exorcist
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425236829975082395, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: isExorcist
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2425236829975082395, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
+      propertyPath: profileSprite
+      value: 
+      objectReference: {fileID: -1482345527, guid: 6df13146b37db428aafe744591a1fc84, type: 3}
     - target: {fileID: 2425236829975082395, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: exorcistSightRange
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2849165230459135406, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: _tags.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2849165230459135406, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
+      propertyPath: _tags.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 608a833ac1e1c4edfb01d1d41b850a25, type: 2}
     - target: {fileID: 5976124916181104028, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: m_IsActive
       value: 1

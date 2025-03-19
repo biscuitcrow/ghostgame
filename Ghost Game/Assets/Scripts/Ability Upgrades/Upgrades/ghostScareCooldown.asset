@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: ghostScareCooldown
   m_EditorClassIdentifier: 
   displayName: Haunted Clock
-  description: 'Decrease cooldown of haunt ability by 0.2
+  description: 'Decrease cooldown of haunt ability by 0.5s
 
 '
   shopSprite: {fileID: -6917589, guid: fec97c8333c194ca2958845cff2601cd, type: 3}
   isAvailableInShop: 0
-  valueIncrease: -0.2
+  isSkillUpgrade: 1
+  isNPCPhobiaReveal: 0
+  valueIncrease: -0.5
