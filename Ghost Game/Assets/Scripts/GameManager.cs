@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject exorcistNPC;
     [SerializeField] private Transform mainCamera;
     [SerializeField] private CinemachineVirtualCamera shopCamera;
-
     
     private int deathScore;
     private int livedScore;
@@ -162,7 +161,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(2f);
             UIManager.Instance.DisplayTutorialNotification(true, DialogueManager.Instance.prepToFinishTutTwo);
             yield return new WaitForSeconds(3.5f);
-            UIManager.Instance.ToggleMainGameplayUI(true);
+            //UIManager.Instance.ToggleMainGameplayUI(true);
             yield return new WaitForSeconds(1.5f);
             UIManager.Instance.DisplayTutorialNotification(false, "");
             isTutorialCompleted = true;
@@ -273,8 +272,9 @@ public class GameManager : MonoBehaviour
         if (GameObject.FindWithTag("Level") != null)
         {
             Destroy(GameObject.FindWithTag("Level"));
-        } 
-        Instantiate(level);
+        }
+        Vector3 originalPos = new Vector3(0, 9.6f, 0);
+        Instantiate(level, originalPos, Quaternion.Euler(0, 180, 0));
         playerController.ResetPlayer();
 
     }
