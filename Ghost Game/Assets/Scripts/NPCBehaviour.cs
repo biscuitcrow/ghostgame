@@ -125,6 +125,11 @@ public class NPCBehaviour : MonoBehaviour
         player.gameObject.GetComponent<PlayerController>().NPCforceVector = forceDir * Time.deltaTime * 0.5f;
     }
 
+    public void ToggleStopNavMeshAgent(bool isStopped)
+    {
+        gameObject.GetComponent<NavMeshAgent>().isStopped = isStopped;
+    }
+
     void Update()
     {
         // Exorcist NPC behaviour
@@ -210,6 +215,7 @@ public class NPCBehaviour : MonoBehaviour
             }
         }
     }
+
 
 
     // <---------------------------------- SCARE NPC ---------------------------------- > //
@@ -403,6 +409,17 @@ public class NPCBehaviour : MonoBehaviour
         }
     }
 
+    /*
+    private void OnTriggerEnter(Collider other)
+    {
+        print("Collided with smth.");
+        if (isExorcist && other.gameObject.tag == "Player")
+        {
+            GameManager.Instance.ExorcistKilledGhost();
+            print("Exorcist has killed the player");
+        }
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         print("Collided with smth.");
@@ -413,7 +430,7 @@ public class NPCBehaviour : MonoBehaviour
         }
     }
 
-
+    */
 
     private void OnDrawGizmosSelected()
     {

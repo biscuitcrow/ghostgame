@@ -135,6 +135,11 @@ public class UIManager : MonoBehaviour
         gameObj.transform.DOPunchScale(new Vector3(scalePulse, scalePulse, scalePulse), duration).SetEase(pulseEase);
     }
 
+    public void ScaleButton(float scaleValue)
+    {
+        gameObject.GetComponent<RectTransform>().DOScale(new Vector3(scaleValue, scaleValue, scaleValue), 0.1f).SetEase(Ease.OutQuad);
+    }
+
     public void FadeUIGameObject(GameObject gameObj, float startAlpha = 0f, float endAlpha = 1f, float duration = 0.2f)
     {
         CanvasGroup canvasGroup = gameObj.GetComponent<CanvasGroup>();
@@ -202,9 +207,9 @@ public class UIManager : MonoBehaviour
     {
         mainUIPanel.SetActive(isActive);
 
-        // Drops the clock UI in nicely (for juice)
         if (isActive)
         {
+            // Drops the clock UI in nicely (for juice)
             TranslateUIGameObject(clockUI, new Vector2(164.17f, 200f), new Vector2(164.17f, -155.6f), 0.5f, Ease.OutBounce);
             TranslateUIGameObject(levelNumberText.gameObject, new Vector2(-182.7f, 42f), new Vector2(-182.7f, -76.6f), 0.3f, Ease.InOutBack);
             TranslateUIGameObject(livedGroupObj.gameObject, new Vector2(193.8f, 230f), new Vector2(193.8f, 366.1f), 0.3f, Ease.InOutBack);
@@ -214,6 +219,11 @@ public class UIManager : MonoBehaviour
     public void ToggleGameOverUIPanel(bool isActive)
     {
         gameOverUIPanel.SetActive(isActive);
+        if (isActive)
+        {
+            // Drops the game over UI panel in from the top
+            TranslateUIGameObject(gameOverUIPanel, new Vector2(0f, 1080f), new Vector2(0f, 0f), 0.5f, Ease.OutBounce);
+        }
     }
 
     public void UpdateGameOverText(string text)

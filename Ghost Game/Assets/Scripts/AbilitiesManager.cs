@@ -190,6 +190,7 @@ public class AbilitiesManager : MonoBehaviour
             shopButtons[i].onClick.RemoveAllListeners();
             AbilityUpgrade ability = remainingAvailableShopUpgrades[rand];
             shopButtons[i].onClick.AddListener(delegate { ShopButtonChosen(ability); });
+      
 
             // Prevents double-choosing of the upgrades
             remainingAvailableShopUpgrades.RemoveAt(rand);

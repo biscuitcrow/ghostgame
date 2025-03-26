@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: maxWeightThrowable
   m_EditorClassIdentifier: 
   displayName: Powerlifter
-  description: Allows you to throw heavier objects (increases weight limit)
+  description: 'Allows you to throw even heavier objects '
   shopSprite: {fileID: 1500367786, guid: fec97c8333c194ca2958845cff2601cd, type: 3}
   isAvailableInShop: 1
   isSkillUpgrade: 1

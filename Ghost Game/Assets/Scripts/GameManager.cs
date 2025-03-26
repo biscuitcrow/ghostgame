@@ -79,6 +79,13 @@ public class GameManager : MonoBehaviour
         NPCStartingPoint = GameObject.FindWithTag("NPC Starting Point").transform;
         //ResetGame();
         StartTutorial();
+
+        //Play main music
+
+        
+        AudioManager.instance.Play("Main Music");
+        AudioManager.instance.SetVolume("Main Music", 0f);
+        AudioManager.instance.FadeVolume("Main Music", 1f, 5f);
     }
 
     #region // <------- TUTORIAL METHODS -------> //
@@ -123,6 +130,7 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.DisplayTutorialNotification(false, "");
         UIManager.Instance.ToggleHouseAdvertisementPanel(false);
         UIManager.Instance.ToggleSkipTutorialButton(false);
+
         ResetGame();
     }
 
@@ -411,7 +419,7 @@ public class GameManager : MonoBehaviour
         print("The level is officially over.");
         if (CheckIfGameLost())
         {
-            GameLost();
+            StartCoroutine("StartGameLostProcedure");
         }
         else
         {
@@ -435,6 +443,21 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.ToggleHauntAbilityIndicator(!displayShop);
         UIManager.Instance.ToggleShop(displayShop);
         shopCamera.Priority = (displayShop) ? 20 : 0;
+
+        if (displayShop)
+        {
+            AudioManager.instance.Play("Shop Music");
+            AudioManager.instance.SetVolume("Shop Music", 0);
+            AudioManager.instance.FadeVolume("Shop Music", 1f, 3f);
+            AudioManager.instance.FadeVolume("Main Music", 0f, 2f);
+        }
+        else
+        {
+            AudioManager.instance.Play("Main Music");
+            AudioManager.instance.SetVolume("Main Music", 0);
+            AudioManager.instance.FadeVolume("Main Music", 1f, 3f);
+            AudioManager.instance.FadeVolume("Shop Music", 0f, 2f);
+        }
     }
 
     [Button("Next Level")]
