@@ -195,6 +195,8 @@ public class PlayerController : MonoBehaviour
                         ghostsPS.gameObject.SetActive(true);
                         ghostsPS.Play(true);
 
+
+                        GameManager.Instance.CameraShake();
                         UIManager.Instance.UseHauntAbilityIndicator();
                         StartCoroutine("BecomeVisibleToNPCs");
                     }

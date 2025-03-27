@@ -357,9 +357,9 @@ public class UIManager : MonoBehaviour
     {
         obituaryNPCProfile.sprite = GameManager.Instance.currentlyChosenNPC.GetComponent<NPCBehaviour>().profileSprite;
         obituaryUIPopup.SetActive(true);
-        TranslateUIGameObject(obituaryUIPopup, new Vector2(0, -100), new Vector2(0, 540), 0.3f, Ease.InOutBack);
+        TranslateUIGameObject(obituaryUIPopup, new Vector2(0, 900), new Vector2(0, 0), 0.3f, Ease.InOutBack);
         yield return new WaitForSeconds(obituraryDelay);
-        TranslateUIGameObject(obituaryUIPopup, new Vector2(0, 540), new Vector2(0, -100), 0.3f, Ease.InOutBack);
+        TranslateUIGameObject(obituaryUIPopup, new Vector2(0, 0), new Vector2(0, 900), 0.3f, Ease.InOutBack);
         yield return new WaitForSeconds(0.3f);
         obituaryUIPopup.SetActive(false);
     }
@@ -373,9 +373,9 @@ public class UIManager : MonoBehaviour
     {
         killedNPCUIPopup.SetActive(true);
         Vector2 originalPos = killedNPCUIPopup.GetComponent<RectTransform>().anchoredPosition;
-        TranslateUIGameObject(killedNPCUIPopup, new Vector2(-157.6f, -210f), new Vector2(-157.6f, 90f), 0.3f, Ease.OutBounce);
+        TranslateUIGameObject(killedNPCUIPopup, new Vector2(393, -340f), new Vector2(393, -173f), 0.3f, Ease.OutBounce);
         yield return new WaitForSeconds(1.5f);
-        TranslateUIGameObject(killedNPCUIPopup, new Vector2(-157.6f, 90f), new Vector2(-157.6f, -210f), 0.3f, Ease.InOutBack);
+        TranslateUIGameObject(killedNPCUIPopup, new Vector2(393, -173f), new Vector2(393, -340f), 0.3f, Ease.InOutBack);
         yield return new WaitForSeconds(0.5f);
         killedNPCUIPopup.SetActive(false);
     }
