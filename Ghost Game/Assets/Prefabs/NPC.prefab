@@ -172,6 +172,7 @@ MonoBehaviour:
   currentScarePosition: {x: 0, y: 0, z: 0}
   exorcistSightRange: 5
   vigilanceCooldown: 1
+  skullPS: {fileID: 5985634496115995770, guid: 463cf9f7af4680240898f6aeba3fe3e6, type: 3}
 --- !u!114 &2849165230459135406
 MonoBehaviour:
   m_ObjectHideFlags: 0

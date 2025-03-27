@@ -64,6 +64,9 @@ public class NPCBehaviour : MonoBehaviour
     private float NPCsightAngle = 90;
     public float vigilanceCooldown = 1f; // Time taken for the exorcist to not see the ghost before the exorcist stops chasing
 
+    [Header("Visual Effects")]
+    [SerializeField] private ParticleSystem skullPS;
+
     #endregion
 
     void Start()
@@ -112,15 +115,25 @@ public class NPCBehaviour : MonoBehaviour
     {
         // Manipulating the attraction power
         if (isGhostInSightRange)
+        {
             PullGhost();
+        }
         else
         {
+            if (AudioManager.instance.CheckIfPlaying("Exorcist Suck"))
+            {
+                AudioManager.instance.Stop("Exorcist Suck");
+            }
             player.gameObject.GetComponent<PlayerController>().NPCforceVector = Vector3.zero;
         }
     }
 
     void PullGhost()
     {
+        if(!AudioManager.instance.CheckIfPlaying("Exorcist Suck"))
+        {
+            AudioManager.instance.Play("Exorcist Suck");
+        }
         Vector3 forceDir = transform.position - player.position;
         player.gameObject.GetComponent<PlayerController>().NPCforceVector = forceDir * Time.deltaTime * 0.5f;
     }
@@ -239,6 +252,9 @@ public class NPCBehaviour : MonoBehaviour
         // Displays scared icon
         StartCoroutine("DisplayScaredIcon");
 
+        // Scared SFX
+        AudioManager.instance.Play("NPC Scared");
+
         currentFear += increaseValue; 
         fearMeter.UpdateFearMeterUI(currentFear, maxFear);
         print("Fear meter increased and updated. Increase value: " + increaseValue);
@@ -252,6 +268,8 @@ public class NPCBehaviour : MonoBehaviour
     [Button("Kill NPC/NPC Died")]
     public void NPCDied()
     {
+        Instantiate(skullPS, transform.position, Quaternion.identity);
+
         // Play NPC death animation and sounds
         Destroy(fearMeterObj);
         Destroy(this.gameObject); 

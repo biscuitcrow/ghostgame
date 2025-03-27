@@ -47,7 +47,13 @@ public class PlayerController : MonoBehaviour
     [Header("Raycasting Settings")]
     private int raycastLayer = 3;
     float rayAngleOffset = 30;
-    float closestDistance = 10000; 
+    float closestDistance = 10000;
+
+
+    [Header("Visual Effects")]
+    [SerializeField] private ParticleSystem ghostsPS;
+    [SerializeField] private ParticleSystem sparkPS;
+
 
     #endregion
 
@@ -183,6 +189,12 @@ public class PlayerController : MonoBehaviour
                 {
                     if (!isHauntAbilityOnCooldown)
                     {
+                        AudioManager.instance.Play("Haunt Ability");
+                        sparkPS.gameObject.SetActive(true);
+                        sparkPS.Play(true);
+                        ghostsPS.gameObject.SetActive(true);
+                        ghostsPS.Play(true);
+
                         UIManager.Instance.UseHauntAbilityIndicator();
                         StartCoroutine("BecomeVisibleToNPCs");
                     }
@@ -315,8 +327,8 @@ public class PlayerController : MonoBehaviour
     }
     void ThrowObject()
     {
-        // As E is held down while object is picked up
-        if (Input.GetKey(KeyCode.E))
+        // As keycode is held down while object is picked up
+        if (Input.GetKey(interactionKeyCode))
         {
             // Zero out the object's existing velocity
             rb.velocity = Vector3.zero;
@@ -330,7 +342,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // When E is released, hurl/throw object
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(interactionKeyCode))
         {
             // Unparent throwable object from pickup point and parent it back to the level
             selectedInteractableObject.parent = GameObject.FindWithTag("Level").transform;

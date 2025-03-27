@@ -16,10 +16,13 @@ public class ExorcistKill : MonoBehaviour
             transform.GetComponentInParent<NPCBehaviour>().ToggleStopNavMeshAgent(true);
             GameManager.Instance.ExorcistKilledGhost();
             print("Exorcist has killed the player");
-            
+
             // Play Exorcist kill anim
 
             // Play player death anim
+
+            // Player death SFX
+            AudioManager.instance.Play("Ghost Caught");
         }
     }
 }

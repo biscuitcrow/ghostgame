@@ -26,6 +26,8 @@ public class InteractableObject : MonoBehaviour
     [Header("Toggalable Details")]
     public bool isToggledOn; 
     public GameObject[] listOfGameObjectsToToggle;
+    public ParticleSystem[] listOfPSToToggle;
+    public GameObject[] listOfPSToSpawn;
     private float toggleCooldown = 0.2f;
 
     private Tags tagList;
@@ -104,10 +106,33 @@ public class InteractableObject : MonoBehaviour
 
     public void ToggleObject()
     {
+        //Camera shake
+        GameManager.Instance.CameraShake();
+
         isToggledOn = !isToggledOn;
+
+        // Toggles effects
         foreach(GameObject obj in listOfGameObjectsToToggle)
         {
             obj.SetActive(!obj.activeSelf);
+        }
+
+        // Spawns visual effects particle systems
+        foreach (ParticleSystem obj in listOfPSToToggle)
+        {
+            if (isToggledOn)
+            {
+                obj.gameObject.SetActive(true);
+                obj.Play();
+            }
+            else
+                obj.Stop();
+        }
+
+        // Spawns visual effects particle systems
+        foreach (GameObject obj in listOfPSToSpawn)
+        {
+            Instantiate(obj, transform.position, Quaternion.identity);
         }
 
         ScareAllNPCsInRange(transform.position);

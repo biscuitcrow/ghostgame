@@ -71,6 +71,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int exorcistLevelInterval = 5;
     [SerializeField] private bool isExorcistLevel = false;
 
+    [Header("Visual Effects")]
+    [SerializeField] private ParticleSystem magicCirclePS;
+
     #endregion
 
     void Start()
@@ -303,6 +306,16 @@ public class GameManager : MonoBehaviour
     [Button("Spawn NPC")]
     private void SpawnNPC()
     {
+        // NPC Arriving SFX
+        if (currentlyChosenNPC == exorcistNPC)
+        {
+            AudioManager.instance.Play("Exorcist Arrives");
+        }
+        else
+        {
+            AudioManager.instance.Play("NPC Arrives");
+        }
+
         GameObject npcToSpawn = currentlyChosenNPC;
         GameObject spawnedNPC = Instantiate(npcToSpawn, NPCStartingPoint.position, Quaternion.identity);
         npcScript = spawnedNPC.GetComponent<NPCBehaviour>();
@@ -359,6 +372,7 @@ public class GameManager : MonoBehaviour
     {
         if (npcScript != null)
         {
+            UIManager.Instance.DisplayNotification("Out of time! The client has leaving the house!");
             npcScript.isNPCLeavingHouse = true;
             print("NPC is now starting to leave house.");
         }
@@ -375,10 +389,12 @@ public class GameManager : MonoBehaviour
                 isItemShop = true;
                 UIManager.Instance.DisplayNotification("Don't mean to toot my own horn, but I've scared even the formidable exorcist to the point of death!", UIManager.Instance.obituraryDelay);
                 //Proof of my dedication to the art of spooking!
+                AudioManager.instance.Play("Exorcist Died");
             }
             else
             {
                 UIManager.Instance.DisplayNotification("HEHEHE! The potential buyer has died of fright! Cowards, all of them! Seems like I'll be holding on to the house a little longer.", UIManager.Instance.obituraryDelay);
+                AudioManager.instance.Play("NPC Died");
             }
             deathScore++;
             UIManager.Instance.DisplayObituaryUIPopUp();
@@ -450,6 +466,10 @@ public class GameManager : MonoBehaviour
             AudioManager.instance.SetVolume("Shop Music", 0);
             AudioManager.instance.FadeVolume("Shop Music", 1f, 3f);
             AudioManager.instance.FadeVolume("Main Music", 0f, 2f);
+
+            //VFX magic circle
+            magicCirclePS.gameObject.SetActive(true);
+            magicCirclePS.Play(true);
         }
         else
         {
@@ -457,6 +477,8 @@ public class GameManager : MonoBehaviour
             AudioManager.instance.SetVolume("Main Music", 0);
             AudioManager.instance.FadeVolume("Main Music", 1f, 3f);
             AudioManager.instance.FadeVolume("Shop Music", 0f, 2f);
+
+            magicCirclePS.Stop(true);
         }
     }
 
