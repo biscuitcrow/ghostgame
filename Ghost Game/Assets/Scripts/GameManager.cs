@@ -137,6 +137,7 @@ public class GameManager : MonoBehaviour
         isSecondThrowNotifOut = true;
         isScareLevelRunning = true;
 
+
         if (storedTutorialCoroutine != null)
         {
             StopCoroutine(storedTutorialCoroutine);
@@ -144,6 +145,8 @@ public class GameManager : MonoBehaviour
         //UIManager.Instance.DisplayTutorialNotification(false, "");
         UIManager.Instance.ToggleHouseAdvertisementPanel(false);
         UIManager.Instance.ToggleSkipTutorialButton(false);
+        UIManager.Instance.ScaleandFadeUIGameObject(false, true, true, 0, UIManager.Instance.televisionMarkerUI, 0.2f);
+        UIManager.Instance.ScaleandFadeUIGameObject(false, true, true, 0, UIManager.Instance.tableMarkerUI, 0.2f);
 
         ResetGame();
     }
@@ -164,6 +167,8 @@ public class GameManager : MonoBehaviour
 
         // Pop up of the house advertisement
         UIManager.Instance.ToggleHouseAdvertisementPanel(true);
+
+        UIManager.Instance.ScaleandFadeUIGameObject(false, true, true, 0, UIManager.Instance.televisionMarkerUI, 0.2f);
     }
 
     public void StartTeachThrow()
@@ -174,6 +179,8 @@ public class GameManager : MonoBehaviour
 
         // Teach the player how to throw items
         UIManager.Instance.DisplayTutorialNotification(true, DialogueManager.Instance.startTeachThrowText);
+        UIManager.Instance.ScaleandFadeUIGameObject(true, true, true, 1f, UIManager.Instance.tableMarkerUI, 0.2f);
+
     }
 
     public IEnumerator PrepareToFinishTutorial()
@@ -218,6 +225,11 @@ public class GameManager : MonoBehaviour
             // Throw tutorial
             if (!isThrowTutorialCompleted)
             {
+                if (playerController.isObjectPickedUp)
+                {
+                    UIManager.Instance.ScaleandFadeUIGameObject(false, true, true, 0, UIManager.Instance.tableMarkerUI, 0.2f);
+                }
+
                 if (!isFirstThrowNotifOut && objectsThrownScore == 1)
                 {
                     UIManager.Instance.DisplayTutorialNotification(true, DialogueManager.Instance.throwTextOne);

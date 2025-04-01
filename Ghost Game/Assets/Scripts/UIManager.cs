@@ -34,6 +34,11 @@ public class UIManager : MonoBehaviour
 
     #region // <------- VARIABLE DEFINITIONS -------> //
 
+    [Header("Tutorial UI Elements")]
+    public GameObject televisionMarkerUI;
+    public GameObject tableMarkerUI;
+
+
     [Header("HUD UI Elements")]
     [SerializeField] private FillProgress clockFillProgress;
     [SerializeField] private TextMeshProUGUI timerText;

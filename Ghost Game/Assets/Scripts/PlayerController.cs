@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private float throwForce;
     private float baseThrowForce = 10f;
     private float maxThrowForce = 500f;
-    [SerializeField] private bool isObjectPickedUp;
+    public bool isObjectPickedUp;
     public bool isReadyToThrow;
     private Rigidbody rb;
 
@@ -335,6 +335,7 @@ public class PlayerController : MonoBehaviour
             selectedInteractableObject.GetComponent<Rigidbody>().DOMove(pickupPoint.transform.position, 0.5f);
         }
     }
+
     void ThrowObject()
     {
         // As keycode is held down while object is picked up
@@ -369,9 +370,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-
     // <---------------------------------- PLAYER MOVEMENT ---------------------------------- > //
+
     public void GatherMovementInput()
     {
         // Gather lateral movement input
