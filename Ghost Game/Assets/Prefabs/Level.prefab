@@ -113,6 +113,7 @@ Transform:
   - {fileID: 4010295766219787702}
   - {fileID: 6519400191415907438}
   - {fileID: 2874800676535858859}
+  - {fileID: 9064983588696590369}
   - {fileID: 652350606725988504}
   - {fileID: 7233571782664847486}
   - {fileID: 4719189832975743085}
@@ -556,7 +557,7 @@ GameObject:
   - component: {fileID: 6519400191415907438}
   - component: {fileID: 2815510789774168903}
   m_Layer: 0
-  m_Name: invisible wall collider (second level) (1)
+  m_Name: invisible wall collider (first level) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1222,6 +1223,59 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.7550831, y: 2.5524383, z: 2.0509892}
   m_Center: {x: -0.87754023, y: -1.2762191, z: 1.0254924}
+--- !u!1 &2872429275548659690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9064983588696590369}
+  - component: {fileID: 7765431953255253082}
+  m_Layer: 0
+  m_Name: invisible wall collider (first level) (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9064983588696590369
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2872429275548659690}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.6, y: 3.5, z: 22.5}
+  m_LocalScale: {x: 1.1, y: 2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5672786312414520898}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!65 &7765431953255253082
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2872429275548659690}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 11.620739, y: 7.435199, z: 0.44331074}
+  m_Center: {x: 0, y: 0, z: -0.26243258}
 --- !u!1 &3147603200995394214
 GameObject:
   m_ObjectHideFlags: 0
@@ -4114,7 +4168,7 @@ GameObject:
   - component: {fileID: 2874800676535858859}
   - component: {fileID: 3947791603280437281}
   m_Layer: 0
-  m_Name: invisible wall collider (second level) (2)
+  m_Name: invisible wall collider (first level)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

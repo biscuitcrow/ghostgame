@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+        DontDestroyOnLoad(gameObject);
     }
     #endregion
 
@@ -38,12 +39,18 @@ public class GameManager : MonoBehaviour
     private Transform NPCStartingPoint;
     private NPCBehaviour npcScript;
     public GameObject currentlyChosenNPC;
+    private GameObject spawnedNPC;
     [SerializeField] private GameObject level;
     [SerializeField] private List<GameObject> npcPrefabsList;
     [SerializeField] private GameObject exorcistNPC;
+
+    [Header("Cameras")]
     [SerializeField] private Transform mainCamera;
     [SerializeField] private CinemachineVirtualCamera shopCamera;
-    
+    [SerializeField] private CinemachineVirtualCamera NPCCamera;
+    [SerializeField] private float NPCCameraTrackingDuration;
+
+    [Header("Scores and States")]
     private int deathScore;
     private int livedScore;
     private int levelCount;
@@ -65,6 +72,8 @@ public class GameManager : MonoBehaviour
     private bool isFirstThrowNotifOut;
     private bool isSecondThrowNotifOut;
     public bool isTutorialRunning;
+    public bool isHauntTutorialRunning;
+    private bool isHauntTutorialCompleted;
     private Coroutine storedTutorialCoroutine;
 
     [Header("Exorcist")]
@@ -109,6 +118,8 @@ public class GameManager : MonoBehaviour
         isThrowTutorialCompleted = false;
         isFirstThrowNotifOut = false;
         isSecondThrowNotifOut = false;
+        isHauntTutorialCompleted = false;
+        isHauntTutorialRunning = false;
         isTutorialRunning = true;
         isScareLevelRunning = false;
         storedTutorialCoroutine = null;
@@ -130,7 +141,7 @@ public class GameManager : MonoBehaviour
         {
             StopCoroutine(storedTutorialCoroutine);
         }
-        UIManager.Instance.DisplayTutorialNotification(false, "");
+        //UIManager.Instance.DisplayTutorialNotification(false, "");
         UIManager.Instance.ToggleHouseAdvertisementPanel(false);
         UIManager.Instance.ToggleSkipTutorialButton(false);
 
@@ -174,7 +185,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(3.5f);
             //UIManager.Instance.ToggleMainGameplayUI(true);
             yield return new WaitForSeconds(1.5f);
-            UIManager.Instance.DisplayTutorialNotification(false, "");
+            //UIManager.Instance.DisplayTutorialNotification(false, "");
             isTutorialCompleted = true;
             isTutorialRunning = false;
             UIManager.Instance.ToggleSkipTutorialButton(false);
@@ -221,6 +232,9 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+        // Haunt tutorial
+        CheckForTutorialHauntInput();
         // <<---------------------------------- >>
         #endregion  
     }
@@ -273,9 +287,81 @@ public class GameManager : MonoBehaviour
 
         ResetLevel();
         SpawnNPC();
-        isScareLevelRunning = true;
-        levelTime = maxLevelTime;
+
+        if (isExorcistLevel)
+        {
+            UIManager.Instance.DisplayNotification("The exorcist has arrived!");
+        }
+        else
+        {
+            UIManager.Instance.DisplayNotification("Potential client incoming!");
+        }
+        
+        StartCoroutine("TrackNPCWithCameraForDuration", NPCCameraTrackingDuration);
     }
+
+    private void StartHauntTutorial()
+    {
+        isHauntTutorialRunning = true;
+        // Freeze NPC movement
+        npcScript.ToggleStopNavMeshAgent(true);
+        // Freeze timer
+        PauseLevelTimer(true);
+        // Display haunt notification
+        UIManager.Instance.DisplayTutorialNotification(true, "Go up to the client and press X to use my haunt ability to SCARE them!");
+
+    }
+
+    private void CheckForTutorialHauntInput()
+    {
+        if (isHauntTutorialRunning)
+        {
+            if (Input.GetKeyDown(playerController.hauntKeyCode)
+            && npcScript.CheckNPCDistanceFromGhost() < AbilitiesManager.Instance.ghostScareVisibilityRadius)
+            {
+                isHauntTutorialRunning = false;
+                // Display successful haunting notification
+                UIManager.Instance.DisplayNotification("Successfully used my haunt ability!");
+                // Continue NPC movement
+                npcScript.ToggleStopNavMeshAgent(false);
+                // Resume timer
+                PauseLevelTimer(false);
+                StartLevelTimer();
+                isHauntTutorialCompleted = true;
+            }
+            else
+            {
+                playerController.ResetHauntCooldown();
+            }
+        }
+    }
+
+    private IEnumerator TrackNPCWithCameraForDuration(float duration)
+    {
+        // Set NPC camera to track the new NPC
+        NPCCamera.Follow = spawnedNPC.transform;
+        // Switch to the NPC with the camera for duration seconds
+        NPCCamera.Priority = 30;
+        playerController.isPlayerMovementEnabled = false;
+        yield return new WaitForSeconds(duration);
+        // Switch back to main camera
+        NPCCamera.Priority = 0;
+        playerController.isPlayerMovementEnabled = true;
+
+        // Problematic area
+        if (!isHauntTutorialCompleted)
+        {
+            StartHauntTutorial();
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.15f);
+            StartLevelTimer();
+        }
+        
+        yield return null;
+    }
+
 
     [Button("Reset Level")]
     private void ResetLevel()
@@ -317,10 +403,10 @@ public class GameManager : MonoBehaviour
         }
 
         GameObject npcToSpawn = currentlyChosenNPC;
-        GameObject spawnedNPC = Instantiate(npcToSpawn, NPCStartingPoint.position, Quaternion.identity);
+        spawnedNPC = Instantiate(npcToSpawn, NPCStartingPoint.position, Quaternion.identity);
         npcScript = spawnedNPC.GetComponent<NPCBehaviour>();
         npcScript.maxFear = currentNPCMaxFear;
-        print("npcScript.maxFear = " + npcScript.maxFear);
+        print("NPC spawned. npcScript.maxFear = " + npcScript.maxFear);
 
         FindandDisplayNPCPhobias(spawnedNPC);
     }
@@ -351,18 +437,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    private void StartLevelTimer()
+    {
+        isScareLevelRunning = true;
+        levelTime = maxLevelTime;
+    }
+
+    private void PauseLevelTimer(bool isPaused)
+    {
+        isScareLevelRunning = !isPaused;
+    }
+
     private void LevelTimer()
     {
-        if (isScareLevelRunning && levelTime > 0)
+        if (isScareLevelRunning)
         {
-            // Subtract elapsed time every frame
-            levelTime -= Time.deltaTime;
-            UIManager.Instance.UpdateTimerUI(levelTime, maxLevelTime);
-        }
-        else 
-        {
-            levelTime = 0;
-            NPCTimesUp();
+            if (levelTime > 0)
+            {
+                // Subtract elapsed time every frame
+                levelTime -= Time.deltaTime;
+                UIManager.Instance.UpdateTimerUI(levelTime, maxLevelTime);
+            }
+            else
+            {
+                levelTime = 0;
+                NPCTimesUp();
+            }
         }
     }
 
@@ -387,13 +488,13 @@ public class GameManager : MonoBehaviour
             {
                 // Change shop to cool hat shop as a reward for killing the exorcist [WIP]
                 isItemShop = true;
-                UIManager.Instance.DisplayNotification("Don't mean to toot my own horn, but I've scared even the formidable exorcist to the point of death!", UIManager.Instance.obituraryDelay);
+                UIManager.Instance.DisplayNotification("Not to toot my own horn, but I've scared even the fearsome exorcist to the point of death!", UIManager.Instance.obituraryDelay);
                 //Proof of my dedication to the art of spooking!
                 AudioManager.instance.Play("Exorcist Died");
             }
             else
             {
-                UIManager.Instance.DisplayNotification("HEHEHE! The potential buyer has died of fright! Cowards, all of them! Seems like I'll be holding on to the house a little longer.", UIManager.Instance.obituraryDelay);
+                UIManager.Instance.DisplayNotification("HEHEHE! The potential buyer has died of fright! Seems like I'll be holding on to the house a little longer.", UIManager.Instance.obituraryDelay);
                 AudioManager.instance.Play("NPC Died");
             }
             deathScore++;

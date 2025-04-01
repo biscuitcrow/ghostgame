@@ -319,7 +319,7 @@ public class NPCBehaviour : MonoBehaviour
         isGhostInSightRange = (CheckNPCDistanceFromGhost() <= NPCsightRange) ? true : false;
     }
 
-    private float CheckNPCDistanceFromGhost()
+    public float CheckNPCDistanceFromGhost()
     {
         float distanceFromGhost = (transform.position - player.position).magnitude;
         return distanceFromGhost;

@@ -28,6 +28,7 @@ public class InteractableObject : MonoBehaviour
     public GameObject[] listOfGameObjectsToToggle;
     public ParticleSystem[] listOfPSToToggle;
     public GameObject[] listOfPSToSpawn;
+    public Sound soundEffect;
     private float toggleCooldown = 0.2f;
 
     private Tags tagList;
@@ -136,6 +137,8 @@ public class InteractableObject : MonoBehaviour
         }
 
         ScareAllNPCsInRange(transform.position);
+
+
     }
 
     IEnumerator ObjectCooldown()

@@ -73,7 +73,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Tag unknownPhobiaTag;
 
 
-
     [Header("NPC Phobia ID Card Elements")]
     [SerializeField] private GameObject shopClientFilePanel;
     [SerializeField] private GameObject shopClientFileProfileCardPanel;
@@ -92,6 +91,7 @@ public class UIManager : MonoBehaviour
     [Header("Pulse UI Settings")]
     [SerializeField] private Ease pulseEase;
 
+    private Coroutine notificationCoroutine;
 
     #endregion
 
@@ -315,14 +315,18 @@ public class UIManager : MonoBehaviour
 
     public void DisplayNotification(string message, float delay = 2f)
     {
-        StartCoroutine(DisplayNotificationRoutine(message, delay));
+        if(notificationCoroutine != null)
+        {
+            StopCoroutine(notificationCoroutine);
+        }
+        notificationCoroutine = StartCoroutine(DisplayNotificationRoutine(message, delay));
     }
 
     
     public void DisplayTutorialNotification(bool isActive, string message)
     {
         notificationText.text = message;
-
+   
         // Scale is not compatible with TMP_writer, choose 1
         ScaleandFadeUIGameObject(isActive, false, true, 1f, notificationUIPopup, 0.3f);
     }
@@ -343,8 +347,8 @@ public class UIManager : MonoBehaviour
 
         notificationUIPopup.GetComponent<CanvasGroup>().DOFade(0f, 0.2f);
         //notificationUIPopup.transform.DOScale(new Vector3(0.1f, 0.1f, 0.1f), 0.2f).SetEase(outEase);
-        yield return new WaitForSeconds(0.2f);
-        notificationUIPopup.SetActive(false);
+        //yield return new WaitForSeconds(0.2f);
+        //notificationUIPopup.SetActive(false);
     }
 
     public void DisplayObituaryUIPopUp()

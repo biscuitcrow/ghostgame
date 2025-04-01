@@ -2995,6 +2995,8 @@ MonoBehaviour:
   exorcistNPC: {fileID: 7609760391137669878, guid: ab2cf6fe1950f4c65a4b18fbd1b29f56, type: 3}
   mainCamera: {fileID: 1919330466}
   shopCamera: {fileID: 1578934068}
+  NPCCamera: {fileID: 2046550375}
+  NPCCameraTrackingDuration: 2
   objectsThrownScore: 0
   isItemShop: 0
   maxPeopleAllowedToLive: 3
@@ -3004,6 +3006,7 @@ MonoBehaviour:
   isToggleTutorialCompleted: 0
   isThrowTutorialCompleted: 0
   isTutorialRunning: 0
+  isHauntTutorialRunning: 0
   exorcistLevelInterval: 2
   isExorcistLevel: 0
   magicCirclePS: {fileID: 529465284}
@@ -3638,7 +3641,7 @@ Transform:
   m_GameObject: {fileID: 620526603}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.78, y: 1, z: -24.41}
+  m_LocalPosition: {x: 4.78, y: 1, z: -27.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6450,7 +6453,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 0
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &1239266909
 GameObject:
@@ -9296,7 +9299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 4.59, y: 7.3, z: -4.63}
+  m_FollowOffset: {x: -5.87, y: 5.89, z: -6.48}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -11187,7 +11190,7 @@ MonoBehaviour:
   m_Priority: 0
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 804983212}
+  m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 3.9
@@ -11215,14 +11218,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2046550374}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23911765, y: 0.36964378, z: -0.09904577, w: 0.8923991}
-  m_LocalPosition: {x: 5.79, y: 9.3, z: -13.7300005}
+  m_LocalRotation: {x: 0.2432104, y: 0.33036605, z: -0.08852133, w: 0.9076734}
+  m_LocalPosition: {x: -5.87, y: 15.99, z: -2.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1825362576}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 40, z: 0}
 --- !u!1 &2068605835
 GameObject:
   m_ObjectHideFlags: 0
@@ -12061,7 +12064,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1885782150325359535, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 10.1
       objectReference: {fileID: 0}
     - target: {fileID: 1885782150325359535, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: m_LocalPosition.z

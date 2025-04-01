@@ -87,8 +87,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         GatherMovementInput();
-        
-        if (GameManager.Instance.isScareLevelRunning || GameManager.Instance.isTutorialRunning)
+
+        if (GameManager.Instance.isScareLevelRunning || GameManager.Instance.isTutorialRunning || GameManager.Instance.isHauntTutorialRunning)
         {
             if (isPlayerMovementEnabled)
             {
@@ -291,12 +291,20 @@ public class PlayerController : MonoBehaviour
         isHauntAbilityOnCooldown = true;
         yield return new WaitForSeconds(abilitiesManager.ghostScareVisibilityDuration);
         isGhostVisible = false;
-        UIManager.Instance.TweenHauntAbilityIndicator(1, abilitiesManager.ghostScareCooldown);
-        yield return new WaitForSeconds(abilitiesManager.ghostScareCooldown);
+
+        if (!GameManager.Instance.isHauntTutorialRunning)
+        {
+            UIManager.Instance.TweenHauntAbilityIndicator(1, abilitiesManager.ghostScareCooldown);
+            yield return new WaitForSeconds(abilitiesManager.ghostScareCooldown);
+            ResetHauntCooldown();
+        }
+    }
+
+    public void ResetHauntCooldown()
+    {
         UIManager.Instance.UpdateHauntAbilityIndicator(1);
         isHauntAbilityOnCooldown = false;
     }
-
 
 
     // <---------------------------------- TOGGLE ABILITY ---------------------------------- > //
