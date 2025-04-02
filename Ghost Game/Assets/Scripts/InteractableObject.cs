@@ -14,6 +14,11 @@ public class InteractableObject : MonoBehaviour
         Throwable, Togglable
     }
 
+    public enum AudioEffectType
+    {
+        HardThrowSound, SoftThrowSound, GenericToggleSound
+    }
+
     [Header("Object Details")]
     public string objectName;
     public float objectWeight = 0;
@@ -28,8 +33,14 @@ public class InteractableObject : MonoBehaviour
     public GameObject[] listOfGameObjectsToToggle;
     public ParticleSystem[] listOfPSToToggle;
     public GameObject[] listOfPSToSpawn;
-    public Sound soundEffect;
     private float toggleCooldown = 0.2f;
+
+    [Header("Item-Specific Sound Effects")]
+    public AudioEffectType audioEffectType;
+    public bool isGenericSoundEffectUsed = true;
+    public List<string> additionalSoundEffects = new List<string>();
+    public string toggleOnSoundName;
+    public string toggleOffSoundName;
 
     private Tags tagList;
     public bool isOnCooldown;
@@ -103,6 +114,74 @@ public class InteractableObject : MonoBehaviour
         }
     }
 
+    private void PlaySoundEffects()
+    {
+        foreach (string sound in additionalSoundEffects)
+        {
+            AudioManager.instance.Play(sound);
+        }
+
+        if (objectType == InteractableObject.ObjectType.Togglable)
+        {
+            // Togglable sound effects
+            if (isToggledOn)
+            {
+                if (isGenericSoundEffectUsed)
+                {
+                    if (audioEffectType == InteractableObject.AudioEffectType.GenericToggleSound)
+                        AudioManager.instance.Play("Generic Toggle Sound");
+                }
+
+                if (toggleOnSoundName.Length > 0)
+                {
+                    AudioManager.instance.Play(toggleOnSoundName);
+                }
+                if (toggleOffSoundName.Length > 0)
+                {
+                    AudioManager.instance.Stop(toggleOffSoundName);
+                }
+
+            }
+
+
+            else if (!isToggledOn)
+            {
+                if (isGenericSoundEffectUsed)
+                {
+                    if (audioEffectType == InteractableObject.AudioEffectType.GenericToggleSound)
+                        AudioManager.instance.Play("Generic Toggle Sound");
+                }
+
+                if (toggleOnSoundName.Length > 0)
+                {
+                    AudioManager.instance.Stop(toggleOnSoundName);
+                }
+                if (toggleOffSoundName.Length > 0)
+                {
+                    AudioManager.instance.Play(toggleOffSoundName);
+                }
+            }
+
+        }
+
+        else if (objectType == InteractableObject.ObjectType.Throwable)
+        {
+            // Throwable sound effects
+            if (isGenericSoundEffectUsed)
+            {
+                if (audioEffectType == InteractableObject.AudioEffectType.HardThrowSound)
+                {
+                    AudioManager.instance.Play("Generic Hard Throw Sound");
+                }
+                else if (audioEffectType == InteractableObject.AudioEffectType.SoftThrowSound)
+                {
+                    AudioManager.instance.Play("Generic Soft Throw Sound");
+                }
+            }
+        }
+        
+    }
+
     // <----------------------------------------- TOGGABLABLES ----------------------------------------- > //
 
     public void ToggleObject()
@@ -112,7 +191,9 @@ public class InteractableObject : MonoBehaviour
 
         isToggledOn = !isToggledOn;
 
-        // Toggles effects
+        PlaySoundEffects();
+
+        // Toggles visual item effects like active/inactive meshes and gameobjects
         foreach(GameObject obj in listOfGameObjectsToToggle)
         {
             obj.SetActive(!obj.activeSelf);
@@ -155,10 +236,10 @@ public class InteractableObject : MonoBehaviour
         // If this object's can scare NPC flag is still up (set in PlayerController script), so each thrown object can only scare once when landing
         if (isCanScareNPC)
         {
-            //Camera shake
+            // Effects
+            PlaySoundEffects();
             GameManager.Instance.CameraShake();
              
-
             // Get the first contact point of the collision
             Vector3 contactPoint = other.GetContact(0).point;
 

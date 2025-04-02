@@ -380,13 +380,17 @@ public class GameManager : MonoBehaviour
     {
         if (GameObject.FindWithTag("Level") != null)
         {
-            Destroy(GameObject.FindWithTag("Level"));
+            GameObject levelObj = GameObject.FindWithTag("Level");
+            AudioManager.instance.StopAllTogglableFurnitureSoundEffects(level);
+            Destroy(levelObj);
         }
+
         Vector3 originalPos = new Vector3(0, 9.6f, 0);
         Instantiate(level, originalPos, Quaternion.Euler(0, 180, 0));
         playerController.ResetPlayer();
 
     }
+
 
     private void ChooseUpcomingNPC()
     {
@@ -485,7 +489,7 @@ public class GameManager : MonoBehaviour
     {
         if (npcScript != null)
         {
-            UIManager.Instance.DisplayNotification("Out of time! The client has leaving the house!");
+            UIManager.Instance.DisplayNotification("Out of time! The client has started leaving the house!");
             npcScript.isNPCLeavingHouse = true;
             print("NPC is now starting to leave house.");
         }

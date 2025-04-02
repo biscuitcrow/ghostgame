@@ -78,6 +78,22 @@ public class AudioManager : MonoBehaviour
 		s.source.Stop();
 	}
 
+	public void StopAllTogglableFurnitureSoundEffects(GameObject levelObj)
+    {
+		InteractableObject[] furnitureScriptList = levelObj.GetComponentsInChildren<InteractableObject>();
+		foreach (InteractableObject script in furnitureScriptList)
+        {
+			if (script.toggleOnSoundName.Length > 0)
+			{
+				AudioManager.instance.Stop(script.toggleOnSoundName);
+			}
+			if (script.toggleOffSoundName.Length > 0)
+			{
+				AudioManager.instance.Stop(script.toggleOffSoundName);
+			}
+		}
+	}
+
 	public void Pause(string sound)
 	{
 		Sound s = Array.Find(sounds, item => item.name == sound);
