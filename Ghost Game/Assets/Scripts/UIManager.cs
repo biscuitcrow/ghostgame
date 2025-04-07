@@ -325,6 +325,7 @@ public class UIManager : MonoBehaviour
             StopCoroutine(notificationCoroutine);
         }
         notificationCoroutine = StartCoroutine(DisplayNotificationRoutine(message, delay));
+        AudioManager.instance.Play("Typewriter Sound");
     }
 
     
@@ -334,6 +335,7 @@ public class UIManager : MonoBehaviour
    
         // Scale is not compatible with TMP_writer, choose 1
         ScaleandFadeUIGameObject(isActive, false, true, 1f, notificationUIPopup, 0.3f);
+        AudioManager.instance.Play("Typewriter Sound");
     }
     
 
@@ -384,7 +386,7 @@ public class UIManager : MonoBehaviour
         Vector2 originalPos = killedNPCUIPopup.GetComponent<RectTransform>().anchoredPosition;
         TranslateUIGameObject(killedNPCUIPopup, new Vector2(393, -340f), new Vector2(393, -173f), 0.3f, Ease.OutBounce);
         yield return new WaitForSeconds(1.5f);
-        TranslateUIGameObject(killedNPCUIPopup, new Vector2(393, -173f), new Vector2(393, -340f), 0.3f, Ease.InOutBack);
+        TranslateUIGameObject(killedNPCUIPopup, new Vector2(393, -173f), new Vector2(393, -340f), 0.3f, Ease.InBounce);
         yield return new WaitForSeconds(0.5f);
         killedNPCUIPopup.SetActive(false);
     }

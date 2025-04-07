@@ -114,6 +114,7 @@ Transform:
   - {fileID: 6519400191415907438}
   - {fileID: 2874800676535858859}
   - {fileID: 9064983588696590369}
+  - {fileID: 243801044290164626}
   - {fileID: 652350606725988504}
   - {fileID: 7233571782664847486}
   - {fileID: 4719189832975743085}
@@ -1086,6 +1087,59 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &1897779895817153161
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 243801044290164626}
+  - component: {fileID: 4076022773537492964}
+  m_Layer: 8
+  m_Name: invisible wall collider (entrance blocker)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &243801044290164626
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897779895817153161}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.6, y: -1.85, z: 22.5}
+  m_LocalScale: {x: 1.1, y: 2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5672786312414520898}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!65 &4076022773537492964
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897779895817153161}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 11.620739, y: 7.435199, z: 0.44331074}
+  m_Center: {x: 0, y: 0, z: -0.26243258}
 --- !u!1 &2109387684539141549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,7 +1445,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 9.6, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.99763, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4176125941968066242}
@@ -1400,6 +1454,7 @@ Transform:
   - {fileID: 1598929398324001354}
   - {fileID: 4520363260430116440}
   - {fileID: 8855513210965351671}
+  - {fileID: 457144237302677277}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3159774883826177091
@@ -1815,7 +1870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2375308764862782117
 Transform:
   m_ObjectHideFlags: 0
@@ -1825,7 +1880,7 @@ Transform:
   m_GameObject: {fileID: 3900622382747614313}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 2.01, z: 0}
+  m_LocalPosition: {x: 0, y: 2.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2038,7 +2093,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1231908722483230711
 Transform:
   m_ObjectHideFlags: 0
@@ -2048,7 +2103,7 @@ Transform:
   m_GameObject: {fileID: 3971312685189902412}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 1.9960785, z: 0}
+  m_LocalPosition: {x: 0, y: 2.5560784, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2377,7 +2432,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8378217520199684524
 Transform:
   m_ObjectHideFlags: 0
@@ -2560,6 +2615,7 @@ MonoBehaviour:
   - {fileID: 3243580118228263510}
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: -1, y: 0, z: -1}
   audioEffectType: 2
   isGenericSoundEffectUsed: 1
   additionalSoundEffects:
@@ -4229,7 +4285,7 @@ MonoBehaviour:
   objectWeight: 0
   objectType: 1
   outline: {fileID: 0}
-  scareRadius: 5
+  scareRadius: 10
   baseFearIncrease: 10
   isToggledOn: 0
   listOfGameObjectsToToggle: []
@@ -4237,11 +4293,13 @@ MonoBehaviour:
   - {fileID: 3030997492976283309}
   - {fileID: 6674277545487298355}
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 2
   isGenericSoundEffectUsed: 1
   additionalSoundEffects:
   - Fire Whoosh
-  toggleOnSoundName: 
+  - Fire Start
+  toggleOnSoundName: Fire Burning
   toggleOffSoundName: 
   isOnCooldown: 0
 --- !u!114 &150781759524796165
@@ -4609,6 +4667,112 @@ Transform:
   - {fileID: 6853943877584227119}
   m_Father: {fileID: 3207930082565205352}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8746731384259576692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 457144237302677277}
+  - component: {fileID: 8001457034784426609}
+  - component: {fileID: 6137509419200196579}
+  - component: {fileID: 4156393507621965657}
+  m_Layer: 0
+  m_Name: Ground Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &457144237302677277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746731384259576692}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: -1.2, y: -9.2, z: 7}
+  m_LocalScale: {x: 8.9992, y: 9.020578, z: 8.9992}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3207930082565205352}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8001457034784426609
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746731384259576692}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &6137509419200196579
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746731384259576692}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4156393507621965657
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746731384259576692}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &9059812290639663616
 GameObject:
   m_ObjectHideFlags: 0
@@ -4849,13 +5013,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1633361153345245503, guid: 739ed26718e4840cf88b3f76e24e886b, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5097285333100349915, guid: 739ed26718e4840cf88b3f76e24e886b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -15.842089
       objectReference: {fileID: 0}
     - target: {fileID: 5097285333100349915, guid: 739ed26718e4840cf88b3f76e24e886b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.4520354
+      value: -6.444
       objectReference: {fileID: 0}
     - target: {fileID: 5097285333100349915, guid: 739ed26718e4840cf88b3f76e24e886b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4902,6 +5070,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 372418112425069434, guid: 739ed26718e4840cf88b3f76e24e886b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2227105495970660011}
+    - targetCorrespondingSourceObject: {fileID: 372418112425069434, guid: 739ed26718e4840cf88b3f76e24e886b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7585058471712165}
   m_SourcePrefab: {fileID: 100100000, guid: 739ed26718e4840cf88b3f76e24e886b, type: 3}
 --- !u!1 &382341689210016882 stripped
 GameObject:
@@ -4931,6 +5102,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -4967,6 +5139,27 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &7585058471712165
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382341689210016882}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0390339, y: 0.1258192, z: 0.60761976}
+  m_Center: {x: 0.00045984983, y: 0.00000020116568, z: -0.00000047683716}
 --- !u!4 &5104957659592414931 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5097285333100349915, guid: 739ed26718e4840cf88b3f76e24e886b, type: 3}
@@ -5082,6 +5275,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5598689881414887505, guid: 118deb2cf30c94974acd76f6f0cb46e3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5612181879390368910, guid: 118deb2cf30c94974acd76f6f0cb46e3, type: 3}
       propertyPath: m_Name
       value: knife_4
@@ -5090,7 +5287,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -8942071050119218820, guid: 118deb2cf30c94974acd76f6f0cb46e3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5301,6 +5499,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: -280071234228298835, guid: 48b8d241acc914ae886b4d14ef008ce4, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1358816516183598671, guid: 48b8d241acc914ae886b4d14ef008ce4, type: 3}
       propertyPath: m_Name
       value: plate (3)
@@ -5388,6 +5590,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -5998,7 +6201,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &6051009566742026542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6022,6 +6225,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -6114,6 +6318,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9126277266710951402, guid: 4f786bfe12c5345f8a36c8890e123c7f, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6153,6 +6361,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -6234,6 +6443,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7912088086521038949, guid: ed5e7a696f34a4e81ba661c32d5c4883, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6278,6 +6491,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -6313,6 +6527,10 @@ PrefabInstance:
     - target: {fileID: 4105471832894744024, guid: 066ced596cd1841ab9e2118b0d51eec7, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7746568984520520849, guid: 066ced596cd1841ab9e2118b0d51eec7, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9140610083313727923, guid: 066ced596cd1841ab9e2118b0d51eec7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6393,6 +6611,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -6474,6 +6693,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8728483884532942608, guid: 47182700f43904ac4aa7ffb3397f1834, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6513,6 +6736,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -6546,6 +6770,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: -9001236532785516633, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6615780404034354329, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
       propertyPath: m_LocalPosition.x
       value: -23.67
@@ -6607,6 +6835,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6782505573618753074, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5916159034386946748}
+    - targetCorrespondingSourceObject: {fileID: 6782505573618753074, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7642357001664735446}
   m_SourcePrefab: {fileID: 100100000, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
 --- !u!4 &5382221809020449114 stripped
 Transform:
@@ -6641,6 +6872,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -6677,6 +6909,27 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &7642357001664735446
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5719232756413895665}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.31781006, y: 0.23513603, z: 0.22560835}
+  m_Center: {x: 0.00000035762787, y: 0.000000461936, z: -0.0000003874302}
 --- !u!1001 &1267478494010104592
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6685,6 +6938,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: 2146582987859806171, guid: 7010b2bbdda454b23a5a81eea81d8339, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4621873075809008153, guid: 7010b2bbdda454b23a5a81eea81d8339, type: 3}
       propertyPath: m_Name
       value: chair (1)
@@ -6775,6 +7032,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -6871,13 +7129,42 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 098cb7268dfe54ee788b5a06bdeef51c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9065005363648680763}
   m_SourcePrefab: {fileID: 100100000, guid: 098cb7268dfe54ee788b5a06bdeef51c, type: 3}
 --- !u!4 &1420227403679464839 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 098cb7268dfe54ee788b5a06bdeef51c, type: 3}
   m_PrefabInstance: {fileID: 1458902611060824684}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1801010904278935357 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 098cb7268dfe54ee788b5a06bdeef51c, type: 3}
+  m_PrefabInstance: {fileID: 1458902611060824684}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &9065005363648680763
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801010904278935357}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.357773, y: 7.435197, z: 0.9681759}
+  m_Center: {x: -2.1788864, y: 3.717599, z: 0.13210583}
 --- !u!1001 &1524961036118154549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6893,6 +7180,10 @@ PrefabInstance:
     - target: {fileID: 985901304517811591, guid: 27967877b85fc4d90938b42c75bda28b, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847512804252436261, guid: 27967877b85fc4d90938b42c75bda28b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8490710888459412772, guid: 27967877b85fc4d90938b42c75bda28b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6934,7 +7225,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1043647678163698927, guid: 27967877b85fc4d90938b42c75bda28b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -7138,6 +7430,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: -2807646072182726250, guid: ba9850d08c355497ca82dbc8f348cc7f, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 212814082492386361, guid: ba9850d08c355497ca82dbc8f348cc7f, type: 3}
       propertyPath: m_Name
       value: choppingBoard
@@ -7228,6 +7524,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -7277,6 +7574,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: 3423784425914463028, guid: 115825516a63d472cb60511249763ba6, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6099025369771988105, guid: 115825516a63d472cb60511249763ba6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.1593761
@@ -7372,6 +7673,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -7514,7 +7816,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &6668425619283497920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7538,6 +7840,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -7566,6 +7869,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: 2146582987859806171, guid: 7010b2bbdda454b23a5a81eea81d8339, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4621873075809008153, guid: 7010b2bbdda454b23a5a81eea81d8339, type: 3}
       propertyPath: m_Name
       value: chair (3)
@@ -7656,6 +7963,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -7712,6 +8020,10 @@ PrefabInstance:
     - target: {fileID: 4105471832894744024, guid: 066ced596cd1841ab9e2118b0d51eec7, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7746568984520520849, guid: 066ced596cd1841ab9e2118b0d51eec7, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9140610083313727923, guid: 066ced596cd1841ab9e2118b0d51eec7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7792,6 +8104,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -7935,6 +8248,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8728483884532942608, guid: 47182700f43904ac4aa7ffb3397f1834, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7974,6 +8291,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -8324,7 +8642,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &6909316952522416350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8348,6 +8666,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -8440,6 +8759,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6612018824913738008, guid: 7a6790aa9315c4fa7bcca35799e69253, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8484,6 +8807,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -8730,6 +9054,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: -918268639633050452, guid: dbe646b89864146bd957f32e83f37817, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 314199978374144640, guid: dbe646b89864146bd957f32e83f37817, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.2830896
@@ -8825,7 +9153,8 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
-  audioEffectType: 0
+  togglePSOffset: {x: 0, y: 0, z: 0}
+  audioEffectType: 1
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
   toggleOnSoundName: 
@@ -8917,6 +9246,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6612018824913738008, guid: 7a6790aa9315c4fa7bcca35799e69253, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8961,6 +9294,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -8996,6 +9330,10 @@ PrefabInstance:
     - target: {fileID: 4105471832894744024, guid: 066ced596cd1841ab9e2118b0d51eec7, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7746568984520520849, guid: 066ced596cd1841ab9e2118b0d51eec7, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9140610083313727923, guid: 066ced596cd1841ab9e2118b0d51eec7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9076,6 +9414,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -9343,7 +9682,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &9043383797472695187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9367,6 +9706,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -9567,6 +9907,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7912088086521038949, guid: ed5e7a696f34a4e81ba661c32d5c4883, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9611,6 +9955,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -9753,6 +10098,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7912088086521038949, guid: ed5e7a696f34a4e81ba661c32d5c4883, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9797,6 +10146,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -9825,6 +10175,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: -9001236532785516633, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6615780404034354329, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
       propertyPath: m_LocalPosition.x
       value: -23.76
@@ -9886,6 +10240,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6782505573618753074, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1563300553853556131}
+    - targetCorrespondingSourceObject: {fileID: 6782505573618753074, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8802212515779093681}
   m_SourcePrefab: {fileID: 100100000, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
 --- !u!1 &8700081308967560527 stripped
 GameObject:
@@ -9915,6 +10272,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -9951,6 +10309,27 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &8802212515779093681
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8700081308967560527}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.31781006, y: 0.23513603, z: 0.22560835}
+  m_Center: {x: 0.00000035762787, y: 0.000000461936, z: -0.0000003874302}
 --- !u!4 &9030649642879338468 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6615780404034354329, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
@@ -9964,6 +10343,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: 5528627544856051940, guid: cbc58a7c2c8f54e628cb55e7f60e1172, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6498295140761331959, guid: cbc58a7c2c8f54e628cb55e7f60e1172, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.7
@@ -10054,7 +10437,8 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
-  audioEffectType: 0
+  togglePSOffset: {x: 0, y: 0, z: 0}
+  audioEffectType: 1
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
   toggleOnSoundName: 
@@ -10165,6 +10549,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: 3423784425914463028, guid: 115825516a63d472cb60511249763ba6, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6099025369771988105, guid: 115825516a63d472cb60511249763ba6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.92
@@ -10255,6 +10643,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -10437,13 +10826,14 @@ MonoBehaviour:
   objectWeight: 0
   objectType: 0
   outline: {fileID: 0}
-  scareRadius: 5
+  scareRadius: 8
   baseFearIncrease: 10
   isToggledOn: 0
   listOfGameObjectsToToggle:
   - {fileID: 859522259297800219}
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 2
   isGenericSoundEffectUsed: 1
   additionalSoundEffects:
@@ -10875,6 +11265,7 @@ MonoBehaviour:
   - {fileID: 1463994194391973114}
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 2
   isGenericSoundEffectUsed: 1
   additionalSoundEffects:
@@ -11026,7 +11417,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &1293665637945008371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11050,6 +11441,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -11142,6 +11534,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9126277266710951402, guid: 4f786bfe12c5345f8a36c8890e123c7f, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11181,6 +11577,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -11448,6 +11845,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6612018824913738008, guid: 7a6790aa9315c4fa7bcca35799e69253, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11492,6 +11893,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -11809,6 +12211,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8598418122081543338, guid: e1d5fa0dbd17d4169b1e21cb4589cad1, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11856,6 +12262,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -12160,13 +12567,14 @@ MonoBehaviour:
   objectWeight: 0
   objectType: 1
   outline: {fileID: 0}
-  scareRadius: 5
+  scareRadius: 8
   baseFearIncrease: 10
   isToggledOn: 0
   listOfGameObjectsToToggle:
   - {fileID: 1499961847309187928}
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 2
   isGenericSoundEffectUsed: 1
   additionalSoundEffects:
@@ -12373,7 +12781,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &7419378794932403829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12397,6 +12805,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -12446,6 +12855,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: -280071234228298835, guid: 48b8d241acc914ae886b4d14ef008ce4, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1358816516183598671, guid: 48b8d241acc914ae886b4d14ef008ce4, type: 3}
       propertyPath: m_Name
       value: plate (1)
@@ -12533,6 +12946,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -12566,13 +12980,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: 2996429127421879975, guid: dca6d0139fbf147519d669c5ea46d097, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4116733434484478492, guid: dca6d0139fbf147519d669c5ea46d097, type: 3}
       propertyPath: m_LocalPosition.x
       value: -17.804756
       objectReference: {fileID: 0}
     - target: {fileID: 4116733434484478492, guid: dca6d0139fbf147519d669c5ea46d097, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.3837857
+      value: -6.307
       objectReference: {fileID: 0}
     - target: {fileID: 4116733434484478492, guid: dca6d0139fbf147519d669c5ea46d097, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12627,6 +13045,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4464497571072797678, guid: dca6d0139fbf147519d669c5ea46d097, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8984282627096985514}
+    - targetCorrespondingSourceObject: {fileID: 4464497571072797678, guid: dca6d0139fbf147519d669c5ea46d097, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7147255094926177498}
   m_SourcePrefab: {fileID: 100100000, guid: dca6d0139fbf147519d669c5ea46d097, type: 3}
 --- !u!4 &8730711570946155167 stripped
 Transform:
@@ -12661,6 +13082,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -12697,6 +13119,27 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: -0.001, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &7147255094926177498
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9078465435617975149}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.8403835, y: 0.39055848, z: 0.74151325}
+  m_Center: {x: -0.00000023841858, y: -0.00078324974, z: 0.00023511052}
 --- !u!1001 &4797777600866094766
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12805,7 +13248,7 @@ MonoBehaviour:
   objectWeight: 0
   objectType: 1
   outline: {fileID: 0}
-  scareRadius: 5
+  scareRadius: 8
   baseFearIncrease: 10
   isToggledOn: 0
   listOfGameObjectsToToggle:
@@ -12813,6 +13256,7 @@ MonoBehaviour:
   - {fileID: 4488820932313214572}
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 2
   isGenericSoundEffectUsed: 1
   additionalSoundEffects:
@@ -13153,6 +13597,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7582925692801057561, guid: 03c20ca331f37455697df7a35cec95c6, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -13198,6 +13646,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -13309,6 +13758,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: -280071234228298835, guid: 48b8d241acc914ae886b4d14ef008ce4, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1358816516183598671, guid: 48b8d241acc914ae886b4d14ef008ce4, type: 3}
       propertyPath: m_Name
       value: plate
@@ -13401,6 +13854,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -13469,6 +13923,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6008110997590604228, guid: 0b1bea5e7ea0f4c3da7d0c43ef248f03, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9218515493747079396, guid: 0b1bea5e7ea0f4c3da7d0c43ef248f03, type: 3}
       propertyPath: m_Name
       value: wardrobe
@@ -13519,6 +13977,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -13740,6 +14199,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8728483884532942608, guid: 47182700f43904ac4aa7ffb3397f1834, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13784,6 +14247,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -13860,6 +14324,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9126277266710951402, guid: 4f786bfe12c5345f8a36c8890e123c7f, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13904,6 +14372,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -14179,6 +14648,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7912088086521038949, guid: ed5e7a696f34a4e81ba661c32d5c4883, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14218,6 +14691,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -14321,6 +14795,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7746568984520520849, guid: 066ced596cd1841ab9e2118b0d51eec7, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9140610083313727923, guid: 066ced596cd1841ab9e2118b0d51eec7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.404335
@@ -14405,6 +14883,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -14633,6 +15112,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: 1054550350807402464, guid: 9fa506643af9b4570b96e5adc7970eb5, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3335951761273858347, guid: 9fa506643af9b4570b96e5adc7970eb5, type: 3}
       propertyPath: m_Name
       value: bed
@@ -14728,7 +15211,8 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
-  audioEffectType: 0
+  togglePSOffset: {x: 0, y: 0, z: 0}
+  audioEffectType: 1
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
   toggleOnSoundName: 
@@ -14874,6 +15358,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4629033385308273036, guid: 37b783fa7d14c45d3a442cc392415b2e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5744137586733804175, guid: 37b783fa7d14c45d3a442cc392415b2e, type: 3}
       propertyPath: m_Name
       value: knife_2
@@ -14882,7 +15370,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1134938646797018907, guid: 37b783fa7d14c45d3a442cc392415b2e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -14900,6 +15389,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: -280071234228298835, guid: 48b8d241acc914ae886b4d14ef008ce4, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1358816516183598671, guid: 48b8d241acc914ae886b4d14ef008ce4, type: 3}
       propertyPath: m_Name
       value: plate (2)
@@ -14992,6 +15485,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -15758,7 +16252,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &274603061051132217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15782,6 +16276,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -15831,6 +16326,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: -2555171171347833126, guid: efc011911d761459583e7aaae417e147, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1126682677878158466, guid: efc011911d761459583e7aaae417e147, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.322006
@@ -15933,6 +16432,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -16089,6 +16589,7 @@ MonoBehaviour:
   - {fileID: 0}
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 2
   isGenericSoundEffectUsed: 1
   additionalSoundEffects:
@@ -16216,7 +16717,7 @@ MonoBehaviour:
   objectWeight: 0
   objectType: 1
   outline: {fileID: 0}
-  scareRadius: 5
+  scareRadius: 10
   baseFearIncrease: 10
   isToggledOn: 0
   listOfGameObjectsToToggle: []
@@ -16224,11 +16725,13 @@ MonoBehaviour:
   - {fileID: 8907580538158915886}
   - {fileID: 7307373069169458746}
   listOfPSToSpawn: []
+  togglePSOffset: {x: 1, y: 0, z: 0}
   audioEffectType: 2
   isGenericSoundEffectUsed: 1
   additionalSoundEffects:
   - Fire Whoosh
-  toggleOnSoundName: 
+  - Fire Start
+  toggleOnSoundName: Fire Burning
   toggleOffSoundName: 
   isOnCooldown: 0
 --- !u!114 &801960189046763314
@@ -16512,7 +17015,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &746188726354997588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16536,6 +17039,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -16569,6 +17073,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7856272759138693673}
     m_Modifications:
+    - target: {fileID: 946780552670611075, guid: 06ea4e226335542a0958395866f61c56, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1711773303825987223, guid: 06ea4e226335542a0958395866f61c56, type: 3}
       propertyPath: m_Name
       value: knife_3
@@ -16617,7 +17125,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7109829431514177366, guid: 06ea4e226335542a0958395866f61c56, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -16635,6 +17144,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: -9001236532785516633, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6615780404034354329, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
       propertyPath: m_LocalPosition.x
       value: -23.62
@@ -16696,6 +17209,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6782505573618753074, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8457056001494326629}
+    - targetCorrespondingSourceObject: {fileID: 6782505573618753074, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9043052921388659850}
   m_SourcePrefab: {fileID: 100100000, guid: 6eb5f26b3ee6a4928b72e2d37c740576, type: 3}
 --- !u!4 &3686853579914470430 stripped
 Transform:
@@ -16730,6 +17246,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -16766,6 +17283,27 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &9043052921388659850
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3946807041699333813}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.31781015, y: 0.23513603, z: 0.22560841}
+  m_Center: {x: 0.00000035762795, y: 0.000000461936, z: -0.00000038743028}
 --- !u!1001 &7636798925300491306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16822,6 +17360,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8728483884532942608, guid: 47182700f43904ac4aa7ffb3397f1834, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16866,6 +17408,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -16894,6 +17437,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: -8322565768828086145, guid: 6b7dec96075db4ca287856bac9e94105, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3834004835950827164, guid: 6b7dec96075db4ca287856bac9e94105, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.97646
@@ -16984,6 +17531,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -17191,7 +17739,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &3826488153320716887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17215,6 +17763,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -17326,6 +17875,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: 3423784425914463028, guid: 115825516a63d472cb60511249763ba6, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6099025369771988105, guid: 115825516a63d472cb60511249763ba6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.537487
@@ -17416,6 +17969,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -17527,6 +18081,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: 2996429127421879975, guid: dca6d0139fbf147519d669c5ea46d097, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4116733434484478492, guid: dca6d0139fbf147519d669c5ea46d097, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.7
@@ -17588,6 +18146,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4464497571072797678, guid: dca6d0139fbf147519d669c5ea46d097, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1443039019062474919}
+    - targetCorrespondingSourceObject: {fileID: 4464497571072797678, guid: dca6d0139fbf147519d669c5ea46d097, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3577051841779326169}
   m_SourcePrefab: {fileID: 100100000, guid: dca6d0139fbf147519d669c5ea46d097, type: 3}
 --- !u!1 &6045202168790380874 stripped
 GameObject:
@@ -17617,6 +18178,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -17653,6 +18215,27 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: -0.001, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &3577051841779326169
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6045202168790380874}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.8403835, y: 0.39055848, z: 0.74151325}
+  m_Center: {x: -0.00000023841858, y: -0.00078348815, z: 0.00023511052}
 --- !u!4 &6282618837009647800 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4116733434484478492, guid: dca6d0139fbf147519d669c5ea46d097, type: 3}
@@ -17776,6 +18359,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6612018824913738008, guid: 7a6790aa9315c4fa7bcca35799e69253, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17815,6 +18402,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -18268,17 +18856,19 @@ MonoBehaviour:
   objectWeight: 0
   objectType: 1
   outline: {fileID: 0}
-  scareRadius: 5
+  scareRadius: 10
   baseFearIncrease: 10
   isToggledOn: 0
   listOfGameObjectsToToggle:
   - {fileID: 3213896370938934269}
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 2
   isGenericSoundEffectUsed: 1
-  additionalSoundEffects: []
-  toggleOnSoundName: 
+  additionalSoundEffects:
+  - TV Turn On
+  toggleOnSoundName: TV Static
   toggleOffSoundName: 
   isOnCooldown: 0
 --- !u!114 &472647784039646521
@@ -18428,6 +19018,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: 2146582987859806171, guid: 7010b2bbdda454b23a5a81eea81d8339, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4621873075809008153, guid: 7010b2bbdda454b23a5a81eea81d8339, type: 3}
       propertyPath: m_Name
       value: chair
@@ -18523,6 +19117,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -18727,7 +19322,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &4541719678060760835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18751,6 +19346,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -18787,13 +19383,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1633361153345245503, guid: 739ed26718e4840cf88b3f76e24e886b, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5097285333100349915, guid: 739ed26718e4840cf88b3f76e24e886b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -17.4432
       objectReference: {fileID: 0}
     - target: {fileID: 5097285333100349915, guid: 739ed26718e4840cf88b3f76e24e886b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.459984
+      value: -6.433
       objectReference: {fileID: 0}
     - target: {fileID: 5097285333100349915, guid: 739ed26718e4840cf88b3f76e24e886b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18840,6 +19440,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 372418112425069434, guid: 739ed26718e4840cf88b3f76e24e886b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4604624718536285043}
+    - targetCorrespondingSourceObject: {fileID: 372418112425069434, guid: 739ed26718e4840cf88b3f76e24e886b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6367036091001155568}
   m_SourcePrefab: {fileID: 100100000, guid: 739ed26718e4840cf88b3f76e24e886b, type: 3}
 --- !u!4 &4609056653983236120 stripped
 Transform:
@@ -18874,6 +19477,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -18910,6 +19514,27 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &6367036091001155568
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8962307119723807417}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0390339, y: 0.1258192, z: 0.60761976}
+  m_Center: {x: 0.00045984983, y: 0.00000043958426, z: -0.00000047683716}
 --- !u!1001 &8764835372282037146
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19014,6 +19639,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 2
   isGenericSoundEffectUsed: 1
   additionalSoundEffects:
@@ -19315,6 +19941,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: -8386970799478607575, guid: 866003e1b4f694013aae04fc6bf6669c, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1984701600246285718, guid: 866003e1b4f694013aae04fc6bf6669c, type: 3}
       propertyPath: m_Name
       value: flowerPot_3
@@ -19410,6 +20040,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -19710,6 +20341,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9126277266710951402, guid: 4f786bfe12c5345f8a36c8890e123c7f, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19754,6 +20389,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -19976,6 +20612,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 2
   isGenericSoundEffectUsed: 1
   additionalSoundEffects:
@@ -20121,7 +20758,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &285171763272028932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20145,6 +20782,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []
@@ -20210,6 +20848,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1598929398324001354}
     m_Modifications:
+    - target: {fileID: 2146582987859806171, guid: 7010b2bbdda454b23a5a81eea81d8339, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4621873075809008153, guid: 7010b2bbdda454b23a5a81eea81d8339, type: 3}
       propertyPath: m_Name
       value: chair (2)
@@ -20305,6 +20947,7 @@ MonoBehaviour:
   listOfGameObjectsToToggle: []
   listOfPSToToggle: []
   listOfPSToSpawn: []
+  togglePSOffset: {x: 0, y: 0, z: 0}
   audioEffectType: 0
   isGenericSoundEffectUsed: 1
   additionalSoundEffects: []

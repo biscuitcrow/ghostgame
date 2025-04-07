@@ -3009,7 +3009,10 @@ MonoBehaviour:
   isHauntTutorialRunning: 0
   exorcistLevelInterval: 2
   isExorcistLevel: 0
-  magicCirclePS: {fileID: 529465284}
+  listOfAllLevelThemesNames:
+  - Level Theme 1
+  - Level Theme 2
+  - Level Theme 3
 --- !u!114 &558583501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4122,7 +4125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3207930082565205352, guid: e1e401ab1190b4e60aa1653b569e0f4d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.6
+      value: 9.6111
       objectReference: {fileID: 0}
     - target: {fileID: 3207930082565205352, guid: e1e401ab1190b4e60aa1653b569e0f4d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4561,8 +4564,6 @@ MonoBehaviour:
   isHauntAbilityOnCooldown: 0
   selectedInteractableObject: {fileID: 0}
   isInputSkewed: 0
-  ghostsPS: {fileID: 2101111292}
-  sparkPS: {fileID: 1931481463}
 --- !u!143 &804983208
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5488,6 +5489,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913798648}
   m_CullTransparentMesh: 1
+--- !u!1 &938698361
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 938698363}
+  - component: {fileID: 938698362}
+  m_Layer: 0
+  m_Name: VFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &938698362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938698361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80feec1da5d84d579d0c983a756da4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactPS: {fileID: 1173417951443039590, guid: 5daa7e3a8c7a246418e41e97cf71ae94, type: 3}
+  ghostsPS: {fileID: 1931481463}
+  sparkPS: {fileID: 2101111292}
+  magicCirclePS: {fileID: 529465284}
+  startledNPCPS: {fileID: 4271093393614929224, guid: 87ee7299dd44ed747af24dbb91bcd33b, type: 3}
+  throwablesImpactPS: {fileID: 5880797563141009103, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
+  togglablesSparkPS: {fileID: 8771972552311404798, guid: bbf9e36a48d6c5648a13889afab076fd, type: 3}
+--- !u!4 &938698363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938698361}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.11981103, y: 4.402675, z: -13.635649}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &945368127
 GameObject:
   m_ObjectHideFlags: 0
@@ -6913,23 +6965,95 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mixerGroup: {fileID: 0}
   sounds:
-  - name: Main Music
-    clip: {fileID: 8300000, guid: f67f585c5fbd1483fb8882eeca8c6792, type: 3}
-    volume: 0.1
+  - name: Main Menu Music
+    clip: {fileID: 8300000, guid: d29fff3012319432897c29bcf3dbee7a, type: 3}
+    volume: 0.3
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
     loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: Level Theme 1
+    clip: {fileID: 8300000, guid: 8e1ea52c197004e1fa70c61f9f2b374a, type: 3}
+    volume: 0.3
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Level Theme 2
+    clip: {fileID: 8300000, guid: 52d2baf985c9646f1acc93f385902743, type: 3}
+    volume: 0.3
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Level Theme 3
+    clip: {fileID: 8300000, guid: 28131b76c20d14a9b82e4038ecb2039d, type: 3}
+    volume: 0.3
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Exorcist Level Theme
+    clip: {fileID: 8300000, guid: b5860c839b49144938bbfaf804d1d72c, type: 3}
+    volume: 0.3
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Victory Jingle
+    clip: {fileID: 8300000, guid: b5c70c95a845a463e95240ecba07a3aa, type: 3}
+    volume: 0.7
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Level Fail
+    clip: {fileID: 8300000, guid: b533a1c94220d427ebbe528bf3819267, type: 3}
+    volume: 0.7
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Next Level
+    clip: {fileID: 8300000, guid: 068cdd604005741f885d9c4474bdb122, type: 3}
+    volume: 0.8
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0.05
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
   - name: Shop Music
-    clip: {fileID: 8300000, guid: de116bf79a04849b6b70e48e68ea4cdd, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: 0412a248d41ef4df080a4039a718323f, type: 3}
+    volume: 0.8
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0.05
     loop: 1
     mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Typewriter Sound
+    clip: {fileID: 8300000, guid: 895f669a8d62847fc97a518f3f0e333e, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1.5
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
     source: {fileID: 0}
   - name: Button Click
     clip: {fileID: 8300000, guid: c9be2d067287341a5a40774c44307390, type: 3}
@@ -6949,9 +7073,18 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: Interact Sound
+    clip: {fileID: 8300000, guid: c1ec856a66eee49209cacb11ca20c3fb, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1.5
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
   - name: NPC Arrives
     clip: {fileID: 8300000, guid: 0c1eb44a7957a4a87a9a187402fbf57a, type: 3}
-    volume: 1
+    volume: 0.7
     volumeVariance: 0.1
     pitch: 1
     pitchVariance: 0.1
@@ -6960,7 +7093,16 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: NPC Died
     clip: {fileID: 8300000, guid: 9dd5eaf83b9c14c98b8b6cc300a0e1cb, type: 3}
-    volume: 1
+    volume: 0.7
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: NPC Leaves
+    clip: {fileID: 8300000, guid: 807b51d8fd365439299dfab13559a3cf, type: 3}
+    volume: 0.7
     volumeVariance: 0.1
     pitch: 1
     pitchVariance: 0.1
@@ -6969,7 +7111,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: NPC Scared
     clip: {fileID: 8300000, guid: 56ad49963c6bd495d97a269b7fa01369, type: 3}
-    volume: 1
+    volume: 0.7
     volumeVariance: 0.1
     pitch: 1
     pitchVariance: 0.3
@@ -6978,7 +7120,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Exorcist Arrives
     clip: {fileID: 8300000, guid: cfdf58f2843aa461486d6c1a932365cd, type: 3}
-    volume: 1
+    volume: 0.7
     volumeVariance: 0.1
     pitch: 1
     pitchVariance: 0.1
@@ -6987,7 +7129,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Exorcist Died
     clip: {fileID: 8300000, guid: dc8d4c97692ff4ba0a351d8bd917a449, type: 3}
-    volume: 1
+    volume: 0.7
     volumeVariance: 0.1
     pitch: 1
     pitchVariance: 0.1
@@ -7005,7 +7147,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Ghost Caught
     clip: {fileID: 8300000, guid: d70db1adbffa44eb698f287eb4c8c3c4, type: 3}
-    volume: 1
+    volume: 0.7
     volumeVariance: 0.1
     pitch: 1
     pitchVariance: 0.1
@@ -7013,7 +7155,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: Generic Toggle Sound
-    clip: {fileID: 8300000, guid: 3e2a700ca12cb406fa150c9eee9f0d75, type: 3}
+    clip: {fileID: 8300000, guid: a7d4b844f00c244fd858d312be18bc78, type: 3}
     volume: 1
     volumeVariance: 0.1
     pitch: 0.7
@@ -7040,7 +7182,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
     source: {fileID: 0}
   - name: Generic Switch Click
-    clip: {fileID: 8300000, guid: c9be2d067287341a5a40774c44307390, type: 3}
+    clip: {fileID: 8300000, guid: 41c4046e936ae466f97b5d8df0cb0d14, type: 3}
     volume: 1
     volumeVariance: 0.1
     pitch: 1.5
@@ -7130,10 +7272,10 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: Glass Break
-    clip: {fileID: 8300000, guid: c9be2d067287341a5a40774c44307390, type: 3}
+    clip: {fileID: 8300000, guid: f4c34f10d369941d3a8d96518f8c8eb1, type: 3}
     volume: 1
     volumeVariance: 0.1
-    pitch: 0.5
+    pitch: 1
     pitchVariance: 0.1
     loop: 0
     mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
@@ -7174,13 +7316,49 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
     source: {fileID: 0}
-  - name: Telephone Ring
-    clip: {fileID: 8300000, guid: 0c1eb44a7957a4a87a9a187402fbf57a, type: 3}
+  - name: Fire Burning
+    clip: {fileID: 8300000, guid: 3a2b9054d7edd4e66908d439975940f5, type: 3}
     volume: 1
     volumeVariance: 0.1
     pitch: 1.5
     pitchVariance: 0.1
     loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Fire Start
+    clip: {fileID: 8300000, guid: 8755a4016adeb433e96c19b566645967, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1.5
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Telephone Ring
+    clip: {fileID: 8300000, guid: 425562dce2c374bf187c7ea174b6360c, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1.5
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: TV Turn On
+    clip: {fileID: 8300000, guid: 8b2fc730faf6e4a19ba31cb9bf788632, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1.5
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: TV Static
+    clip: {fileID: 8300000, guid: 27db2c784d77d4433982f34fda0d617d, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1.5
+    pitchVariance: 0.1
+    loop: 1
     mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
     source: {fileID: 0}
 --- !u!4 &1317269821
@@ -9062,7 +9240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1725691281
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9080,7 +9258,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -262, y: -82.2}
+  m_AnchoredPosition: {x: -262, y: -87.2}
   m_SizeDelta: {x: 443.8, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1725691282
@@ -12506,43 +12684,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1885782150325359535, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.0000003178245
       objectReference: {fileID: 0}
     - target: {fileID: 1885782150325359535, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.1
+      value: 1.4999999
       objectReference: {fileID: 0}
     - target: {fileID: 1885782150325359535, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.55
+      value: -14.7
       objectReference: {fileID: 0}
     - target: {fileID: 1885782150325359535, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9539718
       objectReference: {fileID: 0}
     - target: {fileID: 1885782150325359535, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.07414524
       objectReference: {fileID: 0}
     - target: {fileID: 1885782150325359535, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.22582445
       objectReference: {fileID: 0}
     - target: {fileID: 1885782150325359535, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.18287629
       objectReference: {fileID: 0}
     - target: {fileID: 1885782150325359535, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -3.375
       objectReference: {fileID: 0}
     - target: {fileID: 1885782150325359535, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -27.308
       objectReference: {fileID: 0}
     - target: {fileID: 1885782150325359535, guid: 65051d87a4c2245d5b16e9a8aed197c8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 22.524
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12630,13 +12808,14 @@ SceneRoots:
   m_Roots:
   - {fileID: 558583499}
   - {fileID: 1317269821}
+  - {fileID: 938698363}
   - {fileID: 398539017}
+  - {fileID: 1121814554}
+  - {fileID: 705507995}
   - {fileID: 963194228}
   - {fileID: 1919330466}
   - {fileID: 1578934069}
   - {fileID: 2046550376}
-  - {fileID: 1121814554}
-  - {fileID: 705507995}
   - {fileID: 1607007577}
   - {fileID: 804983212}
   - {fileID: 9066845415397714351}

@@ -80,8 +80,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int exorcistLevelInterval = 5;
     [SerializeField] private bool isExorcistLevel = false;
 
-    [Header("Visual Effects")]
-    [SerializeField] private ParticleSystem magicCirclePS;
+
+    [Header("Audio")]
+    int currentThemeIndex;
+    [SerializeField] List<string> listOfAllLevelThemesNames = new List<string>();
+
 
     #endregion
 
@@ -92,12 +95,6 @@ public class GameManager : MonoBehaviour
         //ResetGame();
         StartTutorial();
 
-        //Play main music
-
-        
-        AudioManager.instance.Play("Main Music");
-        AudioManager.instance.SetVolume("Main Music", 0f);
-        AudioManager.instance.FadeVolume("Main Music", 1f, 5f);
     }
 
     #region // <------- TUTORIAL METHODS -------> //
@@ -136,6 +133,7 @@ public class GameManager : MonoBehaviour
         isFirstThrowNotifOut = true;
         isSecondThrowNotifOut = true;
         isScareLevelRunning = true;
+        CompleteHauntTutorial();
 
 
         if (storedTutorialCoroutine != null)
@@ -270,6 +268,7 @@ public class GameManager : MonoBehaviour
         maxPeopleAllowedToLive = 3;
         isScareLevelRunning = false;
         currentNPCMaxFear = startingNPCMaxFear;
+        currentThemeIndex = -1;
 
         AbilitiesManager.Instance.ResetAbilities();
     }
@@ -287,12 +286,13 @@ public class GameManager : MonoBehaviour
 
     private void StartLevel()
     {
+        // Needs to be before toggleshop so the right music can play
+        levelCount++;
+        isExorcistLevel = (levelCount % exorcistLevelInterval == 0) ? true : false;
+
         RemoveAllNPCs();
         ToggleShop(false);
-
-        levelCount++;
-
-        isExorcistLevel = (levelCount % exorcistLevelInterval == 0)? true: false;
+        
         isItemShop = false;
         currentNPCMaxFear += fearIncreasePerLevel;
         UIManager.Instance.UpdateGameStats(levelCount, deathScore, livedScore);
@@ -302,7 +302,7 @@ public class GameManager : MonoBehaviour
 
         if (isExorcistLevel)
         {
-            UIManager.Instance.DisplayNotification("The exorcist has arrived!");
+            UIManager.Instance.DisplayNotification("The exorcist has arrived! <shake maxx=0.1 maxy=0.1>Do not touch them</shake> or they will <shake maxx=0.1 maxy=0.1>instantly banish</shake> you from this world!");
         }
         else
         {
@@ -331,21 +331,30 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(playerController.hauntKeyCode)
             && npcScript.CheckNPCDistanceFromGhost() < AbilitiesManager.Instance.ghostScareVisibilityRadius)
             {
-                isHauntTutorialRunning = false;
                 // Display successful haunting notification
-                UIManager.Instance.DisplayNotification("Successfully used my haunt ability!");
-                // Continue NPC movement
-                npcScript.ToggleStopNavMeshAgent(false);
-                // Resume timer
-                PauseLevelTimer(false);
-                StartLevelTimer();
-                isHauntTutorialCompleted = true;
+                UIManager.Instance.DisplayNotification("Successfully spooked the client with my haunting!");
+
+                CompleteHauntTutorial();
             }
             else
             {
                 playerController.ResetHauntCooldown();
             }
         }
+    }
+
+    private void CompleteHauntTutorial()
+    {
+        isHauntTutorialRunning = false;
+        // Continue NPC movement
+        if (npcScript != null)
+        {
+            npcScript.ToggleStopNavMeshAgent(false);
+        }
+        // Resume timer
+        PauseLevelTimer(false);
+        StartLevelTimer();
+        isHauntTutorialCompleted = true;
     }
 
     private IEnumerator TrackNPCWithCameraForDuration(float duration)
@@ -504,20 +513,42 @@ public class GameManager : MonoBehaviour
             {
                 // Change shop to cool hat shop as a reward for killing the exorcist [WIP]
                 isItemShop = true;
-                UIManager.Instance.DisplayNotification("Not to toot my own horn, but I've scared even the fearsome exorcist to the point of death!", UIManager.Instance.obituraryDelay);
-                //Proof of my dedication to the art of spooking!
+                //UIManager.Instance.DisplayNotification("Not to toot my own horn, but I've scared even the fearsome exorcist to the point of death!", UIManager.Instance.obituraryDelay);
+                // Proof of my dedication to the art of spooking!
                 AudioManager.instance.Play("Exorcist Died");
+                npcScript.ToggleStopNavMeshAgent(true);
+                // Play exorcist death animations
             }
             else
             {
-                UIManager.Instance.DisplayNotification("HEHEHE! The potential buyer has died of fright! Seems like I'll be holding on to the house a little longer.", UIManager.Instance.obituraryDelay);
                 AudioManager.instance.Play("NPC Died");
+                npcScript.ToggleStopNavMeshAgent(true);
+                // Play NPC death animations
             }
+            
             deathScore++;
-            UIManager.Instance.DisplayObituaryUIPopUp();
-            UIManager.Instance.DisplayNPCKilledPopUp();
+            StartCoroutine("DisplayNPCDeathUI", 2f);
             LevelOver();
         }
+    }
+
+    private IEnumerator DisplayNPCDeathUI(float startingDelay)
+    {
+        yield return new WaitForSeconds(startingDelay - 1);
+        AudioManager.instance.Play("Victory Jingle");
+        yield return new WaitForSeconds(1);
+        if (isExorcistLevel)
+        {
+            UIManager.Instance.DisplayNotification("Not to toot my own horn, but I've scared even the fearsome exorcist to the point of death!", UIManager.Instance.obituraryDelay);
+        }
+        else
+        {
+            UIManager.Instance.DisplayNotification("HEHEHE! The potential buyer has died of fright! Seems like I'll be holding on to the house a little longer.", UIManager.Instance.obituraryDelay);
+        }
+        
+        UIManager.Instance.DisplayObituaryUIPopUp();
+        UIManager.Instance.DisplayNPCKilledPopUp();
+        yield return null;
     }
 
     [Button("NPC Lived")]
@@ -536,7 +567,9 @@ public class GameManager : MonoBehaviour
                 livedScore++;
                 UIManager.Instance.UpdateNPCEscapedIndicator(livedScore);
                 UIManager.Instance.DisplayNotification(DialogueManager.Instance.NPCLivedText);
-            } 
+            }
+            AudioManager.instance.Play("NPC Leaves");
+            AudioManager.instance.Play("Level Fail");
             LevelOver();
         }
     }
@@ -582,22 +615,62 @@ public class GameManager : MonoBehaviour
             AudioManager.instance.Play("Shop Music");
             AudioManager.instance.SetVolume("Shop Music", 0);
             AudioManager.instance.FadeVolume("Shop Music", 1f, 3f);
-            AudioManager.instance.FadeVolume("Main Music", 0f, 2f);
+            AudioManager.instance.FadeVolume(listOfAllLevelThemesNames[currentThemeIndex], 0f, 2f);
+            AudioManager.instance.FadeVolume("Exorcist Level Theme", 0f, 2f);
 
-            //VFX magic circle
-            magicCirclePS.gameObject.SetActive(true);
-            magicCirclePS.Play(true);
+            VFXManager.Instance.ToggleMagicCirclePS(true);
         }
         else
         {
-            AudioManager.instance.Play("Main Music");
-            AudioManager.instance.SetVolume("Main Music", 0);
-            AudioManager.instance.FadeVolume("Main Music", 1f, 3f);
+            ChangeAndPlayLevelMusic();
             AudioManager.instance.FadeVolume("Shop Music", 0f, 2f);
 
-            magicCirclePS.Stop(true);
+            VFXManager.Instance.ToggleMagicCirclePS(false);
         }
     }
+
+    private void ChangeAndPlayLevelMusic()
+    {
+        AudioManager.instance.Play("Next Level");
+
+        // Stops any currently playing level theme
+        foreach (string theme in listOfAllLevelThemesNames)
+        {
+            if (AudioManager.instance.CheckIfPlaying(theme)){
+                AudioManager.instance.Stop(theme);
+            }
+        }
+
+        // Stops any currently playing exorcist theme
+
+        if (isExorcistLevel)
+        {
+            AudioManager.instance.Play("Exorcist Level Theme");
+        }
+        else
+        {
+            if (AudioManager.instance.CheckIfPlaying("Exorcist Level Theme"))
+            {
+                AudioManager.instance.Stop("Exorcist Level Theme");
+            }
+
+            // Increase the index, making sure that it loops around when it hits the max number of themes
+            if (currentThemeIndex == listOfAllLevelThemesNames.Count - 1)
+            {
+                currentThemeIndex = 0;
+            }
+            else
+            {
+                currentThemeIndex++;
+            }
+
+            // Fade in the theme found at index
+            AudioManager.instance.Play(listOfAllLevelThemesNames[currentThemeIndex]);
+            AudioManager.instance.SetVolume(listOfAllLevelThemesNames[currentThemeIndex], 0);
+            AudioManager.instance.FadeVolume(listOfAllLevelThemesNames[currentThemeIndex], 1f, 3f);
+        }
+    }
+
 
     [Button("Next Level")]
     public void ContinueToNextLevel()
@@ -615,6 +688,7 @@ public class GameManager : MonoBehaviour
     {
         isScareLevelRunning = false;
         isExorcistLevel = true;
+        AudioManager.instance.Play("Level Fail");
         StartCoroutine("StartGameLostProcedure");
     }
 
@@ -629,7 +703,7 @@ public class GameManager : MonoBehaviour
     {
         if (isExorcistLevel)
         {
-            UIManager.Instance.UpdateGameOverText("You were destroyed by the exorcist. Stay clear of them next time!");
+            UIManager.Instance.UpdateGameOverText("You touched the exorcist, who instantly destroyed your ghostly form. Stay clear of them next time!");
         }
         else
         {

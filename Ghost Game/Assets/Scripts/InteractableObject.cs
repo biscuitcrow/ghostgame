@@ -34,6 +34,7 @@ public class InteractableObject : MonoBehaviour
     public ParticleSystem[] listOfPSToToggle;
     public GameObject[] listOfPSToSpawn;
     private float toggleCooldown = 0.2f;
+    public Vector3 togglePSOffset;
 
     [Header("Item-Specific Sound Effects")]
     public AudioEffectType audioEffectType;
@@ -217,8 +218,10 @@ public class InteractableObject : MonoBehaviour
             Instantiate(obj, transform.position, Quaternion.identity);
         }
 
-        ScareAllNPCsInRange(transform.position);
+        Vector3 PSposition = gameObject.transform.position + togglePSOffset;
+        VFXManager.Instance.InstantiateToggleSparkPS(PSposition);
 
+        ScareAllNPCsInRange(transform.position);
 
     }
 
@@ -236,9 +239,6 @@ public class InteractableObject : MonoBehaviour
         // If this object's can scare NPC flag is still up (set in PlayerController script), so each thrown object can only scare once when landing
         if (isCanScareNPC)
         {
-            // Effects
-            PlaySoundEffects();
-            GameManager.Instance.CameraShake();
              
             // Get the first contact point of the collision
             Vector3 contactPoint = other.GetContact(0).point;
@@ -247,6 +247,11 @@ public class InteractableObject : MonoBehaviour
 
             // Drop the can scare NPC flag on this object
             isCanScareNPC = false;
+
+            // Effects
+            PlaySoundEffects();
+            GameManager.Instance.CameraShake();
+            VFXManager.Instance.InstantiateImpactPS(contactPoint);
         }
     }
 

@@ -50,11 +50,6 @@ public class PlayerController : MonoBehaviour
     float closestDistance = 10000;
 
 
-    [Header("Visual Effects")]
-    [SerializeField] private ParticleSystem ghostsPS;
-    [SerializeField] private ParticleSystem sparkPS;
-
-
     #endregion
 
     void Start()
@@ -190,10 +185,7 @@ public class PlayerController : MonoBehaviour
                     if (!isHauntAbilityOnCooldown)
                     {
                         AudioManager.instance.Play("Haunt Ability");
-                        sparkPS.gameObject.SetActive(true);
-                        sparkPS.Play(true);
-                        ghostsPS.gameObject.SetActive(true);
-                        ghostsPS.Play(true);
+                        VFXManager.Instance.PlayHauntPS();
 
 
                         GameManager.Instance.CameraShake();
@@ -264,6 +256,9 @@ public class PlayerController : MonoBehaviour
         // Check that the object is not on cooldown before interacting
         if (!currentInteractableObjectScript.isOnCooldown)
         {
+            AudioManager.instance.Play("Interact Sound");
+            VFXManager.Instance.InstantiateInteractPS(gameObject.transform);
+
             if (currentInteractableObjectScript.objectType == InteractableObject.ObjectType.Throwable)
             {
                 if (abilitiesManager.maxWeightThrowable >= currentInteractableObjectScript.objectWeight)

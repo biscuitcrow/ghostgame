@@ -29,8 +29,27 @@ public class SceneSwitchManager : MonoBehaviour
     }
     #endregion
 
+
+    private void Start()
+    {
+        //Play main menu music
+        AudioManager.instance.Play("Main Menu Music");
+        AudioManager.instance.SetVolume("Main Menu Music", 0f);
+        AudioManager.instance.FadeVolume("Main Menu Music", 1f, 5f);
+    }
+
     public void LoadGameScene()
     {
+        StartCoroutine("FadeOutMainMenuMusic");
         SceneManager.LoadScene("GameScene");
     }
+
+    IEnumerator FadeOutMainMenuMusic()
+    {
+        AudioManager.instance.FadeVolume("Main Menu Music", 0f, 2f);
+        yield return new WaitForSeconds(2f);
+        AudioManager.instance.Stop("Main Menu Music");
+    }
 }
+
+

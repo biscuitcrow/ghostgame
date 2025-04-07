@@ -249,6 +249,8 @@ public class NPCBehaviour : MonoBehaviour
 
     public void IncreaseFearMeter(float increaseValue)
     {
+        VFXManager.Instance.InstantiateStartedNPCPS(gameObject.transform);
+
         // Displays scared icon
         StartCoroutine("DisplayScaredIcon");
 
