@@ -96,26 +96,44 @@ public class PlayerController : MonoBehaviour
                 // Constant raycasting (casts two rays one at eye level and one slightly below if nothing is found)
                 Vector3 fwdDir = transform.TransformDirection(Vector3.forward);
                 Vector3 inclinedDir = new Vector3(fwdDir.x, -1, fwdDir.z);
+                Vector3 topDir = new Vector3(fwdDir.x, -0.5f, fwdDir.z);
 
 
                 float xOffset = Mathf.Sin(Mathf.Deg2Rad * rayAngleOffset);
                 float zOffset = Mathf.Cos(Mathf.Deg2Rad * rayAngleOffset);
                 Vector3 fwdDirL = transform.TransformDirection(new Vector3(- xOffset, -0.3f, zOffset));
                 Vector3 fwdDirR = transform.TransformDirection(new Vector3(xOffset, -0.3f, zOffset));
-                Vector3[] fwdRaysDir = {inclinedDir, fwdDirL, fwdDirR};
+                //Vector3[] fwdRaysDir = {inclinedDir, topDir, fwdDirL, fwdDirR};
+
+                //Vector3[,] fwdRaysDir = new Vector3[4, 2];
+                Vector3[,] fwdRaysDir = { { transform.position + new Vector3(0f, 2f, 0f), topDir }};
+
+                //Vector3[,] fwdRaysDir = { { transform.position, inclinedDir}, { transform.position + new Vector3(0f, 2f, 0f), topDir}, {transform.position, fwdDirL}, { transform.position, fwdDirR} };
 
                 closestDistance = 10000f;
 
                 bool RaycastingArray()
                 {
                     bool isObjDetected = false;
-                    foreach (Vector3 ray in fwdRaysDir)
+
+                    for (int i=0; i < fwdRaysDir.GetLength(0); i++)
                     {
-                        if (RayCast(ray))
+                        if (RayCast(fwdRaysDir[i, 0], fwdRaysDir[i, 1]))
                         {
                             isObjDetected = true;
                         }
                     }
+
+                    /*
+                    foreach (Vector3 ray in fwdRaysDir)
+                    {
+                        if (RayCast(transform.position, ray))
+                        {
+                            isObjDetected = true;
+                        }
+                    }
+
+                    */
                     return isObjDetected;
                 }
 
@@ -204,9 +222,9 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    bool RayCast(Vector3 dir)
+    bool RayCast(Vector3 startingPoint, Vector3 dir)
     {
-        Debug.DrawRay(transform.position, dir.normalized * interactionDistance, Color.green, 0.1f);
+        Debug.DrawRay(startingPoint, dir.normalized * interactionDistance, Color.green, 0.1f);
 
         // If an object has been hit
         RaycastHit hit;
