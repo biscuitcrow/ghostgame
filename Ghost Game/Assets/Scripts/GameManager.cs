@@ -498,7 +498,7 @@ public class GameManager : MonoBehaviour
     {
         if (npcScript != null)
         {
-            UIManager.Instance.DisplayNotification("Out of time! The client has started leaving the house!");
+            UIManager.Instance.DisplayNotification("Out of time! The client has started leaving the house!", 0.8f);
             npcScript.isNPCLeavingHouse = true;
             print("NPC is now starting to leave house.");
         }
@@ -507,6 +507,7 @@ public class GameManager : MonoBehaviour
     [Button("NPC Died")]
     public void NPCDied()
     {
+      
        if (isScareLevelRunning)
        {
             if (isExorcistLevel)
@@ -516,13 +517,11 @@ public class GameManager : MonoBehaviour
                 //UIManager.Instance.DisplayNotification("Not to toot my own horn, but I've scared even the fearsome exorcist to the point of death!", UIManager.Instance.obituraryDelay);
                 // Proof of my dedication to the art of spooking!
                 AudioManager.instance.Play("Exorcist Died");
-                npcScript.ToggleStopNavMeshAgent(true);
                 // Play exorcist death animations
             }
             else
             {
                 AudioManager.instance.Play("NPC Died");
-                npcScript.ToggleStopNavMeshAgent(true);
                 // Play NPC death animations
             }
             

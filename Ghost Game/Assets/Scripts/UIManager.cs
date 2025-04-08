@@ -215,9 +215,9 @@ public class UIManager : MonoBehaviour
         if (isActive)
         {
             // Drops the clock UI in nicely (for juice)
-            TranslateUIGameObject(clockUI, new Vector2(164.17f, 200f), new Vector2(164.17f, -155.6f), 0.5f, Ease.OutBounce);
+            TranslateUIGameObject(clockUI, new Vector2(386.4f, 200f), new Vector2(386.4f, -146.3f), 0.5f, Ease.OutBounce);
             TranslateUIGameObject(levelNumberText.gameObject, new Vector2(-182.7f, 42f), new Vector2(-182.7f, -76.6f), 0.3f, Ease.InOutBack);
-            TranslateUIGameObject(livedGroupObj.gameObject, new Vector2(193.8f, 230f), new Vector2(193.8f, 366.1f), 0.3f, Ease.InOutBack);
+            //TranslateUIGameObject(livedGroupObj.gameObject, new Vector2(193.8f, 230f), new Vector2(193.8f, 366.1f), 0.3f, Ease.InOutBack);
         }
     }
 

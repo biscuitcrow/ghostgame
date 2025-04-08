@@ -221,7 +221,10 @@ public class InteractableObject : MonoBehaviour
         Vector3 PSposition = gameObject.transform.position + togglePSOffset;
         VFXManager.Instance.InstantiateToggleSparkPS(PSposition);
 
-        ScareAllNPCsInRange(transform.position);
+        if (!GameManager.Instance.isHauntTutorialRunning)
+        {
+            ScareAllNPCsInRange(transform.position);
+        }
 
     }
 
@@ -243,7 +246,10 @@ public class InteractableObject : MonoBehaviour
             // Get the first contact point of the collision
             Vector3 contactPoint = other.GetContact(0).point;
 
-            ScareAllNPCsInRange(contactPoint);
+            if (!GameManager.Instance.isHauntTutorialRunning)
+            {
+                ScareAllNPCsInRange(contactPoint);
+            }
 
             // Drop the can scare NPC flag on this object
             isCanScareNPC = false;

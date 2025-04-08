@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
 
     public void ResetPlayer()
     {
+        TeleportPlayer();
         if (isObjectPickedUp && selectedInteractableObject != null)
         {
             Destroy(selectedInteractableObject.gameObject);
@@ -74,8 +75,12 @@ public class PlayerController : MonoBehaviour
         UIManager.Instance.UpdateHauntAbilityIndicator(1);
         NPCforceVector = Vector3.zero;
         isPlayerMovementEnabled = true;
-        //player.transform.position = GameManager.Instance.playerStartPosition.position;
+    }
 
+    private void TeleportPlayer()
+    {
+        transform.position = GameManager.Instance.playerStartPosition.position;
+        Physics.SyncTransforms();
     }
 
 
@@ -96,7 +101,7 @@ public class PlayerController : MonoBehaviour
                 // Constant raycasting (casts two rays one at eye level and one slightly below if nothing is found)
                 Vector3 fwdDir = transform.TransformDirection(Vector3.forward);
                 Vector3 inclinedDir = new Vector3(fwdDir.x, -1, fwdDir.z);
-                Vector3 topDir = new Vector3(fwdDir.x, -0.5f, fwdDir.z);
+                Vector3 topDir = new Vector3(fwdDir.x, -0.1f, fwdDir.z);
 
 
                 float xOffset = Mathf.Sin(Mathf.Deg2Rad * rayAngleOffset);
@@ -105,10 +110,8 @@ public class PlayerController : MonoBehaviour
                 Vector3 fwdDirR = transform.TransformDirection(new Vector3(xOffset, -0.3f, zOffset));
                 //Vector3[] fwdRaysDir = {inclinedDir, topDir, fwdDirL, fwdDirR};
 
-                //Vector3[,] fwdRaysDir = new Vector3[4, 2];
-                Vector3[,] fwdRaysDir = { { transform.position + new Vector3(0f, 2f, 0f), topDir }};
-
-                //Vector3[,] fwdRaysDir = { { transform.position, inclinedDir}, { transform.position + new Vector3(0f, 2f, 0f), topDir}, {transform.position, fwdDirL}, { transform.position, fwdDirR} };
+                //Vector3[,] fwdRaysDir = { { transform.position + new Vector3(0f, 2f, 0f), topDir }};
+                Vector3[,] fwdRaysDir = { { transform.position, inclinedDir}, { transform.position + new Vector3(0f, 1.7f, 0f), topDir }, {transform.position, fwdDirL}, { transform.position, fwdDirR} };
 
                 closestDistance = 10000f;
 
@@ -228,7 +231,7 @@ public class PlayerController : MonoBehaviour
 
         // If an object has been hit
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, dir, out hit, interactionDistance, 1 << raycastLayer))
+        if (Physics.Raycast(startingPoint, dir, out hit, interactionDistance, 1 << raycastLayer))
         { 
             // Make sure the selected object exists in the scene before returning true 
             if (hit.collider != null)

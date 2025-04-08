@@ -19,6 +19,7 @@ public class NPCBehaviour : MonoBehaviour
     private bool isScareCooldownRunning = false;
     private bool isHauntedCooldownRunning = false;
     public LayerMask groundLayerMask;
+    private Animator NPCAnimator;
 
     [Header("Fear Meter")]
     public GameObject fearMeterObj;
@@ -73,6 +74,7 @@ public class NPCBehaviour : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        NPCAnimator = GetComponentInChildren<Animator>();
         NPCStartingPoint = GameObject.FindWithTag("NPC Starting Point").transform;
         isNPCScared = false;
         isNPCLeavingHouse = false;
@@ -249,6 +251,7 @@ public class NPCBehaviour : MonoBehaviour
 
     public void IncreaseFearMeter(float increaseValue)
     {
+        NPCAnimator.SetBool("NPCRunning", true);
         VFXManager.Instance.InstantiateStartedNPCPS(gameObject.transform);
 
         // Displays scared icon
@@ -271,10 +274,13 @@ public class NPCBehaviour : MonoBehaviour
     public void NPCDied()
     {
         Instantiate(skullPS, transform.position, Quaternion.identity);
+        ToggleStopNavMeshAgent(true);
 
-        // Play NPC death animation and sounds
+        // Play NPC death animation
+        NPCAnimator.SetTrigger("NPCDied");
+
         Destroy(fearMeterObj);
-        Destroy(this.gameObject); 
+        //Destroy(this.gameObject); 
         GameManager.Instance.NPCDied();
     }
 
@@ -297,13 +303,19 @@ public class NPCBehaviour : MonoBehaviour
 
     private IEnumerator DisplayScaredIcon()
     {
-        scaredIcon.gameObject.SetActive(true);
-        UIManager.Instance.FadeUIGameObject(scaredIcon.gameObject, 0, 1, 0.05f);
-        UIManager.Instance.ScalePulseUIGameObject(scaredIcon.gameObject, 0.005f, 0.1f);
+        if (fearMeter.gameObject != null)
+        {
+            scaredIcon.gameObject.SetActive(true);
+            UIManager.Instance.FadeUIGameObject(scaredIcon.gameObject, 0, 1, 0.05f);
+            UIManager.Instance.ScalePulseUIGameObject(scaredIcon.gameObject, 0.005f, 0.1f);
+        }
         yield return new WaitForSeconds(0.5f);
-        UIManager.Instance.FadeUIGameObject(scaredIcon.gameObject, 1, 0, 0.05f);
-        UIManager.Instance.ScalePulseUIGameObject(scaredIcon.gameObject, 0.005f, 0.1f);
-        scaredIcon.gameObject.SetActive(false);
+        if (fearMeter.gameObject != null)
+        {
+            UIManager.Instance.FadeUIGameObject(scaredIcon.gameObject, 1, 0, 0.05f);
+            UIManager.Instance.ScalePulseUIGameObject(scaredIcon.gameObject, 0.005f, 0.1f);
+            scaredIcon.gameObject.SetActive(false);
+        }
     }
 
     private IEnumerator HauntedCooldown()
@@ -351,6 +363,7 @@ public class NPCBehaviour : MonoBehaviour
 
     void Patrolling()
     {
+        NPCAnimator.SetBool("NPCRunning", false);
         if (!isWalkPointSet)
         {
             SearchWalkPoint();
@@ -398,7 +411,6 @@ public class NPCBehaviour : MonoBehaviour
     void RunningAway(Vector3 scarePosition)
     {
         print("NPC running away from player");
-
         agent.speed = runSpeed;
 
         Vector3 dirAwayFromScare = (transform.position - scarePosition).normalized;
