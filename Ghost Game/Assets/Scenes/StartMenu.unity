@@ -2421,7 +2421,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1101824160, guid: d2839f1ce397f43dba15a49ba96aceac, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d2839f1ce397f43dba15a49ba96aceac, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3177,7 +3177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1699432445
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3248,6 +3248,484 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699432444}
   m_CullTransparentMesh: 1
+--- !u!1 &1700789024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1700789026}
+  - component: {fileID: 1700789025}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1700789025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700789024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53c5847e889e044c79bd6609359ce5e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 0}
+  sounds:
+  - name: Main Menu Music
+    clip: {fileID: 8300000, guid: d29fff3012319432897c29bcf3dbee7a, type: 3}
+    volume: 0.3
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Level Theme 1
+    clip: {fileID: 8300000, guid: 8e1ea52c197004e1fa70c61f9f2b374a, type: 3}
+    volume: 0.3
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Level Theme 2
+    clip: {fileID: 8300000, guid: 52d2baf985c9646f1acc93f385902743, type: 3}
+    volume: 0.3
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Level Theme 3
+    clip: {fileID: 8300000, guid: 28131b76c20d14a9b82e4038ecb2039d, type: 3}
+    volume: 0.3
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Exorcist Level Theme
+    clip: {fileID: 8300000, guid: b5860c839b49144938bbfaf804d1d72c, type: 3}
+    volume: 0.3
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Victory Jingle
+    clip: {fileID: 8300000, guid: b5c70c95a845a463e95240ecba07a3aa, type: 3}
+    volume: 0.7
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Level Fail
+    clip: {fileID: 8300000, guid: b533a1c94220d427ebbe528bf3819267, type: 3}
+    volume: 0.7
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Next Level
+    clip: {fileID: 8300000, guid: 068cdd604005741f885d9c4474bdb122, type: 3}
+    volume: 0.2
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0.05
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Shop Music
+    clip: {fileID: 8300000, guid: 0412a248d41ef4df080a4039a718323f, type: 3}
+    volume: 0.7
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0.05
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Typewriter Sound
+    clip: {fileID: 8300000, guid: 895f669a8d62847fc97a518f3f0e333e, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1.5
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Button Click
+    clip: {fileID: 8300000, guid: c9be2d067287341a5a40774c44307390, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Haunt Ability
+    clip: {fileID: 8300000, guid: 76b835d8eb0ef49d293132e6733b3f35, type: 3}
+    volume: 0.6
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Interact Sound
+    clip: {fileID: 8300000, guid: c1ec856a66eee49209cacb11ca20c3fb, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1.5
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: NPC Arrives
+    clip: {fileID: 8300000, guid: 0c1eb44a7957a4a87a9a187402fbf57a, type: 3}
+    volume: 0.6
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: NPC Died
+    clip: {fileID: 8300000, guid: 9dd5eaf83b9c14c98b8b6cc300a0e1cb, type: 3}
+    volume: 0.6
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: NPC Leaves
+    clip: {fileID: 8300000, guid: 807b51d8fd365439299dfab13559a3cf, type: 3}
+    volume: 0.6
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: NPC Scared
+    clip: {fileID: 8300000, guid: 56ad49963c6bd495d97a269b7fa01369, type: 3}
+    volume: 0.6
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.3
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Exorcist Arrives
+    clip: {fileID: 8300000, guid: cfdf58f2843aa461486d6c1a932365cd, type: 3}
+    volume: 0.6
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Exorcist Died
+    clip: {fileID: 8300000, guid: dc8d4c97692ff4ba0a351d8bd917a449, type: 3}
+    volume: 0.6
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Exorcist Suck
+    clip: {fileID: 8300000, guid: b341721e3ba9d47448e1fa4d0b43a582, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Ghost Caught
+    clip: {fileID: 8300000, guid: d70db1adbffa44eb698f287eb4c8c3c4, type: 3}
+    volume: 0.6
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Generic Toggle Sound
+    clip: {fileID: 8300000, guid: a7d4b844f00c244fd858d312be18bc78, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 0.7
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Generic Hard Throw Sound
+    clip: {fileID: 8300000, guid: 3e2a700ca12cb406fa150c9eee9f0d75, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 0.1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Generic Soft Throw Sound
+    clip: {fileID: 8300000, guid: 0a206d92536f64472814a1520a3a3099, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Generic Switch Click
+    clip: {fileID: 8300000, guid: 41c4046e936ae466f97b5d8df0cb0d14, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1.5
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Curtains Open
+    clip: {fileID: 8300000, guid: e28493abf6b1944a788393fe8fe631f4, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Door Open
+    clip: {fileID: 8300000, guid: 50edcd65d74034a15bf9ca7e2798d42b, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Door Close
+    clip: {fileID: 8300000, guid: 1d997d2d70f454dd2ba96bd5fb881301, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Door Slam
+    clip: {fileID: 8300000, guid: c8f4b0a25b290467db40c3a0ca67e71a, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 0.8
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Doorknob
+    clip: {fileID: 8300000, guid: 442931924ca5140ce84929832c3bcf33, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Faucet On
+    clip: {fileID: 8300000, guid: e928e145af20c4a96a39b7a10aef48dd, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Fridge Door Open
+    clip: {fileID: 8300000, guid: 1f1b97758eb2a4d1ba6ae06060bb798c, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Fridge Door Close
+    clip: {fileID: 8300000, guid: 6ec9abb260d704970beae7b8f1b884e4, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Glass Clink
+    clip: {fileID: 8300000, guid: 77d53cee4ffce401c9d1d7320389d4d7, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Glass Break
+    clip: {fileID: 8300000, guid: f4c34f10d369941d3a8d96518f8c8eb1, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Water Running
+    clip: {fileID: 8300000, guid: ac5e16529dfb04973a4c838937dfd4d1, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Wet Sound
+    clip: {fileID: 8300000, guid: 259e0ca1bec6d4b849deadf9c7ebedce, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Wind Whoosh
+    clip: {fileID: 8300000, guid: 6792b1bd6ee0444138cc6d734e000b55, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Fire Whoosh
+    clip: {fileID: 8300000, guid: 6792b1bd6ee0444138cc6d734e000b55, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 0.5
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Fire Burning
+    clip: {fileID: 8300000, guid: 3a2b9054d7edd4e66908d439975940f5, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1.5
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Fire Start
+    clip: {fileID: 8300000, guid: 8755a4016adeb433e96c19b566645967, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1.5
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Telephone Ring
+    clip: {fileID: 8300000, guid: 425562dce2c374bf187c7ea174b6360c, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1.5
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: TV Turn On
+    clip: {fileID: 8300000, guid: 8b2fc730faf6e4a19ba31cb9bf788632, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1.5
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: TV Static
+    clip: {fileID: 8300000, guid: 27db2c784d77d4433982f34fda0d617d, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1.5
+    pitchVariance: 0.1
+    loop: 1
+    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
+    source: {fileID: 0}
+  - name: Toilet Close
+    clip: {fileID: 8300000, guid: 1d997d2d70f454dd2ba96bd5fb881301, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 2
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Toilet Open
+    clip: {fileID: 8300000, guid: 1d997d2d70f454dd2ba96bd5fb881301, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 2.4
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Thunder
+    clip: {fileID: 8300000, guid: 6792b1bd6ee0444138cc6d734e000b55, type: 3}
+    volume: 1
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Rain
+    clip: {fileID: 8300000, guid: 6792b1bd6ee0444138cc6d734e000b55, type: 3}
+    volume: 0
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+--- !u!4 &1700789026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700789024}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1675.5, y: 997.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1724054946
 GameObject:
   m_ObjectHideFlags: 0
@@ -3473,448 +3951,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925687681}
   m_CullTransparentMesh: 1
---- !u!1 &1995087769
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1995087771}
-  - component: {fileID: 1995087770}
-  m_Layer: 0
-  m_Name: Audio Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1995087770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1995087769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53c5847e889e044c79bd6609359ce5e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mixerGroup: {fileID: 0}
-  sounds:
-  - name: Main Menu Music
-    clip: {fileID: 8300000, guid: d29fff3012319432897c29bcf3dbee7a, type: 3}
-    volume: 0.3
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 1
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Level Theme 1
-    clip: {fileID: 8300000, guid: 8e1ea52c197004e1fa70c61f9f2b374a, type: 3}
-    volume: 0.3
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 1
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: Level Theme 2
-    clip: {fileID: 8300000, guid: 52d2baf985c9646f1acc93f385902743, type: 3}
-    volume: 0.3
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 1
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: Level Theme 3
-    clip: {fileID: 8300000, guid: 28131b76c20d14a9b82e4038ecb2039d, type: 3}
-    volume: 0.3
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 1
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: Exorcist Level Theme
-    clip: {fileID: 8300000, guid: b5860c839b49144938bbfaf804d1d72c, type: 3}
-    volume: 0.3
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 1
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Victory Jingle
-    clip: {fileID: 8300000, guid: b5c70c95a845a463e95240ecba07a3aa, type: 3}
-    volume: 0.7
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Level Fail
-    clip: {fileID: 8300000, guid: b533a1c94220d427ebbe528bf3819267, type: 3}
-    volume: 0.7
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Next Level
-    clip: {fileID: 8300000, guid: 068cdd604005741f885d9c4474bdb122, type: 3}
-    volume: 0.8
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0.05
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Shop Music
-    clip: {fileID: 8300000, guid: 0412a248d41ef4df080a4039a718323f, type: 3}
-    volume: 0.8
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0.05
-    loop: 1
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Typewriter Sound
-    clip: {fileID: 8300000, guid: 895f669a8d62847fc97a518f3f0e333e, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1.5
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: Button Click
-    clip: {fileID: 8300000, guid: c9be2d067287341a5a40774c44307390, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Haunt Ability
-    clip: {fileID: 8300000, guid: 76b835d8eb0ef49d293132e6733b3f35, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Interact Sound
-    clip: {fileID: 8300000, guid: c1ec856a66eee49209cacb11ca20c3fb, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1.5
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: NPC Arrives
-    clip: {fileID: 8300000, guid: 0c1eb44a7957a4a87a9a187402fbf57a, type: 3}
-    volume: 0.7
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: NPC Died
-    clip: {fileID: 8300000, guid: 9dd5eaf83b9c14c98b8b6cc300a0e1cb, type: 3}
-    volume: 0.7
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: NPC Leaves
-    clip: {fileID: 8300000, guid: 807b51d8fd365439299dfab13559a3cf, type: 3}
-    volume: 0.7
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: NPC Scared
-    clip: {fileID: 8300000, guid: 56ad49963c6bd495d97a269b7fa01369, type: 3}
-    volume: 0.7
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.3
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Exorcist Arrives
-    clip: {fileID: 8300000, guid: cfdf58f2843aa461486d6c1a932365cd, type: 3}
-    volume: 0.7
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Exorcist Died
-    clip: {fileID: 8300000, guid: dc8d4c97692ff4ba0a351d8bd917a449, type: 3}
-    volume: 0.7
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Exorcist Suck
-    clip: {fileID: 8300000, guid: b341721e3ba9d47448e1fa4d0b43a582, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 1
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Ghost Caught
-    clip: {fileID: 8300000, guid: d70db1adbffa44eb698f287eb4c8c3c4, type: 3}
-    volume: 0.7
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Generic Toggle Sound
-    clip: {fileID: 8300000, guid: a7d4b844f00c244fd858d312be18bc78, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 0.7
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: Generic Hard Throw Sound
-    clip: {fileID: 8300000, guid: 3e2a700ca12cb406fa150c9eee9f0d75, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 0.1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: Generic Soft Throw Sound
-    clip: {fileID: 8300000, guid: 0a206d92536f64472814a1520a3a3099, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: Generic Switch Click
-    clip: {fileID: 8300000, guid: 41c4046e936ae466f97b5d8df0cb0d14, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1.5
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: Curtains Open
-    clip: {fileID: 8300000, guid: e28493abf6b1944a788393fe8fe631f4, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Door Open
-    clip: {fileID: 8300000, guid: 50edcd65d74034a15bf9ca7e2798d42b, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Door Close
-    clip: {fileID: 8300000, guid: 1d997d2d70f454dd2ba96bd5fb881301, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Door Slam
-    clip: {fileID: 8300000, guid: c8f4b0a25b290467db40c3a0ca67e71a, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Doorknob
-    clip: {fileID: 8300000, guid: 442931924ca5140ce84929832c3bcf33, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Faucet On
-    clip: {fileID: 8300000, guid: e928e145af20c4a96a39b7a10aef48dd, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Fridge Door Open
-    clip: {fileID: 8300000, guid: 1f1b97758eb2a4d1ba6ae06060bb798c, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Fridge Door Close
-    clip: {fileID: 8300000, guid: 6ec9abb260d704970beae7b8f1b884e4, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Glass Clink
-    clip: {fileID: 8300000, guid: 77d53cee4ffce401c9d1d7320389d4d7, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Glass Break
-    clip: {fileID: 8300000, guid: f4c34f10d369941d3a8d96518f8c8eb1, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: Water Running
-    clip: {fileID: 8300000, guid: ac5e16529dfb04973a4c838937dfd4d1, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 1
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Wet Sound
-    clip: {fileID: 8300000, guid: 259e0ca1bec6d4b849deadf9c7ebedce, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Wind Whoosh
-    clip: {fileID: 8300000, guid: 6792b1bd6ee0444138cc6d734e000b55, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: Fire Whoosh
-    clip: {fileID: 8300000, guid: 6792b1bd6ee0444138cc6d734e000b55, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 0.5
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: Fire Burning
-    clip: {fileID: 8300000, guid: 3a2b9054d7edd4e66908d439975940f5, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1.5
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: Fire Start
-    clip: {fileID: 8300000, guid: 8755a4016adeb433e96c19b566645967, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1.5
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: Telephone Ring
-    clip: {fileID: 8300000, guid: 425562dce2c374bf187c7ea174b6360c, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1.5
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: TV Turn On
-    clip: {fileID: 8300000, guid: 8b2fc730faf6e4a19ba31cb9bf788632, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1.5
-    pitchVariance: 0.1
-    loop: 0
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
-  - name: TV Static
-    clip: {fileID: 8300000, guid: 27db2c784d77d4433982f34fda0d617d, type: 3}
-    volume: 1
-    volumeVariance: 0.1
-    pitch: 1.5
-    pitchVariance: 0.1
-    loop: 1
-    mixerGroup: {fileID: 24300002, guid: f19dfb49949304503a3f911f9dd11fc2, type: 2}
-    source: {fileID: 0}
---- !u!4 &1995087771
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1995087769}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1675.5, y: 997.8, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2004399986
 GameObject:
   m_ObjectHideFlags: 0
@@ -4155,5 +4191,5 @@ SceneRoots:
   - {fileID: 1100008224}
   - {fileID: 572932080}
   - {fileID: 2011686141}
-  - {fileID: 1995087771}
   - {fileID: 2005560048}
+  - {fileID: 1700789026}

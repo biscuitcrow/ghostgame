@@ -201,9 +201,6 @@ public class InteractableObject : MonoBehaviour
 
     public void ToggleObject()
     {
-        //Camera shake
-        //GameManager.Instance.CameraShake();
-
         isToggledOn = !isToggledOn;
 
         PlaySoundEffects();
