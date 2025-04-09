@@ -52,9 +52,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float NPCCameraTrackingDuration;
 
     [Header("Scores and States")]
-    private int deathScore;
-    private int livedScore;
-    private int levelCount;
     public int objectsThrownScore;
     public bool isItemShop;
     [SerializeField] private int maxPeopleAllowedToLive = 3;
@@ -63,7 +60,10 @@ public class GameManager : MonoBehaviour
     public float levelTime;
     private float startingNPCMaxFear = 90f;
     private float currentNPCMaxFear;
-    private float fearIncreasePerLevel = 20f;
+    [SerializeField] private float fearIncreasePerLevel = 20f;
+    private int deathScore;
+    private int livedScore;
+    private int levelCount;
 
     [Header("Tutorial Settings")]
     public bool isTutorialCompleted;
