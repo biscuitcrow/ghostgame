@@ -1,0 +1,389 @@
+fileFormatVersion: 2
+guid: f07c1babb1cf340239a08ffbea7de3c9
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GameOver_ Ghost UI_Misc_0
+      rect:
+        serializedVersion: 2
+        x: 940
+        y: 3403
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68fbe1540f4954ff98cea0111f753e7e
+      internalID: -79712622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_ Ghost UI_Misc_1
+      rect:
+        serializedVersion: 2
+        x: 1124
+        y: 3403
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50bd1f5e3b7e444fca5ac68fde9efa23
+      internalID: -1300267069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_ Ghost UI_Misc_2
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 1572
+        width: 1634
+        height: 1747
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb4a7213413d0485da124cf12622dd1d
+      internalID: 628478908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_ Ghost UI_Misc_26
+      rect:
+        serializedVersion: 2
+        x: 1993
+        y: 1843
+        width: 532
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf1fc4f6066294ef69a425ba44dfeb3a
+      internalID: -149076027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_ Ghost UI_Misc_27
+      rect:
+        serializedVersion: 2
+        x: 2660
+        y: 1670
+        width: 305
+        height: 308
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26425008136cd48608eac433ccc2ba25
+      internalID: -122392753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_ Ghost UI_Misc_28
+      rect:
+        serializedVersion: 2
+        x: 2516
+        y: 1820
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1491f324b9074285b44a30a37a32a57
+      internalID: 1881448161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_ Ghost UI_Misc_29
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 799
+        width: 1679
+        height: 650
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e163cb06645bd4c84b7275a10e92ea30
+      internalID: 770081028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_ Ghost UI_Misc_30
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 589
+        width: 114
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91ce9c45e34b547269ffa1484b1c971a
+      internalID: 336196513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_ Ghost UI_Misc_3
+      rect:
+        serializedVersion: 2
+        x: 1945
+        y: 2625
+        width: 1252
+        height: 384
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a071add3b03142f58ba38210ed3a345
+      internalID: -629949041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_ Ghost UI_Misc_4
+      rect:
+        serializedVersion: 2
+        x: 1945
+        y: 2259
+        width: 1256
+        height: 341
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1ccb3c0f12334cceb0e0ea16de4e2ce
+      internalID: -1453268372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_ Ghost UI_Misc_5
+      rect:
+        serializedVersion: 2
+        x: 1945
+        y: 2030
+        width: 1256
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3559dc1b05aa14b4884a8398ca8395d7
+      internalID: -995370437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: d19e603973c9447fda8723699cb67122
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      GameOver_ Ghost UI_Misc_0: -79712622
+      GameOver_ Ghost UI_Misc_1: -1300267069
+      GameOver_ Ghost UI_Misc_10: 516440702
+      GameOver_ Ghost UI_Misc_11: 1278454972
+      GameOver_ Ghost UI_Misc_12: -1895265375
+      GameOver_ Ghost UI_Misc_13: 709346651
+      GameOver_ Ghost UI_Misc_14: 1504626876
+      GameOver_ Ghost UI_Misc_15: -314488262
+      GameOver_ Ghost UI_Misc_16: -2133296048
+      GameOver_ Ghost UI_Misc_17: 1426532641
+      GameOver_ Ghost UI_Misc_18: -2067063015
+      GameOver_ Ghost UI_Misc_19: -2063991899
+      GameOver_ Ghost UI_Misc_2: 628478908
+      GameOver_ Ghost UI_Misc_20: 190392096
+      GameOver_ Ghost UI_Misc_21: -1371873869
+      GameOver_ Ghost UI_Misc_22: -1080228425
+      GameOver_ Ghost UI_Misc_23: 2038180783
+      GameOver_ Ghost UI_Misc_24: -365535999
+      GameOver_ Ghost UI_Misc_25: -470723144
+      GameOver_ Ghost UI_Misc_26: -149076027
+      GameOver_ Ghost UI_Misc_27: -122392753
+      GameOver_ Ghost UI_Misc_28: 1881448161
+      GameOver_ Ghost UI_Misc_29: 770081028
+      GameOver_ Ghost UI_Misc_3: -629949041
+      GameOver_ Ghost UI_Misc_30: 336196513
+      GameOver_ Ghost UI_Misc_4: -1453268372
+      GameOver_ Ghost UI_Misc_5: -995370437
+      GameOver_ Ghost UI_Misc_6: -1315406432
+      GameOver_ Ghost UI_Misc_7: -1258328508
+      GameOver_ Ghost UI_Misc_8: 583067511
+      GameOver_ Ghost UI_Misc_9: -553192277
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

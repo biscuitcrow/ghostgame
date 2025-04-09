@@ -47,6 +47,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelNumberText;
     [SerializeField] private TextMeshProUGUI NPCsKilledNumberText;
     [SerializeField] private TextMeshProUGUI NPCsLivedNumberText;
+    [SerializeField] private GameObject tooHeavyNotifPanel;
 
 
     [Header("Player UI Elements")]
@@ -64,6 +65,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject obituaryUIPopup;
     [SerializeField] private GameObject killedNPCUIPopup;
     [SerializeField] private Transform livedGroupObj;
+    [SerializeField] private Sprite escapedSprite;
 
     [Header("Obituary UI Elements")]
     public float obituraryDelay = 3f;
@@ -394,6 +396,22 @@ public class UIManager : MonoBehaviour
     public void UpdateNPCEscapedIndicator(int livedScore)
     {
         ScalePulseUIGameObject(livedGroupObj.GetChild(livedScore - 1).gameObject, 0.5f);
-        livedGroupObj.GetChild(livedScore - 1).GetComponent<Image>().DOFade(0.2f, 0.5f);
+        //livedGroupObj.GetChild(livedScore - 1).GetComponent<Image>().DOFade(0.2f, 0.5f);
+        livedGroupObj.GetChild(livedScore - 1).GetComponent<Image>().sprite = escapedSprite;
     }
+
+    public void DisplayTooHeavyNotification()
+    {
+        StartCoroutine("DisplayTooHeavyNotificationCoroutine");
+    }
+
+    IEnumerator DisplayTooHeavyNotificationCoroutine()
+    {
+        ScaleandFadeUIGameObject(true, false, true, 1, tooHeavyNotifPanel, 0.1f);
+        TranslateUIGameObject(tooHeavyNotifPanel, new Vector2(0f, 50f), new Vector2(0f, 60f), 0.8f, Ease.OutQuad);
+        yield return new WaitForSeconds(0.7f);
+        ScaleandFadeUIGameObject(false, false, true, 1, tooHeavyNotifPanel, 0.1f);
+        yield return null;
+    }
+
 }

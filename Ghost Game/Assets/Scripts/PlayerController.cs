@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     #region <------- VARIABLE DEFINITIONS -------> //
 
+
     [Header("Player Keyboard Controls")]
     public KeyCode interactionKeyCode = KeyCode.E;
     public KeyCode hauntKeyCode = KeyCode.R;
@@ -20,6 +21,10 @@ public class PlayerController : MonoBehaviour
     private float gravityValue = 9.81f;
     public float interactionDistance = 1.2f;
     public Vector3 NPCforceVector;
+
+
+    [Header("Player Animator")]
+    public Animator playerAnimator;
 
     [Header("Throwing Ability")]
     private float throwForce;
@@ -64,6 +69,7 @@ public class PlayerController : MonoBehaviour
     public void ResetPlayer()
     {
         TeleportPlayer();
+        playerAnimator.SetBool("isGhostVictory", false);
         if (isObjectPickedUp && selectedInteractableObject != null)
         {
             Destroy(selectedInteractableObject.gameObject);
@@ -81,6 +87,7 @@ public class PlayerController : MonoBehaviour
     {
         transform.position = GameManager.Instance.playerStartPosition.position;
         Physics.SyncTransforms();
+        VFXManager.Instance.InstantiateSpawningPS(GameManager.Instance.playerStartPosition).transform.parent = gameObject.transform;
     }
 
 
@@ -205,9 +212,9 @@ public class PlayerController : MonoBehaviour
                 {
                     if (!isHauntAbilityOnCooldown)
                     {
+                        playerAnimator.Play("Haunt");
                         AudioManager.instance.Play("Haunt Ability");
                         VFXManager.Instance.PlayHauntPS();
-
 
                         GameManager.Instance.CameraShake();
                         UIManager.Instance.UseHauntAbilityIndicator();
@@ -288,6 +295,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
+                    UIManager.Instance.DisplayTooHeavyNotification();
                     print("Object is too heavy for your current abilities to throw.");
                 }
             }
@@ -327,6 +335,7 @@ public class PlayerController : MonoBehaviour
 
     void ToggleObject()
     {
+        playerAnimator.Play("Toggle");
         currentInteractableObjectScript.ToggleObject();
     }
 
@@ -339,6 +348,7 @@ public class PlayerController : MonoBehaviour
         //Pick up object by making it a child of the player's pickup point, checking that nothing has been picked up already
         if (pickupPoint.childCount < 1)
         {
+            playerAnimator.Play("Hold");
             selectedInteractableObject.parent = pickupPoint.transform;
             isObjectPickedUp = true;
             //print("Object successfully picked up.");
@@ -371,6 +381,7 @@ public class PlayerController : MonoBehaviour
         // When E is released, hurl/throw object
         if (Input.GetKeyUp(interactionKeyCode))
         {
+            playerAnimator.Play("Throw");
             // Unparent throwable object from pickup point and parent it back to the level
             selectedInteractableObject.parent = GameObject.FindWithTag("Level").transform;
             // Throw object with calculated force

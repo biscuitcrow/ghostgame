@@ -10,6 +10,7 @@ TagManager:
   - Game Manager
   - Level
   - FxTemporaire
+  - Main Door Trigger
   layers:
   - Default
   - TransparentFX

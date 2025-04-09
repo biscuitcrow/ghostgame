@@ -31,10 +31,12 @@ public class InteractableObject : MonoBehaviour
     [Header("Toggalable Details")]
     public bool isToggledOn; 
     public GameObject[] listOfGameObjectsToToggle;
+    public List<GameObject> listOfTogglablesOffOnStart;
     public ParticleSystem[] listOfPSToToggle;
     public GameObject[] listOfPSToSpawn;
     private float toggleCooldown = 0.2f;
     public Vector3 togglePSOffset;
+    public Animator toggleAnimator;
 
     [Header("Item-Specific Sound Effects")]
     public AudioEffectType audioEffectType;
@@ -61,7 +63,10 @@ public class InteractableObject : MonoBehaviour
         isCanScareNPC = false;
         isOnCooldown = false; 
         NPCLayer = LayerMask.GetMask("NPC");
+
+        ResetTogglableObject();
     }
+
 
     private void ScareAllNPCsInRange(Vector3 scarePoint)
     {
@@ -185,6 +190,15 @@ public class InteractableObject : MonoBehaviour
 
     // <----------------------------------------- TOGGABLABLES ----------------------------------------- > //
 
+    private void ResetTogglableObject()
+    {
+        // Sets whatever is in the togglable list to false
+        foreach (GameObject obj in listOfTogglablesOffOnStart)
+        {
+            obj.SetActive(false);
+        }
+    }
+
     public void ToggleObject()
     {
         //Camera shake
@@ -199,6 +213,22 @@ public class InteractableObject : MonoBehaviour
         {
             obj.SetActive(!obj.activeSelf);
         }
+
+
+        if (toggleAnimator != null)
+        {
+            // Animates togglable object
+            if (isToggledOn)
+            {
+                toggleAnimator.SetTrigger("isTriggered");
+                toggleAnimator.SetBool("isToggledOn", true);
+            }
+            else
+            {
+                toggleAnimator.SetBool("isToggledOn", false);
+            }
+        }
+        
 
         // Spawns visual effects particle systems
         foreach (ParticleSystem obj in listOfPSToToggle)

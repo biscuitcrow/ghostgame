@@ -20,6 +20,7 @@ public class ExorcistKill : MonoBehaviour
             // Play Exorcist kill anim
 
             // Play player death anim
+            VFXManager.Instance.InstantiateRemovalPS(other.gameObject.transform);
 
             // Player death SFX
             AudioManager.instance.Play("Ghost Caught");

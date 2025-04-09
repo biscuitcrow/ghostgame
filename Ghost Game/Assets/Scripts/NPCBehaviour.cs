@@ -119,6 +119,7 @@ public class NPCBehaviour : MonoBehaviour
         if (isGhostInSightRange)
         {
             PullGhost();
+            NPCAnimator.SetBool("NPCShooting", true);
         }
         else
         {
@@ -126,13 +127,15 @@ public class NPCBehaviour : MonoBehaviour
             {
                 AudioManager.instance.Stop("Exorcist Suck");
             }
+
+            NPCAnimator.SetBool("NPCShooting", false);
             player.gameObject.GetComponent<PlayerController>().NPCforceVector = Vector3.zero;
         }
     }
 
     void PullGhost()
     {
-        if(!AudioManager.instance.CheckIfPlaying("Exorcist Suck"))
+        if (!AudioManager.instance.CheckIfPlaying("Exorcist Suck"))
         {
             AudioManager.instance.Play("Exorcist Suck");
         }
@@ -288,6 +291,7 @@ public class NPCBehaviour : MonoBehaviour
     public void NPCLived()
     {
         // Play NPC lived animation and sounds
+        VFXManager.Instance.InstantiateRemovalPS(gameObject.transform);
         Destroy(fearMeterObj);
         Destroy(this.gameObject);
         GameManager.Instance.NPCLived();

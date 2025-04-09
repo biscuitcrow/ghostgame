@@ -37,11 +37,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FresnelPower: 4.7
+    - _FresnelPower: 1.25
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _FresnelColor: {r: 4.9245777, g: 4.9245777, b: 4.9245777, a: 0}
+    - _FresnelColor: {r: 0.5296368, g: 0.5296368, b: 0.5296368, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4460003272902962072
 MonoBehaviour:

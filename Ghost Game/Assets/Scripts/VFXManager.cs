@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using EditorAttributes;
 
 public class VFXManager : MonoBehaviour
 {
@@ -39,10 +41,47 @@ public class VFXManager : MonoBehaviour
     [Header("NPC VFX")]
     [SerializeField] private ParticleSystem startledNPCPS;
 
+    [Header("Spawning and Removal VFX")]
+    [SerializeField] private ParticleSystem spawningPS;
+    [SerializeField] private ParticleSystem removalPS;
+
     [Header("Furniture VFX")]
     [SerializeField] private ParticleSystem throwablesImpactPS;
     [SerializeField] private ParticleSystem togglablesSparkPS;
     #endregion
+
+    [Header("Lightning VFX")]
+    [SerializeField] private Light mainDirectionalLight;
+
+
+    // <----------------------------------------- LIGHTNING VFX ----------------------------------------- > //
+
+    private Sequence InitializeLightningSequence()
+    {
+        float minInterval = 0.1f;
+        float maxInterval = 0.2f;
+        float minIntensity = 3f;
+        float maxIntensity = 4.5f;
+        int minNumberOfFlashes = 2;
+        int maxNumberOfFlashes = 4;
+
+        Sequence lightningSequence = DOTween.Sequence();
+        for (int i=0; i < Random.Range(minNumberOfFlashes, maxNumberOfFlashes); i++)
+        {
+            lightningSequence.Append(mainDirectionalLight.DOIntensity(Random.Range(minIntensity, maxIntensity), Random.Range(minInterval, maxInterval)));
+            lightningSequence.Append(mainDirectionalLight.DOIntensity(1, Random.Range(minInterval, maxInterval)));
+            lightningSequence.AppendInterval(Random.Range(0, 0.08f));
+        }
+
+        return lightningSequence;
+    }
+
+    [Button("Activate Lightning")]
+    public void ActivateLightning()
+    {
+        InitializeLightningSequence().Play();
+        AudioManager.instance.Play("Thunder");
+    }
 
 
     // <----------------------------------------- PLAYER VFX ----------------------------------------- > //
@@ -81,6 +120,21 @@ public class VFXManager : MonoBehaviour
     {
         Vector3 position = new Vector3(npcTransform.position.x, npcTransform.position.y - 1.4f, npcTransform.position.z);
         Instantiate(startledNPCPS, position, Quaternion.identity);
+    }
+
+    // <----------------------------------------- SPAWNING AND REMOVAL VFX ----------------------------------------- > //
+    public ParticleSystem InstantiateSpawningPS(Transform spawningTransform, float yOffset = -0.3f)
+    {
+        Vector3 position = new Vector3(spawningTransform.position.x, spawningTransform.position.y + yOffset, spawningTransform.position.z);
+        ParticleSystem PS = Instantiate(spawningPS, position, Quaternion.identity);
+        return PS;
+    }
+
+    public ParticleSystem InstantiateRemovalPS(Transform removalTransform, float yOffset = 0f)
+    {
+        Vector3 position = new Vector3(removalTransform.position.x, removalTransform.position.y + yOffset, removalTransform.position.z);
+        ParticleSystem PS = Instantiate(removalPS, position, Quaternion.identity);
+        return PS;
     }
 
     // <----------------------------------------- FURNITURE VFX ----------------------------------------- > //

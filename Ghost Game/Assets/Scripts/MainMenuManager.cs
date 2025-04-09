@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class MainMenuManager : MonoBehaviour
 {
+    public GameObject mainButtonsUIPanel;
     public GameObject creditsUIPanel;
 
 
@@ -13,9 +14,12 @@ public class MainMenuManager : MonoBehaviour
         if (isActive)
         {
             ScaleandFadeUIGameObject(true, true, true, 1f, creditsUIPanel, 0.2f);
+            ScaleandFadeUIGameObject(false, true, true, 0f, mainButtonsUIPanel, 0.2f);
         }
         else
         {
+
+            ScaleandFadeUIGameObject(true, true, true, 1f, mainButtonsUIPanel, 0.2f);
             ScaleandFadeUIGameObject(false, true, true, 0f, creditsUIPanel, 0.2f);
         }
         

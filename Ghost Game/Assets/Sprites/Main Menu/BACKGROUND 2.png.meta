@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 98544c37728cd4a2d85a8717763fa5d3
+guid: c2aa1f46609384e4fb5b0a979adf8559
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,91 +108,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: GameOver_ Ghost UI_0
-      rect:
-        serializedVersion: 2
-        x: 68
-        y: 80
-        width: 1631
-        height: 1743
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9277b7fa1a1ca4d20aa4c768a761dd25
-      internalID: -1809612466
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GameOver_ Ghost UI_1
-      rect:
-        serializedVersion: 2
-        x: 1762
-        y: 1063
-        width: 1334
-        height: 497
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cf8fb108edc95477dab0ec877743c670
-      internalID: -357425044
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GameOver_ Ghost UI_8
-      rect:
-        serializedVersion: 2
-        x: 1840
-        y: 351
-        width: 531
-        height: 157
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d3d1b224bd8e7459bbcb74689f3a539e
-      internalID: -523297260
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GameOver_ Ghost UI_9
-      rect:
-        serializedVersion: 2
-        x: 2365
-        y: 327
-        width: 4
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bf757ff2c11964fcf8d9664546f95107
-      internalID: -2024127668
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -203,17 +119,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      GameOver_ Ghost UI_0: -1809612466
-      GameOver_ Ghost UI_1: -357425044
-      GameOver_ Ghost UI_2: 895197370
-      GameOver_ Ghost UI_3: -1869436115
-      GameOver_ Ghost UI_4: -544770912
-      GameOver_ Ghost UI_5: -1944508635
-      GameOver_ Ghost UI_6: 931749494
-      GameOver_ Ghost UI_7: 1353683206
-      GameOver_ Ghost UI_8: -523297260
-      GameOver_ Ghost UI_9: -2024127668
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
