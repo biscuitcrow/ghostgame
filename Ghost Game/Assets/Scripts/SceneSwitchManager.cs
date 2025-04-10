@@ -32,6 +32,8 @@ public class SceneSwitchManager : MonoBehaviour
 
     public Animator transitionAnimator;
 
+
+    /*
     private void Start()
     {
         //Play main menu music
@@ -39,26 +41,55 @@ public class SceneSwitchManager : MonoBehaviour
         AudioManager.instance.SetVolume("Main Menu Music", 0f);
         AudioManager.instance.FadeVolume("Main Menu Music", 1f, 5f);
     }
+    */
 
-    public void LoadGameScene()
-    {
-        StartCoroutine("FadeOutMainMenuMusic");
-        StartCoroutine("LoadLevel");
-    }
 
+
+
+    /*
+    // Loads the main game level
     IEnumerator LoadLevel()
     {
         transitionAnimator.SetTrigger("triggerSceneTransitionStart");
         yield return new WaitForSeconds(0.4f);
         SceneManager.LoadScene("GameScene");
+        gameSceneTransitionAnimator = GameObject.FindWithTag("Main Game Transition Animator").GetComponent<Animator>();
+    }
+    */
+
+    // Loads the main game scene
+    public void LoadGameScene()
+    {
+        // Fades out main menu music then loads the main game
+        StartCoroutine("FadeOutMusic", "Main Menu Music");
+        StartCoroutine("LoadLevel", "GameScene");
     }
 
-    IEnumerator FadeOutMainMenuMusic()
+    public void LoadStartMenuScene()
     {
-        AudioManager.instance.FadeVolume("Main Menu Music", 0f, 2f);
-        yield return new WaitForSeconds(2f);
-        AudioManager.instance.Stop("Main Menu Music");
+        // Fades out game level music then loads the main game
+        StartCoroutine("FadeOutMusic", GameManager.Instance.listOfAllLevelThemesNames[GameManager.Instance.currentThemeIndex]);
+        StartCoroutine("LoadLevel", "StartMenu");
     }
+
+    // Loads a level with specified name
+    IEnumerator LoadLevel(string sceneName)
+    {
+        //Sets the transition animator to that in the current scene
+        transitionAnimator = GameObject.FindWithTag("Main Game Transition Animator").GetComponent<Animator>();
+        transitionAnimator.SetTrigger("triggerSceneTransitionStart");
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene(sceneName);
+
+    }
+
+    IEnumerator FadeOutMusic(string musicName)
+    {
+        AudioManager.instance.FadeVolume(musicName, 0f, 2f);
+        yield return new WaitForSeconds(2f);
+        AudioManager.instance.Stop(musicName);
+    }
+
 }
 
 

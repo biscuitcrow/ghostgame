@@ -39,11 +39,13 @@ public class AbilitiesManager : MonoBehaviour
         get { return abilityValues["movementSpeed"]; }
         set { }
     }
+
     public float throwForceMult
     {
         get { return abilityValues["throwForceMult"]; }
         set { }
     }
+
     public float maxWeightThrowable
     {
         get { return abilityValues["maxWeightThrowable"]; }
@@ -80,12 +82,12 @@ public class AbilitiesManager : MonoBehaviour
         set { }
     }
 
-
     public float bonusFearIncrease
     {
         get { return abilityValues["bonusFearIncrease"]; }
         set { }
     }
+
     public float phobiaMult
     {
         get { return abilityValues["phobiaMult"]; }
@@ -141,7 +143,7 @@ public class AbilitiesManager : MonoBehaviour
         EditAbilityDictionary("ghostVisibilityScareMult", 2f); // Currently not using as an upgrade - 19 Mar 2025
         EditAbilityDictionary("ghostScareVisibilityRadius", 5f); 
         EditAbilityDictionary("ghostScareVisibilityDuration", 0.5f); // Currently not using as an upgrade (but it is being referenced)- 19 Mar 2025
-        EditAbilityDictionary("ghostScareCooldown", 5f);
+        EditAbilityDictionary("ghostScareCooldown", 6f);
 
         // All Interactables
         EditAbilityDictionary("bonusFearIncrease", 10f);

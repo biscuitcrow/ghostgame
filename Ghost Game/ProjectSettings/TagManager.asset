@@ -11,6 +11,8 @@ TagManager:
   - Level
   - FxTemporaire
   - Main Door Trigger
+  - Main Game Transition Animator
+  - Main Menu Button
   layers:
   - Default
   - TransparentFX

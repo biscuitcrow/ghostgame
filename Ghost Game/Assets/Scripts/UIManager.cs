@@ -57,6 +57,9 @@ public class UIManager : MonoBehaviour
 
     [Header("General UI Elements")]
     [SerializeField] private GameObject skipTutorialButton;
+    [SerializeField] private GameObject pauseButton;
+
+    [SerializeField] private GameObject pauseMenuUIPanel;
     [SerializeField] private GameObject mainUIPanel;
     [SerializeField] private GameObject clockUI;
     [SerializeField] private GameObject houseAdvertisementPanel;
@@ -84,6 +87,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image shopUpcomingNPCProfile;
     [SerializeField] private Image shopUpcomingNPCPhobia;
     [SerializeField] private Tag unknownPhobiaTag;
+
+    [Header("Ability Levels Text Elements")]
+    [SerializeField] private TextMeshProUGUI spookyTimeText;
+    [SerializeField] private TextMeshProUGUI fearFactorText;
+    [SerializeField] private TextMeshProUGUI speedsterText;
+    [SerializeField] private TextMeshProUGUI powerlifterText;
+    [SerializeField] private TextMeshProUGUI strengthTrainingText;
+    [SerializeField] private TextMeshProUGUI hauntedClockText;
+    [SerializeField] private TextMeshProUGUI hauntedMindText;
+    [SerializeField] private TextMeshProUGUI hauntedSpaceText;
 
 
     [Header("NPC Phobia ID Card Elements")]
@@ -175,6 +188,7 @@ public class UIManager : MonoBehaviour
 
     // <---------------------------------- HAUNT ABILITY INDICATOR ---------------------------------- > //
 
+
     public void ToggleHauntAbilityIndicator(bool isActive)
     {
         ScaleandFadeUIGameObject(isActive, true, true, 1f, hauntAbilityIndicator, 0.2f);
@@ -200,7 +214,7 @@ public class UIManager : MonoBehaviour
     public void ShakeHauntAbilityIndicator()
     {
         print("shaken not stirred.");
-        hauntAbilityIndicator.transform.Find("Panel").DOShakePosition(0.1f, 0.1f);
+        hauntAbilityIndicator.transform.Find("Panel").DOShakePosition(0.15f, 0.2f, 50);
     }
 
     // <---------------------------------------------------------------------------------------------- > //
@@ -224,7 +238,7 @@ public class UIManager : MonoBehaviour
         {
             // Drops the clock UI in nicely (for juice)
             TranslateUIGameObject(clockUI, new Vector2(386.4f, 200f), new Vector2(386.4f, -146.3f), 0.5f, Ease.OutBounce);
-            TranslateUIGameObject(levelNumberText.gameObject, new Vector2(-182.7f, 42f), new Vector2(-182.7f, -76.6f), 0.3f, Ease.InOutBack);
+            TranslateUIGameObject(levelNumberText.gameObject, new Vector2(-292.1f, 42f), new Vector2(-292.1f, -76.6f), 0.3f, Ease.InOutBack);
             //TranslateUIGameObject(livedGroupObj.gameObject, new Vector2(193.8f, 230f), new Vector2(193.8f, 366.1f), 0.3f, Ease.InOutBack);
         }
     }
@@ -252,10 +266,12 @@ public class UIManager : MonoBehaviour
 
     public void ToggleShop(bool displayShop)
     {
-        UpdateUpcomingNPCInShop();
         shopUIPanel.SetActive(displayShop);
         if (displayShop)
         {
+            UpdateUpcomingNPCInShop();
+            UpdateAbilityLevelsUIInShop();
+
             ToggleShopClientFilePanel(false);
             TranslateUIGameObject(shopButtonsUIPanel, new Vector2(0, 800), new Vector2(0, 0), 0.5f, Ease.OutBounce);
             TranslateUIGameObject(shopNextClientUIPanel, new Vector2(211, -300), new Vector2(211, 112), 0.5f, Ease.OutBounce);
@@ -265,7 +281,7 @@ public class UIManager : MonoBehaviour
 
         ToggleMainGameplayUI(!displayShop);
     }
-
+    
 
 
     public void ToggleShopClientFilePanel(bool displayFile)
@@ -305,9 +321,16 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateAbilityStats()
+    public void UpdateAbilityLevelsUIInShop()
     {
-
+        spookyTimeText.text = "Furniture Fear: +" + AbilitiesManager.Instance.bonusFearIncrease.ToString();
+        fearFactorText.text = "Phobia Multiplier: x" + AbilitiesManager.Instance.phobiaMult.ToString();
+        speedsterText.text = "Move Speed: " + AbilitiesManager.Instance.movementSpeed.ToString();
+        powerlifterText.text = "Max Throw Weight: " + AbilitiesManager.Instance.maxWeightThrowable.ToString();
+        strengthTrainingText.text = "Throw Strength: " + AbilitiesManager.Instance.throwForceMult.ToString();
+        hauntedClockText.text = "Haunt Cooldown: " + AbilitiesManager.Instance.ghostScareCooldown.ToString() + "s";
+        hauntedMindText.text = "Haunt Fear: +" + AbilitiesManager.Instance.ghostVisibilityScareValue.ToString();
+        hauntedSpaceText.text = "Haunt Range: " + AbilitiesManager.Instance.ghostScareVisibilityRadius.ToString();
     }
 
     public void UpdateGameStats(int levelCount, int deathScore, int livedScore)
@@ -442,6 +465,25 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
         ScaleandFadeUIGameObject(false, false, true, 1, tooHeavyNotifPanel, 0.1f);
         yield return null;
+    }
+
+
+    public void TogglePauseMenu(bool isActive)
+    {
+        pauseMenuUIPanel.SetActive(isActive);
+    }
+
+    public void TogglePauseButton(bool isActive)
+    {
+        if (isActive)
+        {
+            pauseButton.gameObject.SetActive(true);
+            TranslateUIGameObject(pauseButton.gameObject, new Vector2(-76.8f, 58.3f), new Vector2(-76.8f, -82.3f), 0.3f, Ease.InOutBack);
+        }
+        else
+        {
+            pauseButton.gameObject.SetActive(false);
+        }
     }
 
 }

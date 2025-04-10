@@ -34,6 +34,7 @@ public class NPCBehaviour : MonoBehaviour
     public bool isExorcist;
     public Sprite profileSprite;
     private bool isNPCActive = true;
+    public Outliner outline;
 
     [Header("NPC Phobia")]
     public bool isPhobiaRevealed = false;
@@ -86,6 +87,10 @@ public class NPCBehaviour : MonoBehaviour
 
         SetUpFearMeterUI();
         SetUpDestinationPointsList();
+
+        outline = gameObject.AddComponent<Outliner>();
+        outline.OutlineColor = Color.green;
+        outline.enabled = false;
     }
 
     void SetUpDestinationPointsList()
@@ -118,7 +123,6 @@ public class NPCBehaviour : MonoBehaviour
     void CheckIfPullGhost()
     {
         // Manipulating the attraction power
-        //if (isGhostInSightRange)
         if (CheckNPCDistanceFromGhost() <= exorcistAttractionRange)
         {
             PullGhost();
@@ -152,7 +156,8 @@ public class NPCBehaviour : MonoBehaviour
     }
 
     void Update()
-    {
+    { 
+        
         // Exorcist NPC behaviour
         if (isExorcist) 
         {
@@ -227,17 +232,22 @@ public class NPCBehaviour : MonoBehaviour
 
         // This is decoupled from movement code so you can scare NPC even when it is leaving the house, it just won't run away from ghost
         // Uses the scare range of the ghost's haunt ability
-        if ((CheckNPCDistanceFromGhost() < AbilitiesManager.Instance.ghostScareVisibilityRadius)
-            && player.GetComponent<PlayerController>().isGhostVisible)
+        if (CheckNPCDistanceFromGhost() < AbilitiesManager.Instance.ghostScareVisibilityRadius)
         {
-            if (!isHauntedCooldownRunning)
+            outline.enabled = true;
+            if (player.GetComponent<PlayerController>().isGhostVisible)
             {
-                // Scares the NPC when ghost becomes visible
-                IncreaseFearMeter(AbilitiesManager.Instance.ghostVisibilityScareValue);
-                StartCoroutine("HauntedCooldown");
-
-                
+                if (!isHauntedCooldownRunning)
+                {
+                    // Scares the NPC when ghost becomes visible
+                    IncreaseFearMeter(AbilitiesManager.Instance.ghostVisibilityScareValue);
+                    StartCoroutine("HauntedCooldown");
+                }
             }
+        }
+        else
+        {
+            outline.enabled = false;
         }
     }
 
@@ -284,6 +294,7 @@ public class NPCBehaviour : MonoBehaviour
     public void NPCDied()
     {
         isNPCActive = false;
+        outline.enabled = false;
         Instantiate(skullPS, transform.position, Quaternion.identity);
         ToggleStopNavMeshAgent(true);
 
@@ -300,6 +311,7 @@ public class NPCBehaviour : MonoBehaviour
     public void NPCLived()
     {
         isNPCActive = false;
+        outline.enabled = false;
         // Play NPC lived animation and sounds
         VFXManager.Instance.InstantiateRemovalPS(gameObject.transform);
         Destroy(fearMeterObj);

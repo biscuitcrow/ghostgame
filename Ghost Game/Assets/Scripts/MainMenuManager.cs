@@ -8,6 +8,13 @@ public class MainMenuManager : MonoBehaviour
     public GameObject mainButtonsUIPanel;
     public GameObject creditsUIPanel;
 
+    private void Start()
+    {
+        //Play main menu music
+        AudioManager.instance.Play("Main Menu Music");
+        AudioManager.instance.SetVolume("Main Menu Music", 0f);
+        AudioManager.instance.FadeVolume("Main Menu Music", 1f, 5f);
+    }
 
     public void ToggleCreditsWindowUI(bool isActive)
     {

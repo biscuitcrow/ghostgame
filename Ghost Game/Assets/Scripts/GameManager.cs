@@ -83,8 +83,8 @@ public class GameManager : MonoBehaviour
 
 
     [Header("Audio")]
-    int currentThemeIndex;
-    [SerializeField] List<string> listOfAllLevelThemesNames = new List<string>();
+    public int currentThemeIndex;
+    public List<string> listOfAllLevelThemesNames = new List<string>();
     public List<string> listOfAllNPCScaredSoundNames = new List<string>();
 
 
@@ -110,7 +110,9 @@ public class GameManager : MonoBehaviour
         // This UI toggling order of the shop and main matters
         ToggleShop(false);
         UIManager.Instance.ToggleMainGameplayUI(false);
+        UIManager.Instance.TogglePauseMenu(false);
         UIManager.Instance.ToggleSkipTutorialButton(true);
+        UIManager.Instance.TogglePauseButton(false);
 
         ResetValues();
         playerController.ResetPlayer();
@@ -149,6 +151,7 @@ public class GameManager : MonoBehaviour
         //UIManager.Instance.DisplayTutorialNotification(false, "");
         UIManager.Instance.ToggleHouseAdvertisementPanel(false);
         UIManager.Instance.ToggleSkipTutorialButton(false);
+        UIManager.Instance.TogglePauseButton(true);
         UIManager.Instance.ScaleandFadeUIGameObject(false, true, true, 0, UIManager.Instance.televisionMarkerUI, 0.2f);
         UIManager.Instance.ScaleandFadeUIGameObject(false, true, true, 0, UIManager.Instance.tableMarkerUI, 0.2f);
 
@@ -200,6 +203,7 @@ public class GameManager : MonoBehaviour
             isTutorialCompleted = true;
             isTutorialRunning = false;
             UIManager.Instance.ToggleSkipTutorialButton(false);
+            UIManager.Instance.TogglePauseButton(true);
             ResetGame();
             yield break;
     }
@@ -260,6 +264,7 @@ public class GameManager : MonoBehaviour
     {
         playerController.gameObject.SetActive(true);
         UIManager.Instance.ToggleGameOverUIPanel(false);
+        UIManager.Instance.TogglePauseMenu(false);
         ResetValues();
         ChooseUpcomingNPC();
         StartLevel();

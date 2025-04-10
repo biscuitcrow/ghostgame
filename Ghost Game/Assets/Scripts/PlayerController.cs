@@ -223,6 +223,7 @@ public class PlayerController : MonoBehaviour
                     }
                     else
                     {
+                        AudioManager.instance.Play("Haunt Cooldown");
                         UIManager.Instance.ShakeHauntAbilityIndicator();
                     }
                     
