@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Haunted Space
   description: Increases the range of your haunt ability
   shopSprite: {fileID: -1474937692, guid: fec97c8333c194ca2958845cff2601cd, type: 3}
-  isAvailableInShop: 0
+  isAvailableInShop: 1
   isSkillUpgrade: 1
   isNPCPhobiaReveal: 0
   valueIncrease: 0.5

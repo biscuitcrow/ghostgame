@@ -17,7 +17,7 @@ MonoBehaviour:
 
 '
   shopSprite: {fileID: -6917589, guid: fec97c8333c194ca2958845cff2601cd, type: 3}
-  isAvailableInShop: 0
+  isAvailableInShop: 1
   isSkillUpgrade: 1
   isNPCPhobiaReveal: 0
   valueIncrease: -0.5

@@ -80,7 +80,7 @@ public class VFXManager : MonoBehaviour
     public void ActivateLightning()
     {
         InitializeLightningSequence().Play();
-        AudioManager.instance.Play("Thunder");
+        AudioManager.instance.Play("Thunder 1");
     }
 
 

@@ -621,6 +621,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator StartLevelOverProcedure(float delayBeforeShop = 6f)
     {
+        AudioManager.instance.Stop("Exorcist Suck");
+
         // Adds a delay so that any animations and stuff can play before the shop comes out
         yield return new WaitForSeconds(delayBeforeShop);
 
@@ -739,7 +741,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            UIManager.Instance.UpdateGameOverText("You lost your house! " + maxPeopleAllowedToLive.ToString() + " people lived and one went on to buy your house.");
+            //UIManager.Instance.UpdateGameOverText("You lost your house! " + maxPeopleAllowedToLive.ToString() + " people lived and one went on to buy your house.");
         }
         
         UIManager.Instance.ToggleGameOverUIPanel(true);
