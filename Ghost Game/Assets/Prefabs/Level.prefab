@@ -4499,6 +4499,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5589789325496465334}
   - component: {fileID: 5476630975876989546}
+  - component: {fileID: 201270975996417374}
   m_Layer: 0
   m_Name: invisible wall collider (second level)
   m_TagString: Untagged
@@ -4542,6 +4543,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 11.620739, y: 7.435199, z: 0.44331074}
   m_Center: {x: 0, y: 0, z: -0.26243258}
+--- !u!208 &201270975996417374
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7360064838566592055}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 5.81037, y: 3.7175994, z: 0.22165535}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: -0.2624326}
+  m_TimeToStationary: 0.5
 --- !u!1 &7521956913715986726
 GameObject:
   m_ObjectHideFlags: 0

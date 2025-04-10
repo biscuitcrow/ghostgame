@@ -24,6 +24,8 @@ public class ExorcistKill : MonoBehaviour
 
             // Player death SFX
             AudioManager.instance.Play("Ghost Caught");
+            AudioManager.instance.Stop("Exorcist Suck");
+
         }
     }
 }

@@ -69,7 +69,8 @@ public class SceneSwitchManager : MonoBehaviour
     {
         // Fades out game level music then loads the main game
         StartCoroutine("FadeOutMusic", GameManager.Instance.listOfAllLevelThemesNames[GameManager.Instance.currentThemeIndex]);
-        StartCoroutine("LoadLevel", "StartMenu");
+        SceneManager.LoadScene("StartMenu");
+        Time.timeScale = 1;
     }
 
     // Loads a level with specified name
@@ -85,8 +86,8 @@ public class SceneSwitchManager : MonoBehaviour
 
     IEnumerator FadeOutMusic(string musicName)
     {
-        AudioManager.instance.FadeVolume(musicName, 0f, 2f);
-        yield return new WaitForSeconds(2f);
+        AudioManager.instance.FadeVolume(musicName, 0f, 1f);
+        yield return new WaitForSeconds(1f);
         AudioManager.instance.Stop(musicName);
     }
 

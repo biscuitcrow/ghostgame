@@ -262,6 +262,7 @@ public class GameManager : MonoBehaviour
     [Button("Reset Game")]
     public void ResetGame() // Doesn't reset any tutorial values
     {
+        Time.timeScale = 1;
         playerController.gameObject.SetActive(true);
         UIManager.Instance.ToggleGameOverUIPanel(false);
         UIManager.Instance.TogglePauseMenu(false);
@@ -722,13 +723,14 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void ExorcistKilledGhost()
+    public bool ExorcistKilledGhost()
     {
         isScareLevelRunning = false;
         isExorcistLevel = true;
         playerController.gameObject.SetActive(false);
         AudioManager.instance.Play("Level Fail");
         StartCoroutine("StartGameLostProcedure");
+        return true;
     }
 
     IEnumerator StartGameLostProcedure()

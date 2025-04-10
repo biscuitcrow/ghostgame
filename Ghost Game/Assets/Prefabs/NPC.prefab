@@ -160,7 +160,8 @@ MonoBehaviour:
   currentFear: 0
   maxFear: 100
   isExorcist: 0
-  profileSprite: {fileID: 1196065024, guid: 6df13146b37db428aafe744591a1fc84, type: 3}
+  profileSprite: {fileID: 1645921588, guid: 6df13146b37db428aafe744591a1fc84, type: 3}
+  outline: {fileID: 0}
   isPhobiaRevealed: 0
   isNPCLeavingHouse: 0
   walkPoint: {x: 0, y: 0, z: 0}

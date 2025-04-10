@@ -471,7 +471,18 @@ public class UIManager : MonoBehaviour
     public void TogglePauseMenu(bool isActive)
     {
         pauseMenuUIPanel.SetActive(isActive);
+        if (isActive)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+
+        //Time.timeScale = isActive ? 0 : 1; 
     }
+
 
     public void TogglePauseButton(bool isActive)
     {

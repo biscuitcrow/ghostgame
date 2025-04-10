@@ -142,12 +142,15 @@ public class NPCBehaviour : MonoBehaviour
 
     void PullGhost()
     {
-        if (!AudioManager.instance.CheckIfPlaying("Exorcist Suck"))
+        if (player.gameObject.activeSelf)
         {
-            AudioManager.instance.Play("Exorcist Suck");
+            if (!AudioManager.instance.CheckIfPlaying("Exorcist Suck"))
+            {
+                AudioManager.instance.Play("Exorcist Suck");
+            }
+            Vector3 forceDir = transform.position - player.position;
+            player.gameObject.GetComponent<PlayerController>().NPCforceVector = forceDir * Time.deltaTime * 0.5f;
         }
-        Vector3 forceDir = transform.position - player.position;
-        player.gameObject.GetComponent<PlayerController>().NPCforceVector = forceDir * Time.deltaTime * 0.5f;
     }
 
     public void ToggleStopNavMeshAgent(bool isStopped)
