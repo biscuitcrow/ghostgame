@@ -52,6 +52,8 @@ public class VFXManager : MonoBehaviour
 
     [Header("Lightning VFX")]
     [SerializeField] private Light mainDirectionalLight;
+    [SerializeField] List<string> listOfThunderSounds = new List<string>();
+
 
 
     // <----------------------------------------- LIGHTNING VFX ----------------------------------------- > //
@@ -80,7 +82,7 @@ public class VFXManager : MonoBehaviour
     public void ActivateLightning()
     {
         InitializeLightningSequence().Play();
-        AudioManager.instance.Play("Thunder 1");
+        AudioManager.instance.Play(listOfThunderSounds[Random.Range(0, listOfThunderSounds.Count)]);
     }
 
 

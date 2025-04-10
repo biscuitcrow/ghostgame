@@ -49,7 +49,7 @@ public class SceneSwitchManager : MonoBehaviour
     IEnumerator LoadLevel()
     {
         transitionAnimator.SetTrigger("triggerSceneTransitionStart");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.4f);
         SceneManager.LoadScene("GameScene");
     }
 

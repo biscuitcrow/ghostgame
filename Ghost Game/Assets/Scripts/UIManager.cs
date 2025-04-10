@@ -61,6 +61,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject clockUI;
     [SerializeField] private GameObject houseAdvertisementPanel;
     [SerializeField] private GameObject gameOverUIPanel;
+    [SerializeField] private GameObject gravestoneUIPanel;
+    [SerializeField] private GameObject finalDeathCountUIPopup;
+    [SerializeField] private TextMeshProUGUI finalDeathCountText;
+    [SerializeField] private TextMeshProUGUI finalLevelCountText;
     [SerializeField] private TextMeshProUGUI gameOverText;
     [SerializeField] private GameObject obituaryUIPopup;
     [SerializeField] private GameObject killedNPCUIPopup;
@@ -76,6 +80,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject shopUIPanel;
     [SerializeField] private GameObject shopButtonsUIPanel;
     [SerializeField] private GameObject shopNextClientUIPanel;
+    [SerializeField] private GameObject abilityLevelsUIPanel;
     [SerializeField] private Image shopUpcomingNPCProfile;
     [SerializeField] private Image shopUpcomingNPCPhobia;
     [SerializeField] private Tag unknownPhobiaTag;
@@ -229,10 +234,16 @@ public class UIManager : MonoBehaviour
         gameOverUIPanel.SetActive(isActive);
         if (isActive)
         {
+            
+            finalDeathCountText.text = GameManager.Instance.deathScore.ToString();
+            finalLevelCountText.text = "DAY " + GameManager.Instance.levelCount.ToString();
+
             // Drops the game over UI panel in from the top
-            TranslateUIGameObject(gameOverUIPanel, new Vector2(0f, 1080f), new Vector2(0f, 0f), 0.5f, Ease.OutBounce);
+            TranslateUIGameObject(gravestoneUIPanel, new Vector2(0f, 1080f), new Vector2(0f, 0f), 0.5f, Ease.OutBounce);
+            TranslateUIGameObject(finalDeathCountUIPopup, new Vector2(586f, -155f), new Vector2(586f, 95f), 0.5f, Ease.OutBounce);
         }
     }
+    
 
     public void UpdateGameOverText(string text)
     {
@@ -248,11 +259,14 @@ public class UIManager : MonoBehaviour
             ToggleShopClientFilePanel(false);
             TranslateUIGameObject(shopButtonsUIPanel, new Vector2(0, 800), new Vector2(0, 0), 0.5f, Ease.OutBounce);
             TranslateUIGameObject(shopNextClientUIPanel, new Vector2(211, -300), new Vector2(211, 112), 0.5f, Ease.OutBounce);
+            TranslateUIGameObject(abilityLevelsUIPanel, new Vector2(-219, -300), new Vector2(-219, 112), 0.5f, Ease.OutBounce);
 
         }
-        
+
         ToggleMainGameplayUI(!displayShop);
     }
+
+
 
     public void ToggleShopClientFilePanel(bool displayFile)
     {
@@ -264,6 +278,7 @@ public class UIManager : MonoBehaviour
             TranslateUIGameObject(shopClientFileProfileCardPanel, new Vector2(0, 850), new Vector2(0, 0), 0.5f, Ease.OutBounce);
         }
     }
+
 
     private void UpdateUpcomingNPCInShop()
     {
@@ -290,12 +305,16 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void UpdateAbilityStats()
+    {
+
+    }
+
     public void UpdateGameStats(int levelCount, int deathScore, int livedScore)
     {
         levelNumberText.text = "DAY " + levelCount.ToString();
         NPCsKilledNumberText.text = "DEATHS: " + deathScore.ToString();
         NPCsLivedNumberText.text = "ESCAPED: " + livedScore.ToString();
-
     }
 
     public void UpdatePhobiaText(string text)

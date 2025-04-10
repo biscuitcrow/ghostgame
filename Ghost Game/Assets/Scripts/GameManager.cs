@@ -61,9 +61,9 @@ public class GameManager : MonoBehaviour
     private float startingNPCMaxFear = 90f;
     private float currentNPCMaxFear;
     [SerializeField] private float fearIncreasePerLevel = 20f;
-    private int deathScore;
+    public int deathScore;
     private int livedScore;
-    private int levelCount;
+    public int levelCount;
 
     [Header("Tutorial Settings")]
     public bool isTutorialCompleted;
@@ -85,6 +85,8 @@ public class GameManager : MonoBehaviour
     [Header("Audio")]
     int currentThemeIndex;
     [SerializeField] List<string> listOfAllLevelThemesNames = new List<string>();
+    public List<string> listOfAllNPCScaredSoundNames = new List<string>();
+
 
     [Header("Main Door Trigger")]
     [SerializeField] MainDoorTrigger mainDoorTrigger;
@@ -526,7 +528,6 @@ public class GameManager : MonoBehaviour
     [Button("NPC Died")]
     public void NPCDied()
     {
-      
        if (isScareLevelRunning)
        {
             if (isExorcistLevel)
@@ -537,6 +538,7 @@ public class GameManager : MonoBehaviour
                 // Proof of my dedication to the art of spooking!
                 AudioManager.instance.Play("Exorcist Died");
                 AudioManager.instance.Stop("Exorcist Suck");
+
                 // Play exorcist death animations
             }
             else
@@ -595,6 +597,7 @@ public class GameManager : MonoBehaviour
             }
             AudioManager.instance.Play("NPC Leaves");
             AudioManager.instance.Play("Level Fail");
+
             LevelOver(4f);
             playerController.playerAnimator.SetTrigger("isGhostSad");
         }
@@ -621,8 +624,6 @@ public class GameManager : MonoBehaviour
 
     IEnumerator StartLevelOverProcedure(float delayBeforeShop = 6f)
     {
-        AudioManager.instance.Stop("Exorcist Suck");
-
         // Adds a delay so that any animations and stuff can play before the shop comes out
         yield return new WaitForSeconds(delayBeforeShop);
 
@@ -721,7 +722,6 @@ public class GameManager : MonoBehaviour
         isScareLevelRunning = false;
         isExorcistLevel = true;
         playerController.gameObject.SetActive(false);
-        AudioManager.instance.Stop("Exorcist Suck");
         AudioManager.instance.Play("Level Fail");
         StartCoroutine("StartGameLostProcedure");
     }

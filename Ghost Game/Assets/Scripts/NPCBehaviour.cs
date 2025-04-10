@@ -33,6 +33,7 @@ public class NPCBehaviour : MonoBehaviour
     public float maxFear;
     public bool isExorcist;
     public Sprite profileSprite;
+    private bool isNPCActive = true;
 
     [Header("NPC Phobia")]
     public bool isPhobiaRevealed = false;
@@ -155,9 +156,11 @@ public class NPCBehaviour : MonoBehaviour
         // Exorcist NPC behaviour
         if (isExorcist) 
         {
-            
-            CheckIfGhostIsInNPCSight(exorcistSightRange);
-            CheckIfPullGhost();
+            if (isNPCActive)
+            {
+                CheckIfGhostIsInNPCSight(exorcistSightRange);
+                CheckIfPullGhost();
+            }
             
             if (isNPCLeavingHouse)
             {
@@ -265,7 +268,7 @@ public class NPCBehaviour : MonoBehaviour
         StartCoroutine("DisplayScaredIcon");
 
         // Scared SFX
-        AudioManager.instance.Play("NPC Scared");
+        AudioManager.instance.Play(GameManager.Instance.listOfAllNPCScaredSoundNames[Random.Range(0, GameManager.Instance.listOfAllNPCScaredSoundNames.Count)]);
 
         currentFear += increaseValue; 
         fearMeter.UpdateFearMeterUI(currentFear, maxFear);
@@ -280,6 +283,7 @@ public class NPCBehaviour : MonoBehaviour
     [Button("Kill NPC/NPC Died")]
     public void NPCDied()
     {
+        isNPCActive = false;
         Instantiate(skullPS, transform.position, Quaternion.identity);
         ToggleStopNavMeshAgent(true);
 
@@ -289,11 +293,13 @@ public class NPCBehaviour : MonoBehaviour
         Destroy(fearMeterObj);
         //Destroy(this.gameObject); 
         GameManager.Instance.NPCDied();
+
     }
 
     [Button("NPC Lived")]
     public void NPCLived()
     {
+        isNPCActive = false;
         // Play NPC lived animation and sounds
         VFXManager.Instance.InstantiateRemovalPS(gameObject.transform);
         Destroy(fearMeterObj);
