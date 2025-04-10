@@ -274,8 +274,9 @@ public class GameManager : MonoBehaviour
         isScareLevelRunning = false;
         currentNPCMaxFear = startingNPCMaxFear;
         currentThemeIndex = 0;
-
+        
         AbilitiesManager.Instance.ResetAbilities();
+        UIManager.Instance.ResetNPCEscapedIndicator();
     }
 
     private void RemoveAllNPCs()
@@ -385,6 +386,7 @@ public class GameManager : MonoBehaviour
         // Problematic area
         if (!isHauntTutorialCompleted)
         {
+            yield return new WaitForSeconds(1f);
             StartHauntTutorial();
         }
         else
@@ -593,7 +595,8 @@ public class GameManager : MonoBehaviour
             }
             AudioManager.instance.Play("NPC Leaves");
             AudioManager.instance.Play("Level Fail");
-            LevelOver();
+            LevelOver(4f);
+            playerController.playerAnimator.SetTrigger("isGhostSad");
         }
     }
 
@@ -602,7 +605,7 @@ public class GameManager : MonoBehaviour
         mainCamera.DOShakeRotation(0.3f, 0.6f);
     }
 
-    private void LevelOver()
+    private void LevelOver(float delayBeforeShop = 6.5f)
     {
         isScareLevelRunning = false;
         print("The level is officially over.");
@@ -612,14 +615,14 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine("StartLevelOverProcedure");
+            StartCoroutine(StartLevelOverProcedure(delayBeforeShop));
         }
     }
 
-    IEnumerator StartLevelOverProcedure()
+    IEnumerator StartLevelOverProcedure(float delayBeforeShop = 6f)
     {
         // Adds a delay so that any animations and stuff can play before the shop comes out
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(delayBeforeShop);
 
         // Choose the next NPC here so that the shop can display it, very important that it is chosen first before the shop is toggled
         ChooseUpcomingNPC();
@@ -716,6 +719,7 @@ public class GameManager : MonoBehaviour
         isScareLevelRunning = false;
         isExorcistLevel = true;
         playerController.gameObject.SetActive(false);
+        AudioManager.instance.Stop("Exorcist Suck");
         AudioManager.instance.Play("Level Fail");
         StartCoroutine("StartGameLostProcedure");
     }
@@ -735,7 +739,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            UIManager.Instance.UpdateGameOverText("You lost the game. Too many people lived. Max people allowed to live: " + maxPeopleAllowedToLive.ToString());
+            UIManager.Instance.UpdateGameOverText("You lost your house! " + maxPeopleAllowedToLive.ToString() + " people lived and one went on to buy your house.");
         }
         
         UIManager.Instance.ToggleGameOverUIPanel(true);

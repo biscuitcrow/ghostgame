@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
     {
         TeleportPlayer();
         playerAnimator.SetBool("isGhostVictory", false);
+        playerAnimator.Play("Idle Move");
         if (isObjectPickedUp && selectedInteractableObject != null)
         {
             Destroy(selectedInteractableObject.gameObject);

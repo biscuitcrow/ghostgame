@@ -61,6 +61,7 @@ public class NPCBehaviour : MonoBehaviour
 
     [Header("Exorcist Specific Stats")]
     public float exorcistSightRange = 5f;
+    private float exorcistAttractionRange = 7f;
     private float exorcistRunSpeed = 7f;
     private float NPCsightAngle = 90;
     public float vigilanceCooldown = 1f; // Time taken for the exorcist to not see the ghost before the exorcist stops chasing
@@ -116,7 +117,8 @@ public class NPCBehaviour : MonoBehaviour
     void CheckIfPullGhost()
     {
         // Manipulating the attraction power
-        if (isGhostInSightRange)
+        //if (isGhostInSightRange)
+        if (CheckNPCDistanceFromGhost() <= exorcistAttractionRange)
         {
             PullGhost();
             NPCAnimator.SetBool("NPCShooting", true);
@@ -230,6 +232,8 @@ public class NPCBehaviour : MonoBehaviour
                 // Scares the NPC when ghost becomes visible
                 IncreaseFearMeter(AbilitiesManager.Instance.ghostVisibilityScareValue);
                 StartCoroutine("HauntedCooldown");
+
+                
             }
         }
     }
@@ -325,8 +329,16 @@ public class NPCBehaviour : MonoBehaviour
     private IEnumerator HauntedCooldown()
     {
         isHauntedCooldownRunning = true;
+        if (isExorcist)
+        {
+            ToggleStopNavMeshAgent(true);
+        }
         yield return new WaitForSeconds(0.6f);
         isHauntedCooldownRunning = false;
+        if (isExorcist)
+        {
+            ToggleStopNavMeshAgent(false);
+        }
     }
 
 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0b38caedd85f64a72905c032e8e0d5df
+guid: 395a5b9f385af49a8ba60031d247aedb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ghost Cards_Phobia Sleuth_0
+      name: Ghost TV_Orbituary_Notif_UI (4)_0
       rect:
         serializedVersion: 2
-        x: 39
-        y: 58
-        width: 663
-        height: 896
+        x: 63
+        y: 40
+        width: 3242
+        height: 518
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4f4bd883d68a4b169aa41d524cbd022
-      internalID: 1110035824
+      spriteID: 1a3c8dce0aca6430e86a2bcb42d2beda
+      internalID: 885050847
       vertices: []
       indices: 
       edges: []
@@ -133,7 +133,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 0f3430583e9ec43a99991b97c89fd8fc
     internalID: 0
     vertices: []
     indices: 
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ghost Cards_Phobia Sleuth_0: 1110035824
+      Ghost TV_Orbituary_Notif_UI (4)_0: 885050847
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

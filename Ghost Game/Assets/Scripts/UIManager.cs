@@ -66,6 +66,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject killedNPCUIPopup;
     [SerializeField] private Transform livedGroupObj;
     [SerializeField] private Sprite escapedSprite;
+    [SerializeField] private Sprite notEscapedSprite;
 
     [Header("Obituary UI Elements")]
     public float obituraryDelay = 3f;
@@ -294,6 +295,7 @@ public class UIManager : MonoBehaviour
         levelNumberText.text = "DAY " + levelCount.ToString();
         NPCsKilledNumberText.text = "DEATHS: " + deathScore.ToString();
         NPCsLivedNumberText.text = "ESCAPED: " + livedScore.ToString();
+
     }
 
     public void UpdatePhobiaText(string text)
@@ -399,6 +401,15 @@ public class UIManager : MonoBehaviour
         //livedGroupObj.GetChild(livedScore - 1).GetComponent<Image>().DOFade(0.2f, 0.5f);
         livedGroupObj.GetChild(livedScore - 1).GetComponent<Image>().sprite = escapedSprite;
     }
+
+    public void ResetNPCEscapedIndicator()
+    {
+        for(int i =0; i < livedGroupObj.childCount; i++)
+        {
+            livedGroupObj.GetChild(i).GetComponent<Image>().sprite = notEscapedSprite;
+        }
+    }
+
 
     public void DisplayTooHeavyNotification()
     {

@@ -30,6 +30,8 @@ public class SceneSwitchManager : MonoBehaviour
     #endregion
 
 
+    public Animator transitionAnimator;
+
     private void Start()
     {
         //Play main menu music
@@ -41,6 +43,13 @@ public class SceneSwitchManager : MonoBehaviour
     public void LoadGameScene()
     {
         StartCoroutine("FadeOutMainMenuMusic");
+        StartCoroutine("LoadLevel");
+    }
+
+    IEnumerator LoadLevel()
+    {
+        transitionAnimator.SetTrigger("triggerSceneTransitionStart");
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene("GameScene");
     }
 
